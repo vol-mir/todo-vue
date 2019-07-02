@@ -3,7 +3,7 @@ import './bootstrap'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import HelloWorld from './components/HelloWorld'
+import ToDoList from './components/ToDoList'
 import MainApp from './MainApp'
 
 Vue.use(VueRouter)
@@ -12,9 +12,9 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {
-      name: 'hello',
+      name: 'to-do-list',
       path: '/',
-      component: HelloWorld
+      component: ToDoList
     }
   ]
 })
