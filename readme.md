@@ -21,7 +21,7 @@ This project To-Do с Laravel 5.8 и Vue.
 ## Quick Start
 ```shell
 $ git clone https://github.com/vol-mir/todo-vue.git
-$ cd landing
+$ cd todo-vue
 $ composer install
 $ cp .env.example .env
 $ php artisan key:generate
