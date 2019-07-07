@@ -27,7 +27,7 @@
           <input v-model="newItemText" class="form-control"/>
         </div>
         <div class="col-2">
-          <button class="btn btn-primary" v-on:click="addNewTodo">Add</button>
+          <button class="btn btn-primary" v-on:click="addNewTask">Add</button>
         </div>
       </div>
       <div class="row bg-secondary py-2 mt-2 text-white">
@@ -53,42 +53,39 @@ export default {
   name: 'ToDoList',
   data () {
     return {
-      name: 'Adam',
-      tasks: [],
+      name: 'My',
       hideCompleted: true,
       newItemText: ''
     }
   },
 
   computed: {
+    tasksAll () {
+      return this.$store.getters.GET_TASKS
+    },
+
+    tasksNotDone () {
+      return this.$store.getters.NOT_DONE_TASKS
+    },
+
     filteredTasks () {
-      return this.hideCompleted ? this.tasks.filter(t => !t.done) : this.tasks
+      return this.hideCompleted ? this.tasksNotDone : this.tasksAll
     }
   },
 
   methods: {
-    addNewTodo () {
-      this.tasks.push({
-        action: this.newItemText,
-        done: false
-      })
-      this.storeData()
+    addNewTask () {
+      this.$store.dispatch('addTask', this.newItemText)
       this.newItemText = ''
     },
-    storeData () {
-      localStorage.setItem('todos', JSON.stringify(this.tasks))
-    },
+
     deleteCompleted () {
-      this.tasks = this.tasks.filter(t => !t.done)
-      this.storeData()
+      this.$store.dispatch('deleteCompletedTasks')
     }
   },
 
   created () {
-    let data = localStorage.getItem('todos')
-    if (data != null) {
-      this.tasks = JSON.parse(data)
-    }
+    this.$store.dispatch('setTasks')
   }
 }
 </script>

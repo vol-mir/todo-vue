@@ -6,6 +6,8 @@ import VueRouter from 'vue-router'
 import ToDoList from './components/ToDoList'
 import MainApp from './MainApp'
 
+import { store } from './store'
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -22,6 +24,7 @@ const router = new VueRouter({
 window.onload = function () {
   window.Vue = new Vue({
     el: '#app',
+    store,
     router,
     render: h => h(MainApp)
   })

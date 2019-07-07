@@ -28,3 +28,8 @@ $ php artisan key:generate
 $ php artisan migrate:fresh --seed
 $ npm install
 ```
+
+## Test
+```shell
+$ php vendor/phpunit/phpunit/phpunit
+```
