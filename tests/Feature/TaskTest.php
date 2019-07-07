@@ -37,6 +37,7 @@ class TaskTest extends TestCase
             'message',
             'task' => [
                 'name',
+                'done',
                 'updated_at',
                 'created_at',
                 'id'
@@ -75,6 +76,7 @@ class TaskTest extends TestCase
             'message',
             'task' => [
                 'name',
+                'done',
                 'updated_at',
                 'created_at',
                 'id'

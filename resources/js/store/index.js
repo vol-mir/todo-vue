@@ -28,7 +28,7 @@ export const store = new Vuex.Store({
 
     ADD_TASK: (state, payload) => {
       state.tasks.push({
-        action: payload,
+        name: payload,
         done: false
       })
       localStorage.setItem('todos', JSON.stringify(state.tasks))

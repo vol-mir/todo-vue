@@ -15,8 +15,8 @@
           <div class="col font-weight-bold">Task</div>
           <div class="col-2 font-weight-bold">Done</div>
         </div>
-        <div class="row" v-for="t in filteredTasks" v-bind:key="t.action">
-          <div class="col">{{t.action}}</div>
+        <div class="row" v-for="t in filteredTasks" v-bind:key="t.name">
+          <div class="col">{{t.name}}</div>
           <div class="col-2 text-center">
             <input type="checkbox" v-model="t.done" class="form-check-input"/>
           </div>

@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Task::class, function (Faker $faker) {
     return [
-        'name' => $faker->sentence()
+        'name' => $faker->sentence(),
+        'done' => false
     ];
 });

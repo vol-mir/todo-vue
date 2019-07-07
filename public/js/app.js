@@ -37879,8 +37879,8 @@ var render = function() {
               _vm._m(1),
               _vm._v(" "),
               _vm._l(_vm.filteredTasks, function(t) {
-                return _c("div", { key: t.action, staticClass: "row" }, [
-                  _c("div", { staticClass: "col" }, [_vm._v(_vm._s(t.action))]),
+                return _c("div", { key: t.name, staticClass: "row" }, [
+                  _c("div", { staticClass: "col" }, [_vm._v(_vm._s(t.name))]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-2 text-center" }, [
                     _c("input", {
@@ -54190,7 +54190,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     },
     ADD_TASK: function ADD_TASK(state, payload) {
       state.tasks.push({
-        action: payload,
+        name: payload,
         done: false
       });
       localStorage.setItem('todos', JSON.stringify(state.tasks));
