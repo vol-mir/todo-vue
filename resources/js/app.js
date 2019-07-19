@@ -3,7 +3,7 @@ import './bootstrap'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import ToDoList from './components/ToDoList'
+import TodoList from './components/TodoList'
 import MainApp from './MainApp'
 
 import { store } from './store'
@@ -14,9 +14,9 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {
-      name: 'to-do-list',
+      name: 'todo_list',
       path: '/',
-      component: ToDoList
+      component: TodoList
     }
   ]
 })

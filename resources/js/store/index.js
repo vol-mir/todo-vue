@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -13,44 +14,92 @@ export const store = new Vuex.Store({
       return state.tasks
     },
 
-    NOT_DONE_TASKS: state => {
+    ACTUAL_TASKS: state => {
       return state.tasks.filter(t => !t.done)
     }
   },
 
   mutations: {
-    SET_TASKS: (state) => {
-      let data = localStorage.getItem('todos')
-      if (data != null) {
-        state.tasks = JSON.parse(data)
-      }
+    SET_TASKS: (state, payload) => {
+      state.tasks = payload
     },
 
     ADD_TASK: (state, payload) => {
-      state.tasks.push({
-        name: payload,
-        done: false
-      })
-      localStorage.setItem('todos', JSON.stringify(state.tasks))
+      state.tasks.push(payload)
     },
 
-    DELETE_COMPLETED_TASKS: (state) => {
-      state.tasks = state.tasks.filter(t => !t.done)
-      localStorage.setItem('todos', JSON.stringify(state.tasks))
+    UPDATE_TASK: (state, payload) => {
+      const task = payload
+      const index = state.tasks.findIndex(elem => elem.id === task.id)
+      if (index !== -1) {
+        state.tasks.splice(index, 1, task)
+      }
+    },
+
+    DELETE_TASK: (state, payload) => {
+      const task = payload
+      const index = state.tasks.findIndex(elem => elem.id === task.id)
+      if (index !== -1) {
+        state.tasks.splice(index, 1)
+      }
     }
   },
 
   actions: {
     setTasks: async (context) => {
-      context.commit('SET_TASKS')
+      Axios.get(`/api/v1/tasks`)
+        .then(response => {
+          context.commit('SET_TASKS', response.data)
+        }).catch(error => {
+          console.error(error)
+        })
     },
 
     addTask: async (context, payload) => {
-      context.commit('ADD_TASK', payload)
+      Axios.post(`/api/v1/tasks`, payload)
+        .then(response => {
+          context.commit('ADD_TASK', response.data)
+        }).catch(error => {
+          console.error(error)
+        })
+    },
+
+    updateTask: async (context, payload) => {
+      Axios.patch(`/api/v1/tasks/${payload.id}`, payload)
+        .then(response => {
+          context.commit('UPDATE_TASK', response.data)
+        }).catch(error => {
+          console.error(error)
+        })
+    },
+
+    deleteTask: async (context, payload) => {
+      Axios.delete(`/api/v1/tasks/${payload.id}`)
+        .then(response => {
+          context.commit('DELETE_TASK', response.data)
+        }).catch(error => {
+          console.error(error)
+        })
     },
 
     deleteCompletedTasks: async (context) => {
-      context.commit('DELETE_COMPLETED_TASKS')
+      Axios.delete(`/api/v1/tasks/destroy_completed/`)
+        .then(response => {
+          if (response.data > 0) {
+            context.dispatch('setTasks')
+          }
+        }).catch(error => {
+          console.error(error)
+        })
+    },
+
+    checkTask: async (context, payload) => {
+      Axios.patch(`/api/v1/tasks/${payload.id}/check/`, payload)
+        .then(response => {
+          context.commit('UPDATE_TASK', response.data)
+        }).catch(error => {
+          console.error(error)
+        })
     }
   }
 })

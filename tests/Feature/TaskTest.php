@@ -34,14 +34,11 @@ class TaskTest extends TestCase
             'name' => 'This is a name'
         ]);
         $response->assertJsonStructure([
-            'message',
-            'task' => [
-                'name',
-                'done',
-                'updated_at',
-                'created_at',
-                'id'
-            ]
+            'name',
+            'done',
+            'updated_at',
+            'created_at',
+            'id'
         ]);
     }
 
@@ -95,8 +92,6 @@ class TaskTest extends TestCase
         $response = $this->delete(route('tasks.destroy', $task->id));
         $task = $task->fresh();
         $this->assertNull($task);
-        $response->assertJsonStructure([
-            'message'
-        ]);
+        $response->assertStatus(200);
     }
 }

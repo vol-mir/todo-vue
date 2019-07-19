@@ -1719,9 +1719,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ToDoList.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TodoList.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ToDoList.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TodoList.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1778,37 +1778,100 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ToDoList',
+  name: 'TodoList',
   data: function data() {
     return {
-      name: 'My',
       hideCompleted: true,
-      newItemText: ''
+      newTaskText: '',
+      editOffset: -1,
+      editTask: {},
+      editTaskOri: {}
     };
   },
   computed: {
-    tasksAll: function tasksAll() {
+    allTasks: function allTasks() {
       return this.$store.getters.GET_TASKS;
     },
-    tasksNotDone: function tasksNotDone() {
-      return this.$store.getters.NOT_DONE_TASKS;
+    actualTasks: function actualTasks() {
+      return this.$store.getters.ACTUAL_TASKS;
     },
     filteredTasks: function filteredTasks() {
-      return this.hideCompleted ? this.tasksNotDone : this.tasksAll;
+      return this.hideCompleted ? this.actualTasks : this.allTasks;
     }
+  },
+  mounted: function mounted() {
+    this.fetchTasks();
   },
   methods: {
-    addNewTask: function addNewTask() {
-      this.$store.dispatch('addTask', this.newItemText);
-      this.newItemText = '';
+    fetchTasks: function fetchTasks() {
+      this.$store.dispatch('setTasks');
     },
-    deleteCompleted: function deleteCompleted() {
+    addNewTask: function addNewTask() {
+      this.$store.dispatch('addTask', {
+        'name': this.newTaskText
+      });
+      this.newTaskText = '';
+    },
+    cancelAddingTask: function cancelAddingTask() {
+      this.newTaskText = '';
+    },
+    deleteCompletedTasks: function deleteCompletedTasks() {
       this.$store.dispatch('deleteCompletedTasks');
+    },
+    deleteTask: function deleteTask(task) {
+      this.$store.dispatch('deleteTask', task);
+    },
+    startEditingTask: function startEditingTask(idTask) {
+      this.editOffset = idTask;
+      var findTask = this.filteredTasks.find(function (elem) {
+        return elem.id === idTask;
+      });
+      this.editTask = JSON.parse(JSON.stringify(findTask));
+      this.editTaskOri = JSON.parse(JSON.stringify(this.editTask));
+      this.$nextTick(function () {
+        document.getElementById('item-task-' + this.editOffset).focus();
+      }.bind(this));
+    },
+    updateTask: function updateTask() {
+      this.$store.dispatch('updateTask', this.editTask);
+      this.editOffset = -1;
+      this.editTaskOri = {};
+      this.editTask = {};
+    },
+    cancelEditingTask: function cancelEditingTask() {
+      this.$set(this.filteredTasks, this.editOffset, this.editTaskOri);
+      this.editOffset = -1;
+      this.editTaskOri = {};
+      this.editTask = {};
+    },
+    checkTask: function checkTask(e) {
+      this.$store.dispatch('checkTask', {
+        'done': e.target.checked,
+        'id': e.target.value
+      });
     }
-  },
-  created: function created() {
-    this.$store.dispatch('setTasks');
   }
 });
 
@@ -16901,7 +16964,7 @@ return jQuery;
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
  * @license
  * Lodash <https://lodash.com/>
- * Copyright JS Foundation and other contributors <https://js.foundation/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
  * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -16912,7 +16975,7 @@ return jQuery;
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.11';
+  var VERSION = '4.17.14';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -19571,16 +19634,10 @@ return jQuery;
         value.forEach(function(subValue) {
           result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
         });
-
-        return result;
-      }
-
-      if (isMap(value)) {
+      } else if (isMap(value)) {
         value.forEach(function(subValue, key) {
           result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
         });
-
-        return result;
       }
 
       var keysFunc = isFull
@@ -20504,8 +20561,8 @@ return jQuery;
         return;
       }
       baseFor(source, function(srcValue, key) {
+        stack || (stack = new Stack);
         if (isObject(srcValue)) {
-          stack || (stack = new Stack);
           baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
         }
         else {
@@ -22322,7 +22379,7 @@ return jQuery;
       return function(number, precision) {
         number = toNumber(number);
         precision = precision == null ? 0 : nativeMin(toInteger(precision), 292);
-        if (precision) {
+        if (precision && nativeIsFinite(number)) {
           // Shift with exponential notation to avoid floating-point issues.
           // See [MDN](https://mdn.io/round#Examples) for more details.
           var pair = (toString(number) + 'e').split('e'),
@@ -23505,7 +23562,7 @@ return jQuery;
     }
 
     /**
-     * Gets the value at `key`, unless `key` is "__proto__".
+     * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
      *
      * @private
      * @param {Object} object The object to query.
@@ -23513,6 +23570,10 @@ return jQuery;
      * @returns {*} Returns the property value.
      */
     function safeGet(object, key) {
+      if (key === 'constructor' && typeof object[key] === 'function') {
+        return;
+      }
+
       if (key == '__proto__') {
         return;
       }
@@ -27313,6 +27374,7 @@ return jQuery;
           }
           if (maxing) {
             // Handle invocations in a tight loop.
+            clearTimeout(timerId);
             timerId = setTimeout(timerExpired, wait);
             return invokeFunc(lastCallTime);
           }
@@ -31699,9 +31761,12 @@ return jQuery;
       , 'g');
 
       // Use a sourceURL for easier debugging.
+      // The sourceURL gets injected into the source that's eval-ed, so be careful
+      // with lookup (in case of e.g. prototype pollution), and strip newlines if any.
+      // A newline wouldn't be a valid sourceURL anyway, and it'd enable code injection.
       var sourceURL = '//# sourceURL=' +
-        ('sourceURL' in options
-          ? options.sourceURL
+        (hasOwnProperty.call(options, 'sourceURL')
+          ? (options.sourceURL + '').replace(/[\r\n]/g, ' ')
           : ('lodash.templateSources[' + (++templateCounter) + ']')
         ) + '\n';
 
@@ -31734,7 +31799,9 @@ return jQuery;
 
       // If `variable` is not specified wrap a with-statement around the generated
       // code to add the data object to the top of the scope chain.
-      var variable = options.variable;
+      // Like with sourceURL, we take care to not check the option's prototype,
+      // as this configuration is a code injection vector.
+      var variable = hasOwnProperty.call(options, 'variable') && options.variable;
       if (!variable) {
         source = 'with (obj) {\n' + source + '\n}\n';
       }
@@ -33939,10 +34006,11 @@ return jQuery;
     baseForOwn(LazyWrapper.prototype, function(func, methodName) {
       var lodashFunc = lodash[methodName];
       if (lodashFunc) {
-        var key = (lodashFunc.name + ''),
-            names = realNames[key] || (realNames[key] = []);
-
-        names.push({ 'name': methodName, 'func': lodashFunc });
+        var key = lodashFunc.name + '';
+        if (!hasOwnProperty.call(realNames, key)) {
+          realNames[key] = [];
+        }
+        realNames[key].push({ 'name': methodName, 'func': lodashFunc });
       }
     });
 
@@ -37849,9 +37917,9 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ToDoList.vue?vue&type=template&id=b1d56ce2&scoped=true&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TodoList.vue?vue&type=template&id=30436d6f&scoped=true&":
 /*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ToDoList.vue?vue&type=template&id=b1d56ce2&scoped=true& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TodoList.vue?vue&type=template&id=30436d6f&scoped=true& ***!
   \***********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -37866,7 +37934,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("h4", { staticClass: "bg-primary text-white text-center p-2" }, [
-      _vm._v("\n    " + _vm._s(_vm.name) + "'s To Do List\n  ")
+      _vm._v("\n    My's To Do List\n  ")
     ]),
     _vm._v(" "),
     _c(
@@ -37878,50 +37946,155 @@ var render = function() {
           : [
               _vm._m(1),
               _vm._v(" "),
-              _vm._l(_vm.filteredTasks, function(t) {
-                return _c("div", { key: t.name, staticClass: "row" }, [
-                  _c("div", { staticClass: "col" }, [_vm._v(_vm._s(t.name))]),
+              _vm._l(_vm.filteredTasks, function(task) {
+                return _c("div", { key: task.id, staticClass: "row" }, [
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.editOffset != task.id,
+                          expression: "editOffset != task.id"
+                        }
+                      ],
+                      staticClass: "col"
+                    },
+                    [
+                      _c("span", [_vm._v(_vm._s(task.name))]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-link",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.startEditingTask(task.id)
+                            }
+                          }
+                        },
+                        [_vm._v("Edit")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-link",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteTask(task)
+                            }
+                          }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.editOffset == task.id,
+                          expression: "editOffset==task.id"
+                        }
+                      ],
+                      staticClass: "col"
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editTask.name,
+                            expression: "editTask.name"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", id: "item-task-" + task.id },
+                        domProps: { value: _vm.editTask.name },
+                        on: {
+                          keydown: [
+                            function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.updateTask($event)
+                            },
+                            function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k($event.keyCode, "esc", 27, $event.key, [
+                                  "Esc",
+                                  "Escape"
+                                ])
+                              ) {
+                                return null
+                              }
+                              return _vm.cancelEditingTask($event)
+                            }
+                          ],
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.editTask, "name", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-link",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.updateTask()
+                            }
+                          }
+                        },
+                        [_vm._v("Update")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-link",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.cancelEditingTask()
+                            }
+                          }
+                        },
+                        [_vm._v("Cancel")]
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-2 text-center" }, [
                     _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: t.done,
-                          expression: "t.done"
-                        }
-                      ],
                       staticClass: "form-check-input",
-                      attrs: { type: "checkbox" },
-                      domProps: {
-                        checked: Array.isArray(t.done)
-                          ? _vm._i(t.done, null) > -1
-                          : t.done
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$a = t.done,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = null,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 && _vm.$set(t, "done", $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                _vm.$set(
-                                  t,
-                                  "done",
-                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                )
-                            }
-                          } else {
-                            _vm.$set(t, "done", $$c)
-                          }
-                        }
-                      }
+                      attrs: { type: "checkbox", id: task.id },
+                      domProps: { value: task.id, checked: task.done },
+                      on: { click: _vm.checkTask }
                     })
                   ])
                 ])
@@ -37935,18 +38108,42 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.newItemText,
-                  expression: "newItemText"
+                  value: _vm.newTaskText,
+                  expression: "newTaskText"
                 }
               ],
               staticClass: "form-control",
-              domProps: { value: _vm.newItemText },
+              attrs: { type: "text" },
+              domProps: { value: _vm.newTaskText },
               on: {
+                keydown: [
+                  function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.addNewTask($event)
+                  },
+                  function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "esc", 27, $event.key, [
+                        "Esc",
+                        "Escape"
+                      ])
+                    ) {
+                      return null
+                    }
+                    return _vm.cancelAddingTask($event)
+                  }
+                ],
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.newItemText = $event.target.value
+                  _vm.newTaskText = $event.target.value
                 }
               }
             })
@@ -38012,9 +38209,9 @@ var render = function() {
               "button",
               {
                 staticClass: "btn btn-sm btn-warning",
-                on: { click: _vm.deleteCompleted }
+                on: { click: _vm.deleteCompletedTasks }
               },
-              [_vm._v("\n          Delete Completed\n        ")]
+              [_vm._v("Delete Completed")]
             )
           ])
         ])
@@ -38166,7 +38363,7 @@ function normalizeComponent (
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /*!
-  * vue-router v3.0.6
+  * vue-router v3.0.7
   * (c) 2019 Evan You
   * @license MIT
   */
@@ -39554,10 +39751,8 @@ function createMatcher (
         }
       }
 
-      if (record) {
-        location.path = fillParams(record.path, location.params, ("named route \"" + name + "\""));
-        return _createRoute(record, location, redirectedFrom)
-      }
+      location.path = fillParams(record.path, location.params, ("named route \"" + name + "\""));
+      return _createRoute(record, location, redirectedFrom)
     } else if (location.path) {
       location.params = {};
       for (var i = 0; i < pathList.length; i++) {
@@ -39712,7 +39907,12 @@ var positionStore = Object.create(null);
 function setupScroll () {
   // Fix for #1585 for Firefox
   // Fix for #2195 Add optional third attribute to workaround a bug in safari https://bugs.webkit.org/show_bug.cgi?id=182678
-  window.history.replaceState({ key: getStateKey() }, '', window.location.href.replace(window.location.origin, ''));
+  // Fix for #2774 Support for apps loaded from Windows file shares not mapped to network drives: replaced location.origin with
+  // window.location.protocol + '//' + window.location.host
+  // location.host contains the port and location.hostname doesn't
+  var protocolAndPath = window.location.protocol + '//' + window.location.host;
+  var absolutePath = window.location.href.replace(protocolAndPath, '');
+  window.history.replaceState({ key: getStateKey() }, '', absolutePath);
   window.addEventListener('popstate', function (e) {
     saveScrollPosition();
     if (e.state && e.state.key) {
@@ -40284,7 +40484,6 @@ function bindEnterGuard (
 ) {
   return function routeEnterGuard (to, from, next) {
     return guard(to, from, function (cb) {
-      next(cb);
       if (typeof cb === 'function') {
         cbs.push(function () {
           // #750
@@ -40295,6 +40494,7 @@ function bindEnterGuard (
           poll(cb, match.instances, key, isValid);
         });
       }
+      next(cb);
     })
   }
 }
@@ -40829,7 +41029,7 @@ function createHref (base, fullPath, mode) {
 }
 
 VueRouter.install = install;
-VueRouter.version = '3.0.6';
+VueRouter.version = '3.0.7';
 
 if (inBrowser && window.Vue) {
   window.Vue.use(VueRouter);
@@ -53983,7 +54183,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _components_ToDoList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/ToDoList */ "./resources/js/components/ToDoList.vue");
+/* harmony import */ var _components_TodoList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/TodoList */ "./resources/js/components/TodoList.vue");
 /* harmony import */ var _MainApp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MainApp */ "./resources/js/MainApp.vue");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 
@@ -53996,9 +54196,9 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   mode: 'history',
   routes: [{
-    name: 'to-do-list',
+    name: 'todo_list',
     path: '/',
-    component: _components_ToDoList__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _components_TodoList__WEBPACK_IMPORTED_MODULE_3__["default"]
   }]
 });
 
@@ -54073,17 +54273,17 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/js/components/ToDoList.vue":
+/***/ "./resources/js/components/TodoList.vue":
 /*!**********************************************!*\
-  !*** ./resources/js/components/ToDoList.vue ***!
+  !*** ./resources/js/components/TodoList.vue ***!
   \**********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ToDoList_vue_vue_type_template_id_b1d56ce2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ToDoList.vue?vue&type=template&id=b1d56ce2&scoped=true& */ "./resources/js/components/ToDoList.vue?vue&type=template&id=b1d56ce2&scoped=true&");
-/* harmony import */ var _ToDoList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ToDoList.vue?vue&type=script&lang=js& */ "./resources/js/components/ToDoList.vue?vue&type=script&lang=js&");
+/* harmony import */ var _TodoList_vue_vue_type_template_id_30436d6f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TodoList.vue?vue&type=template&id=30436d6f&scoped=true& */ "./resources/js/components/TodoList.vue?vue&type=template&id=30436d6f&scoped=true&");
+/* harmony import */ var _TodoList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TodoList.vue?vue&type=script&lang=js& */ "./resources/js/components/TodoList.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -54093,50 +54293,50 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ToDoList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ToDoList_vue_vue_type_template_id_b1d56ce2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ToDoList_vue_vue_type_template_id_b1d56ce2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _TodoList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TodoList_vue_vue_type_template_id_30436d6f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TodoList_vue_vue_type_template_id_30436d6f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "b1d56ce2",
+  "30436d6f",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/ToDoList.vue"
+component.options.__file = "resources/js/components/TodoList.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/ToDoList.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/components/TodoList.vue?vue&type=script&lang=js&":
 /*!***********************************************************************!*\
-  !*** ./resources/js/components/ToDoList.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/components/TodoList.vue?vue&type=script&lang=js& ***!
   \***********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ToDoList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ToDoList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ToDoList.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ToDoList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TodoList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./TodoList.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TodoList.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TodoList_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/ToDoList.vue?vue&type=template&id=b1d56ce2&scoped=true&":
+/***/ "./resources/js/components/TodoList.vue?vue&type=template&id=30436d6f&scoped=true&":
 /*!*****************************************************************************************!*\
-  !*** ./resources/js/components/ToDoList.vue?vue&type=template&id=b1d56ce2&scoped=true& ***!
+  !*** ./resources/js/components/TodoList.vue?vue&type=template&id=30436d6f&scoped=true& ***!
   \*****************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ToDoList_vue_vue_type_template_id_b1d56ce2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ToDoList.vue?vue&type=template&id=b1d56ce2&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ToDoList.vue?vue&type=template&id=b1d56ce2&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ToDoList_vue_vue_type_template_id_b1d56ce2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TodoList_vue_vue_type_template_id_30436d6f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./TodoList.vue?vue&type=template&id=30436d6f&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TodoList.vue?vue&type=template&id=30436d6f&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TodoList_vue_vue_type_template_id_30436d6f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ToDoList_vue_vue_type_template_id_b1d56ce2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TodoList_vue_vue_type_template_id_30436d6f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -54157,11 +54357,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -54174,32 +54377,38 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     GET_TASKS: function GET_TASKS(state) {
       return state.tasks;
     },
-    NOT_DONE_TASKS: function NOT_DONE_TASKS(state) {
+    ACTUAL_TASKS: function ACTUAL_TASKS(state) {
       return state.tasks.filter(function (t) {
         return !t.done;
       });
     }
   },
   mutations: {
-    SET_TASKS: function SET_TASKS(state) {
-      var data = localStorage.getItem('todos');
-
-      if (data != null) {
-        state.tasks = JSON.parse(data);
-      }
+    SET_TASKS: function SET_TASKS(state, payload) {
+      state.tasks = payload;
     },
     ADD_TASK: function ADD_TASK(state, payload) {
-      state.tasks.push({
-        name: payload,
-        done: false
-      });
-      localStorage.setItem('todos', JSON.stringify(state.tasks));
+      state.tasks.push(payload);
     },
-    DELETE_COMPLETED_TASKS: function DELETE_COMPLETED_TASKS(state) {
-      state.tasks = state.tasks.filter(function (t) {
-        return !t.done;
+    UPDATE_TASK: function UPDATE_TASK(state, payload) {
+      var task = payload;
+      var index = state.tasks.findIndex(function (elem) {
+        return elem.id === task.id;
       });
-      localStorage.setItem('todos', JSON.stringify(state.tasks));
+
+      if (index !== -1) {
+        state.tasks.splice(index, 1, task);
+      }
+    },
+    DELETE_TASK: function DELETE_TASK(state, payload) {
+      var task = payload;
+      var index = state.tasks.findIndex(function (elem) {
+        return elem.id === task.id;
+      });
+
+      if (index !== -1) {
+        state.tasks.splice(index, 1);
+      }
     }
   },
   actions: {
@@ -54211,7 +54420,11 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                context.commit('SET_TASKS');
+                axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("/api/v1/tasks").then(function (response) {
+                  context.commit('SET_TASKS', response.data);
+                })["catch"](function (error) {
+                  console.error(error);
+                });
 
               case 1:
               case "end":
@@ -54235,7 +54448,11 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                context.commit('ADD_TASK', payload);
+                axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/api/v1/tasks", payload).then(function (response) {
+                  context.commit('ADD_TASK', response.data);
+                })["catch"](function (error) {
+                  console.error(error);
+                });
 
               case 1:
               case "end":
@@ -54251,15 +54468,19 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
 
       return addTask;
     }(),
-    deleteCompletedTasks: function () {
-      var _deleteCompletedTasks = _asyncToGenerator(
+    updateTask: function () {
+      var _updateTask = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(context) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(context, payload) {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                context.commit('DELETE_COMPLETED_TASKS');
+                axios__WEBPACK_IMPORTED_MODULE_3___default.a.patch("/api/v1/tasks/".concat(payload.id), payload).then(function (response) {
+                  context.commit('UPDATE_TASK', response.data);
+                })["catch"](function (error) {
+                  console.error(error);
+                });
 
               case 1:
               case "end":
@@ -54269,11 +54490,97 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
         }, _callee3);
       }));
 
-      function deleteCompletedTasks(_x4) {
+      function updateTask(_x4, _x5) {
+        return _updateTask.apply(this, arguments);
+      }
+
+      return updateTask;
+    }(),
+    deleteTask: function () {
+      var _deleteTask = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(context, payload) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                axios__WEBPACK_IMPORTED_MODULE_3___default.a["delete"]("/api/v1/tasks/".concat(payload.id)).then(function (response) {
+                  context.commit('DELETE_TASK', response.data);
+                })["catch"](function (error) {
+                  console.error(error);
+                });
+
+              case 1:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      function deleteTask(_x6, _x7) {
+        return _deleteTask.apply(this, arguments);
+      }
+
+      return deleteTask;
+    }(),
+    deleteCompletedTasks: function () {
+      var _deleteCompletedTasks = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                axios__WEBPACK_IMPORTED_MODULE_3___default.a["delete"]("/api/v1/tasks/destroy_completed/").then(function (response) {
+                  if (response.data > 0) {
+                    context.dispatch('setTasks');
+                  }
+                })["catch"](function (error) {
+                  console.error(error);
+                });
+
+              case 1:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }));
+
+      function deleteCompletedTasks(_x8) {
         return _deleteCompletedTasks.apply(this, arguments);
       }
 
       return deleteCompletedTasks;
+    }(),
+    checkTask: function () {
+      var _checkTask = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(context, payload) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                axios__WEBPACK_IMPORTED_MODULE_3___default.a.patch("/api/v1/tasks/".concat(payload.id, "/check/"), payload).then(function (response) {
+                  context.commit('UPDATE_TASK', response.data);
+                })["catch"](function (error) {
+                  console.error(error);
+                });
+
+              case 1:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }));
+
+      function checkTask(_x9, _x10) {
+        return _checkTask.apply(this, arguments);
+      }
+
+      return checkTask;
     }()
   }
 });
@@ -54298,8 +54605,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Vova\laragon\www\todo-vue\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Vova\laragon\www\todo-vue\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\todo-vue\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\todo-vue\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
