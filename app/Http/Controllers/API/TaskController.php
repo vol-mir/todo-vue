@@ -79,7 +79,8 @@ class TaskController extends Controller
      */
     public function check(UpdateTaskDoneRequest $request, Task $task)
     {
-        $task->update($request->all());
+        $task->done = $request->get('done', false);
+        $task->save();
         return response()->json($task);
     }
 }

@@ -86,6 +86,8 @@ export const store = new Vuex.Store({
       Axios.delete(`/api/v1/tasks/destroy_completed/`)
         .then(response => {
           if (response.data > 0) {
+            console.log('000')
+            console.log(response.data)
             context.dispatch('setTasks')
           }
         }).catch(error => {

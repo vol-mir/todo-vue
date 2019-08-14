@@ -24,7 +24,7 @@ class UpdateTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'nullable',
+            'name' => 'required',
         ];
     }
 }

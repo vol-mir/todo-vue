@@ -16975,7 +16975,7 @@ return jQuery;
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.14';
+  var VERSION = '4.17.15';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -54534,6 +54534,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
               case 0:
                 axios__WEBPACK_IMPORTED_MODULE_3___default.a["delete"]("/api/v1/tasks/destroy_completed/").then(function (response) {
                   if (response.data > 0) {
+                    console.log('000');
+                    console.log(response.data);
                     context.dispatch('setTasks');
                   }
                 })["catch"](function (error) {
