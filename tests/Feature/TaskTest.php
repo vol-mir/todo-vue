@@ -11,8 +11,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class TaskTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
 
     public function it_can_show_all_tasks()

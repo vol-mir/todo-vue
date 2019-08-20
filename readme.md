@@ -31,5 +31,6 @@ $ npm install
 
 ## Test
 ```shell
+$ cp .env.testing .env
 $ php vendor/phpunit/phpunit/phpunit
 ```
