@@ -3280,7 +3280,6 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       hideCompleted: true,
-      newTaskText: '',
       editOffset: -1,
       editTask: {},
       editTaskOri: {},
@@ -3303,6 +3302,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     isAuthenticated: function isAuthenticated() {
       return this.$store.getters.isAuthenticated;
+    },
+    newTaskText: {
+      get: function get() {
+        return this.$store.getters.getNewTaskText;
+      },
+      set: function set(value) {
+        this.$store.commit('updateNewTaskText', value);
+      }
     }
   },
   mounted: function mounted() {
@@ -3329,10 +3336,10 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch('addTask', {
         'name': this.newTaskText
       });
-      this.newTaskText = '';
+      this.$store.commit('updateNewTaskText', '');
     },
     cancelAddingTask: function cancelAddingTask() {
-      this.newTaskText = '';
+      this.$store.commit('updateNewTaskText', '');
     },
     deleteCompletedTasks: function deleteCompletedTasks() {
       this.$store.dispatch('deleteCompletedTasks');
@@ -8056,6 +8063,108 @@ module.exports = function escape(url) {
 
     return url
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/deepmerge/dist/es.js":
+/*!*******************************************!*\
+  !*** ./node_modules/deepmerge/dist/es.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var isMergeableObject = function isMergeableObject(value) {
+	return isNonNullObject(value)
+		&& !isSpecial(value)
+};
+
+function isNonNullObject(value) {
+	return !!value && typeof value === 'object'
+}
+
+function isSpecial(value) {
+	var stringValue = Object.prototype.toString.call(value);
+
+	return stringValue === '[object RegExp]'
+		|| stringValue === '[object Date]'
+		|| isReactElement(value)
+}
+
+// see https://github.com/facebook/react/blob/b5ac963fb791d1298e7f396236383bc955f916c1/src/isomorphic/classic/element/ReactElement.js#L21-L25
+var canUseSymbol = typeof Symbol === 'function' && Symbol.for;
+var REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for('react.element') : 0xeac7;
+
+function isReactElement(value) {
+	return value.$$typeof === REACT_ELEMENT_TYPE
+}
+
+function emptyTarget(val) {
+	return Array.isArray(val) ? [] : {}
+}
+
+function cloneUnlessOtherwiseSpecified(value, options) {
+	return (options.clone !== false && options.isMergeableObject(value))
+		? deepmerge(emptyTarget(value), value, options)
+		: value
+}
+
+function defaultArrayMerge(target, source, options) {
+	return target.concat(source).map(function(element) {
+		return cloneUnlessOtherwiseSpecified(element, options)
+	})
+}
+
+function mergeObject(target, source, options) {
+	var destination = {};
+	if (options.isMergeableObject(target)) {
+		Object.keys(target).forEach(function(key) {
+			destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
+		});
+	}
+	Object.keys(source).forEach(function(key) {
+		if (!options.isMergeableObject(source[key]) || !target[key]) {
+			destination[key] = cloneUnlessOtherwiseSpecified(source[key], options);
+		} else {
+			destination[key] = deepmerge(target[key], source[key], options);
+		}
+	});
+	return destination
+}
+
+function deepmerge(target, source, options) {
+	options = options || {};
+	options.arrayMerge = options.arrayMerge || defaultArrayMerge;
+	options.isMergeableObject = options.isMergeableObject || isMergeableObject;
+
+	var sourceIsArray = Array.isArray(source);
+	var targetIsArray = Array.isArray(target);
+	var sourceAndTargetTypesMatch = sourceIsArray === targetIsArray;
+
+	if (!sourceAndTargetTypesMatch) {
+		return cloneUnlessOtherwiseSpecified(source, options)
+	} else if (sourceIsArray) {
+		return options.arrayMerge(target, source, options)
+	} else {
+		return mergeObject(target, source, options)
+	}
+}
+
+deepmerge.all = function deepmergeAll(array, options) {
+	if (!Array.isArray(array)) {
+		throw new Error('first argument should be an array')
+	}
+
+	return array.reduce(function(prev, next) {
+		return deepmerge(prev, next, options)
+	}, {})
+};
+
+var deepmerge_1 = deepmerge;
+
+/* harmony default export */ __webpack_exports__["default"] = (deepmerge_1);
 
 
 /***/ }),
@@ -39556,6 +39665,23 @@ try {
 
 /***/ }),
 
+/***/ "./node_modules/shvl/dist/shvl.es.js":
+/*!*******************************************!*\
+  !*** ./node_modules/shvl/dist/shvl.es.js ***!
+  \*******************************************/
+/*! exports provided: get, set */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get", function() { return t; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "set", function() { return n; });
+function t(t,n,r){return void 0===(t=(n.split?n.split("."):n).reduce(function(t,n){return t&&t[n]},t))?r:t}function n(t,n,r,e){return(n=n.split?n.split("."):n).slice(0,-1).reduce(function(t,n){return t[n]=t[n]||{}},t)[n.pop()]=r,t}
+//# sourceMappingURL=shvl.es.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BaseDropdown.vue?vue&type=style&index=0&id=4e0e1e26&scoped=true&lang=css&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BaseDropdown.vue?vue&type=style&index=0&id=4e0e1e26&scoped=true&lang=css& ***!
@@ -62200,6 +62326,23 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/vuex-persistedstate/dist/vuex-persistedstate.es.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/vuex-persistedstate/dist/vuex-persistedstate.es.js ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! deepmerge */ "./node_modules/deepmerge/dist/es.js");
+/* harmony import */ var shvl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! shvl */ "./node_modules/shvl/dist/shvl.es.js");
+/* harmony default export */ __webpack_exports__["default"] = (function(n,o,u){function i(t,e,r){try{return(r=e.getItem(t))&&void 0!==r?JSON.parse(r):void 0}catch(t){}}if(o=(n=n||{}).storage||window&&window.localStorage,u=n.key||"vuex",!function(t){try{return t.setItem("@@",1),t.removeItem("@@"),!0}catch(t){}return!1}(o))throw new Error("Invalid storage instance given");return function(c){var a=Object(shvl__WEBPACK_IMPORTED_MODULE_1__["get"])(n,"getState",i)(u,o);"object"==typeof a&&null!==a&&c.replaceState(Object(deepmerge__WEBPACK_IMPORTED_MODULE_0__["default"])(c.state,a,{arrayMerge:n.arrayMerger||function(t,e){return e},clone:!1})),(n.subscriber||function(t){return function(e){return t.subscribe(e)}})(c)(function(t,i){(n.filter||function(){return!0})(t)&&(n.setState||function(t,e,r){return r.setItem(t,JSON.stringify(e))})(u,(n.reducer||function(t,n){return 0===n.length?t:n.reduce(function(n,o){return Object(shvl__WEBPACK_IMPORTED_MODULE_1__["set"])(n,o,Object(shvl__WEBPACK_IMPORTED_MODULE_1__["get"])(t,o))},{})})(i,n.paths||[]),o)})}});;
+//# sourceMappingURL=vuex-persistedstate.es.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/vuex/dist/vuex.esm.js":
 /*!********************************************!*\
   !*** ./node_modules/vuex/dist/vuex.esm.js ***!
@@ -65278,7 +65421,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _modules_tasks_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @modules/tasks.js */ "./resources/js/store/tasks.js");
+/* harmony import */ var vuex_persistedstate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex-persistedstate */ "./node_modules/vuex-persistedstate/dist/vuex-persistedstate.es.js");
+/* harmony import */ var _modules_tasks_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @modules/tasks.js */ "./resources/js/store/tasks.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -65289,10 +65433,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
   modules: {
-    tasks: _modules_tasks_js__WEBPACK_IMPORTED_MODULE_4__["default"]
+    tasks: _modules_tasks_js__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   state: {
     token: '',
@@ -65313,15 +65458,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     setToken: function setToken(state, payload) {
       state.token = payload.token;
     },
-    rememberToken: function rememberToken(state) {
-      vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.set('token', state.token);
-    },
-    initTokenWithLocalStorage: function initTokenWithLocalStorage(state) {
-      state.token = vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.get('token');
-    },
     deleteToken: function deleteToken(state) {
       state.token = '';
-      vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.remove('token');
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.defaults.headers.common['Authorization'] = null;
     },
     addTokenToAxios: function addTokenToAxios(state) {
@@ -65380,7 +65518,6 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
                     };
                     context.commit('setToken', token);
                     context.commit('addTokenToAxios', token);
-                    context.commit('rememberToken');
                     resolve(response);
                   })["catch"](function (error) {
                     console.error(error);
@@ -65504,7 +65641,6 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
       return createPassword;
     }(),
     init: function init(context) {
-      context.commit('initTokenWithLocalStorage');
       context.commit('addTokenToAxios');
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.interceptors.response.use(function (response) {
         return response;
@@ -65518,7 +65654,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
         return Promise.reject(error);
       });
     }
-  }
+  },
+  plugins: [Object(vuex_persistedstate__WEBPACK_IMPORTED_MODULE_4__["default"])()]
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
 
@@ -65546,9 +65683,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var ModuleTask = {
   state: {
-    tasks: []
+    tasks: [],
+    newTaskText: ''
   },
   getters: {
+    getNewTaskText: function getNewTaskText(state) {
+      return state.newTaskText;
+    },
     allTasks: function allTasks(state) {
       return state.tasks;
     },
@@ -65584,6 +65725,9 @@ var ModuleTask = {
       if (index !== -1) {
         state.tasks.splice(index, 1);
       }
+    },
+    updateNewTaskText: function updateNewTaskText(state, payload) {
+      state.newTaskText = payload;
     }
   },
   actions: {

@@ -164,7 +164,6 @@ export default {
   data () {
     return {
       hideCompleted: true,
-      newTaskText: '',
       editOffset: -1,
       editTask: {},
       editTaskOri: {},
@@ -192,6 +191,15 @@ export default {
 
     isAuthenticated () {
       return this.$store.getters.isAuthenticated
+    },
+
+    newTaskText: {
+      get () {
+        return this.$store.getters.getNewTaskText
+      },
+      set (value) {
+        this.$store.commit('updateNewTaskText', value)
+      }
     }
   },
 
@@ -218,11 +226,11 @@ export default {
       this.$store.dispatch('addTask', {
         'name': this.newTaskText
       })
-      this.newTaskText = ''
+      this.$store.commit('updateNewTaskText', '')
     },
 
     cancelAddingTask () {
-      this.newTaskText = ''
+      this.$store.commit('updateNewTaskText', '')
     },
 
     deleteCompletedTasks () {

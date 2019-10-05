@@ -3,10 +3,15 @@ import Axios from 'axios'
 const ModuleTask = {
 
   state: {
-    tasks: []
+    tasks: [],
+    newTaskText: ''
   },
 
   getters: {
+    getNewTaskText: state => {
+      return state.newTaskText
+    },
+
     allTasks: state => {
       return state.tasks
     },
@@ -39,6 +44,10 @@ const ModuleTask = {
       if (index !== -1) {
         state.tasks.splice(index, 1)
       }
+    },
+
+    updateNewTaskText: (state, payload) => {
+      state.newTaskText = payload
     }
   },
 

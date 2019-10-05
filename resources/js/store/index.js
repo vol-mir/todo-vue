@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
 
+import createPersistedState from 'vuex-persistedstate'
+
 import tasks from '@modules/tasks.js'
 
 Vue.use(Vuex)
@@ -35,17 +37,8 @@ const store = new Vuex.Store({
       state.token = payload.token
     },
 
-    rememberToken (state) {
-      Vue.localStorage.set('token', state.token)
-    },
-
-    initTokenWithLocalStorage (state) {
-      state.token = Vue.localStorage.get('token')
-    },
-
     deleteToken (state) {
       state.token = ''
-      Vue.localStorage.remove('token')
       Axios.defaults.headers.common['Authorization'] = null
     },
 
@@ -82,7 +75,6 @@ const store = new Vuex.Store({
             }
             context.commit('setToken', token)
             context.commit('addTokenToAxios', token)
-            context.commit('rememberToken')
             resolve(response)
           }).catch(error => {
             console.error(error)
@@ -134,7 +126,6 @@ const store = new Vuex.Store({
     },
 
     init (context) {
-      context.commit('initTokenWithLocalStorage')
       context.commit('addTokenToAxios')
 
       Axios.interceptors.response.use((response) => {
@@ -147,7 +138,9 @@ const store = new Vuex.Store({
         return Promise.reject(error)
       })
     }
-  }
+  },
+
+  plugins: [createPersistedState()]
 })
 
 export default store
