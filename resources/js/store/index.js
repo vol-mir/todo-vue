@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import Axios from 'axios'
 
 import createPersistedState from 'vuex-persistedstate'
+import createMutationsSharer from 'vuex-shared-mutations'
 
 import tasks from '@modules/tasks.js'
 
@@ -140,7 +141,10 @@ const store = new Vuex.Store({
     }
   },
 
-  plugins: [createPersistedState()]
+  plugins: [
+    createPersistedState(),
+    createMutationsSharer({ predicate: ['updateNewTaskText'] })
+  ]
 })
 
 export default store
