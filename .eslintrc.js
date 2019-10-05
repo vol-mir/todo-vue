@@ -15,5 +15,9 @@ module.exports = {
     'vue'
   ],
   'rules': {
+  },
+  'globals': {
+    '$': true,
+    '_': true
   }
 }

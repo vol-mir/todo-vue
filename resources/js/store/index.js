@@ -2,106 +2,152 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
 
+import tasks from '@modules/tasks.js'
+
 Vue.use(Vuex)
 
-export const store = new Vuex.Store({
+const store = new Vuex.Store({
+  modules: {
+    tasks
+  },
+
   state: {
-    tasks: []
+    token: '',
+    messageAuth: ''
   },
 
   getters: {
-    GET_TASKS: state => {
-      return state.tasks
+    isAuthenticated (state) {
+      return state.token !== null && state.token !== ''
     },
 
-    ACTUAL_TASKS: state => {
-      return state.tasks.filter(t => !t.done)
+    token (state) {
+      return state.token
+    },
+
+    messageAuth (state) {
+      return state.messageAuth
     }
   },
 
   mutations: {
-    SET_TASKS: (state, payload) => {
-      state.tasks = payload
+    setToken (state, payload) {
+      state.token = payload.token
     },
 
-    ADD_TASK: (state, payload) => {
-      state.tasks.push(payload)
+    rememberToken (state) {
+      Vue.localStorage.set('token', state.token)
     },
 
-    UPDATE_TASK: (state, payload) => {
-      const task = payload
-      const index = state.tasks.findIndex(elem => elem.id === task.id)
-      if (index !== -1) {
-        state.tasks.splice(index, 1, task)
-      }
+    initTokenWithLocalStorage (state) {
+      state.token = Vue.localStorage.get('token')
     },
 
-    DELETE_TASK: (state, payload) => {
-      const task = payload
-      const index = state.tasks.findIndex(elem => elem.id === task.id)
-      if (index !== -1) {
-        state.tasks.splice(index, 1)
-      }
+    deleteToken (state) {
+      state.token = ''
+      Vue.localStorage.remove('token')
+      Axios.defaults.headers.common['Authorization'] = null
+    },
+
+    addTokenToAxios (state) {
+      Axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`
+    },
+
+    setMessageAuth (state, payload) {
+      state.messageAuth = payload
     }
   },
 
   actions: {
-    setTasks: async (context) => {
-      Axios.get(`/api/v1/tasks`)
-        .then(response => {
-          context.commit('SET_TASKS', response.data)
-        }).catch(error => {
-          console.error(error)
-        })
+    async signup (context, payload) {
+      return new Promise((resolve, reject) => {
+        Axios.post(`/api/v1/signup`, payload)
+          .then(response => {
+            Vue.localStorage.set('signupEmail', payload.email)
+            Vue.localStorage.set('signupPassword', payload.password)
+            resolve(response)
+          }).catch(error => {
+            console.error(error)
+            reject(error)
+          })
+      })
     },
 
-    addTask: async (context, payload) => {
-      Axios.post(`/api/v1/tasks`, payload)
-        .then(response => {
-          context.commit('ADD_TASK', response.data)
-        }).catch(error => {
-          console.error(error)
-        })
+    async signin (context, payload) {
+      return new Promise((resolve, reject) => {
+        Axios.post(`/api/v1/signin`, payload)
+          .then(response => {
+            const token = {
+              token: response.data.access_token
+            }
+            context.commit('setToken', token)
+            context.commit('addTokenToAxios', token)
+            context.commit('rememberToken')
+            resolve(response)
+          }).catch(error => {
+            console.error(error)
+            reject(error)
+          })
+      })
     },
 
-    updateTask: async (context, payload) => {
-      Axios.patch(`/api/v1/tasks/${payload.id}`, payload)
-        .then(response => {
-          context.commit('UPDATE_TASK', response.data)
-        }).catch(error => {
-          console.error(error)
-        })
+    async logout (context) {
+      return new Promise((resolve, reject) => {
+        Axios.post(`/api/v1/logout`)
+          .then(response => {
+            context.commit('deleteToken')
+            resolve(response)
+          }).catch(error => {
+            const statusCode = error.response.status
+            if (statusCode === 401 || statusCode === 400) {
+              context.commit('deleteToken')
+              return
+            }
+            console.error(error)
+            reject(error)
+          })
+      })
     },
 
-    deleteTask: async (context, payload) => {
-      Axios.delete(`/api/v1/tasks/${payload.id}`)
-        .then(response => {
-          context.commit('DELETE_TASK', response.data)
-        }).catch(error => {
-          console.error(error)
-        })
+    async resetPassword (context, payload) {
+      return new Promise((resolve, reject) => {
+        Axios.post(`/api/v1/password/reset`, payload)
+          .then(response => {
+            resolve(response)
+          }).catch(error => {
+            console.error(error)
+            reject(error)
+          })
+      })
     },
 
-    deleteCompletedTasks: async (context) => {
-      Axios.delete(`/api/v1/tasks/destroy_completed/`)
-        .then(response => {
-          if (response.data > 0) {
-            console.log('000')
-            console.log(response.data)
-            context.dispatch('setTasks')
-          }
-        }).catch(error => {
-          console.error(error)
-        })
+    async createPassword (context, payload) {
+      return new Promise((resolve, reject) => {
+        Axios.post(`/api/v1/password/create`, payload)
+          .then(response => {
+            resolve(response)
+          }).catch(error => {
+            console.error(error)
+            reject(error)
+          })
+      })
     },
 
-    checkTask: async (context, payload) => {
-      Axios.patch(`/api/v1/tasks/${payload.id}/check/`, payload)
-        .then(response => {
-          context.commit('UPDATE_TASK', response.data)
-        }).catch(error => {
-          console.error(error)
-        })
+    init (context) {
+      context.commit('initTokenWithLocalStorage')
+      context.commit('addTokenToAxios')
+
+      Axios.interceptors.response.use((response) => {
+        return response
+      }, (error) => {
+        const statusCode = error.response.status
+        if (statusCode === 401 || statusCode === 400) {
+          context.commit('deleteToken')
+        }
+        return Promise.reject(error)
+      })
     }
   }
 })
+
+export default store

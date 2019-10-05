@@ -1,31 +1,36 @@
 import './bootstrap'
+import './assets/css/my-login.css'
 
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import VueNoty from 'vuejs-noty'
+import VueLocalStorage from 'vue-localstorage'
+import Loading from 'vue-loading-overlay'
+import VTooltip from 'v-tooltip'
 
-import TodoList from './components/TodoList'
-import MainApp from './MainApp'
+// LightBootstrap plugin
+import LightBootstrap from './light-bootstrap-main'
 
-import { store } from './store'
+import router from '@/routes.js'
+import store from '@modules/index.js'
 
-Vue.use(VueRouter)
+import App from '@/App.vue'
 
-const router = new VueRouter({
-  mode: 'history',
-  routes: [
-    {
-      name: 'todo_list',
-      path: '/',
-      component: TodoList
-    }
-  ]
+Vue.use(VueNoty, {
+  layout: 'bottomLeft'
 })
 
+Vue.use(VueLocalStorage)
+Vue.use(Loading)
+Vue.use(LightBootstrap)
+Vue.use(VTooltip)
+
 window.onload = function () {
+  store.dispatch('init')
+
   window.Vue = new Vue({
-    el: '#app',
-    store,
     router,
-    render: h => h(MainApp)
+    store,
+    el: '#app',
+    render: h => h(App)
   })
 }

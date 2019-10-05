@@ -3,84 +3,151 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreTaskRequest;
-use App\Http\Requests\UpdateTaskRequest;
-use App\Http\Requests\UpdateTaskDoneRequest;
-use App\Task;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Task;
 
 class TaskController extends Controller
 {
     /**
-     * Display a listing of the tasks.
+     * Display a listing of the tasks user.
      *
-     * @return \Illuminate\Http\Response
+     * @return [string] message
+     * @return [array] tasks
      */
     public function index()
     {
-        $tasks = Task::all();
-        return response()->json($tasks);
+        $tasks = Auth::user()
+            ->tasks()
+            ->orderBy('done')
+            ->orderByDesc('created_at')
+            ->get();
+
+        return response()->json([
+            'message' => 'Successfully get a listing of the tasks',
+            'tasks' => $tasks
+        ], 200);
     }
 
     /**
      * Store a newly created task in storage.
      *
-     * @param  \App\Http\Requests\StoreTaskRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  [string] name
+     * @return [string] message
+     * @return [object] task
      */
-    public function store(StoreTaskRequest $request)
+    public function store(Request $request)
     {
-        $task = Task::create($request->all());
-        return response()->json($task);
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        $task = Auth::user()->tasks()->create([
+            'name' => $request->get('name'),
+            'done' => false
+        ]);
+
+        return response()->json([
+            'message' => 'Successfully create a new task',
+            'task' => $task
+        ], 201);
+
     }
 
     /**
      * Update the specified task in storage.
      *
-     * @param  \App\Http\Requests\UpdateTaskRequest $request
-     * @param  Task  $task
-     * @return \Illuminate\Http\Response
+     * @param  [object] task
+     * @param  [string] name
+     * @return [string] message
+     * @return [object] task
      */
-    public function update(UpdateTaskRequest $request, Task $task)
+    public function update(Request $request, Task $task)
     {
-        $task->update($request->all());
-        return response()->json($task);
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        if(!$task->isAuthor(Auth::user())) {
+            return response()->json([
+                'message' => 'No access rights to content'
+            ], 403);
+        }
+
+        $task->update([
+            'name' => $request->get('name')
+        ]);
+
+        return response()->json([
+            'message' => 'Successfully update task',
+            'task' => $task
+        ], 200);
     }
 
     /**
      * Remove the specified task from storage.
      *
-     * @param  Task $task
-     * @return \Illuminate\Http\Response
+     * @param  [object] task
+     * @return [string] message
+     * @return [object] task
      */
-
     public function destroy(Task $task)
     {
+        if(!$task->isAuthor(Auth::user())) {
+            return response()->json([
+                'message' => 'No access rights to content'
+            ], 403);
+        }
+
         $task->delete();
-        return response()->json($task);
+        return response()->json([
+            'message' => 'Successfully delete task',
+            'task' => $task
+        ], 200);
     }
 
     /**
      * Remove completed tasks from storage.
      *
-     * @return \Illuminate\Http\Response
+     * @return [string] message
+     * @return [array] tasks completed
      */
-    public function destroy_completed()
+    public function destroyCompleted()
     {
-        $task_completed = Task::where('done', true)->delete();
-        return response()->json($task_completed);
+        $tasks_completed = Auth::user()->tasks()->where('done', true)->delete();
+
+        return response()->json([
+            'message' => 'Successfully remove completed tasks',
+            'tasks' => $tasks_completed
+        ], 200);
     }
 
     /**
      * Set done the task from storage.
      *
-     * @param  \App\Http\Requests\UpdateTaskDoneRequest $request
-     * @param  Task  $task
-     * @return \Illuminate\Http\Response
+     * @param  [object] task
+     * @param  [boolean] done
+     * @return [string] message
+     * @return [object] task
      */
-    public function check(UpdateTaskDoneRequest $request, Task $task)
+    public function check(Request $request, Task $task)
     {
+        $request->validate([
+            'done' => 'required|boolean',
+        ]);
+
+        if(!$task->isAuthor(Auth::user())) {
+            return response()->json([
+                'message' => 'No access rights to content'
+            ], 403);
+        }
+
         $task->done = $request->get('done', false);
         $task->save();
-        return response()->json($task);
+
+        return response()->json([
+            'message' => 'Successfully set done the task',
+            'task' => $task
+        ], 200);
     }
 }
