@@ -7870,7 +7870,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".tim-row {\n    margin-bottom: 20px;\n}\n\n.tim-white-buttons {\n    background-color: #777777;\n}\n\n.typography-line {\n    padding-left: 15%;\n    margin-bottom: 35px;\n    position: relative;\n    display: block;\n    width: 100%;\n}\n\n.typography-line span {\n    bottom: 10px;\n    color: #9A9A9A;\n    display: block;\n    font-weight: 400;\n    font-size: 14px;\n    line-height: 13px;\n    left: 5px;\n    position: absolute;\n    width: 260px;\n    text-transform: none;\n}\n\n.tim-row {\n    padding-top: 60px;\n}\n\n.tim-row h3 {\n    margin-top: 0;\n}\n\n#navbar-full .navbar {\n    border-radius: 0 !important;\n    margin-bottom: 15px;\n    z-index: 2;\n}\n\n#map {\n    position: relative;\n    width: 100%;\n    height: 100%;\n}\n\n.fixed-plugin li>a,\n.fixed-plugin .badge {\n    transition: all .34s;\n    -webkit-transition: all .34s;\n    -moz-transition: all .34s;\n}\n\n.fixed-plugin {\n    position: fixed;\n    top: 200px;\n    right: 0;\n    width: 64px;\n    background: rgba(0, 0, 0, .3);\n    z-index: 1031;\n    border-radius: 8px 0 0 8px;\n    text-align: center;\n}\n\n.fixed-plugin .fa-cog {\n    color: #FFFFFF;\n    padding: 10px;\n    border-radius: 0 0 6px 6px;\n    width: auto;\n}\n\n.fixed-plugin .dropdown-menu {\n    right: 80px;\n    left: auto;\n    width: 290px;\n    border-radius: 0.1875rem;\n    padding: 0 10px;\n}\n\n.fixed-plugin .dropdown-menu:after,\n.fixed-plugin .dropdown-menu:before {\n    right: 10px;\n    margin-left: auto;\n    left: auto;\n}\n\n.fixed-plugin .fa-circle-thin {\n    color: #FFFFFF;\n}\n\n.fixed-plugin .active .fa-circle-thin {\n    color: #00bbff;\n}\n\n.fixed-plugin .dropdown-menu>.active>a,\n.fixed-plugin .dropdown-menu>.active>a:hover,\n.fixed-plugin .dropdown-menu>.active>a:focus {\n    color: #777777;\n    text-align: center;\n}\n\n.fixed-plugin img {\n    border-radius: 0;\n    width: 100%;\n    height: 100px;\n    margin: 0 auto;\n}\n\n.fixed-plugin .dropdown-menu li>a:hover,\n.fixed-plugin .dropdown-menu li>a:focus {\n    box-shadow: none;\n}\n\n.fixed-plugin .badge {\n    border: 3px solid #FFFFFF;\n    border-radius: 50%;\n    cursor: pointer;\n    display: inline-block;\n    height: 23px;\n    margin-right: 5px;\n    position: relative;\n    width: 23px;\n}\n\n.fixed-plugin .badge.active,\n.fixed-plugin .badge:hover {\n    border-color: #00bbff;\n}\n\n.fixed-plugin .badge-black {\n    background-color: #777;\n}\n\n.fixed-plugin .badge-azure {\n    background-color: #2CA8FF;\n}\n\n.fixed-plugin .badge-green {\n    background-color: #18ce0f;\n}\n\n.fixed-plugin .badge-orange {\n    background-color: #f96332;\n}\n\n.fixed-plugin .badge-yellow {\n    background-color: #FFB236;\n}\n\n.fixed-plugin .badge-red {\n    background-color: #FF3636;\n}\n\n.fixed-plugin .badge-purple {\n    background-color: #9368E9;\n}\n\n.fixed-plugin h5 {\n    font-size: 14px;\n    margin: 10px;\n}\n\n.fixed-plugin .dropdown-menu li {\n    display: block;\n    padding: 18px 2px;\n    width: 25%;\n    float: left;\n}\n\n.fixed-plugin li.adjustments-line,\n.fixed-plugin li.header-title,\n.fixed-plugin li.button-container {\n    width: 100%;\n    height: 50px;\n    min-height: inherit;\n}\n\n.fixed-plugin li.button-container {\n    height: auto;\n}\n\n.fixed-plugin li.button-container div {\n    margin-bottom: 5px;\n}\n\n.fixed-plugin #sharrreTitle {\n    text-align: center;\n    padding: 10px 0;\n    height: 50px;\n}\n\n.fixed-plugin li.header-title {\n    height: 30px;\n    line-height: 25px;\n    font-size: 12px;\n    font-weight: 600;\n    text-transform: uppercase;\n}\n\n.fixed-plugin .adjustments-line p {\n    float: left;\n    display: inline-block;\n    margin-bottom: 0;\n    font-size: 1em;\n    color: #3C4858;\n}\n\n.fixed-plugin .adjustments-line a .badge-colors {\n    position: relative;\n    top: -2px;\n}\n\n.fixed-plugin .adjustments-line .togglebutton {\n    float: right;\n}\n\n.fixed-plugin .adjustments-line .togglebutton .toggle {\n    margin-right: 0;\n}\n\n.fixed-plugin .dropdown-menu>li.adjustments-line>a {\n    padding-right: 0;\n    padding-left: 0;\n    /*border-bottom: 1px solid #ddd;*/\n    border-radius: 0;\n    margin: 0;\n}\n\n.fixed-plugin .dropdown-menu>li>a.img-holder {\n    font-size: 16px;\n    text-align: center;\n    border-radius: 10px;\n    background-color: #FFF;\n    border: 3px solid #FFF;\n    padding-left: 0;\n    padding-right: 0;\n    opacity: 1;\n    cursor: pointer;\n    display: block;\n    max-height: 100px;\n    overflow: hidden;\n    padding: 0;\n}\n\n.fixed-plugin .dropdown-menu>li>a.switch-trigger:hover,\n.fixed-plugin .dropdown-menu>li>a.switch-trigger:focus {\n    background-color: transparent;\n}\n\n.fixed-plugin .dropdown-menu>li:hover>a.img-holder,\n.fixed-plugin .dropdown-menu>li:focus>a.img-holder {\n    border-color: rgba(0, 187, 255, 0.53);\n    ;\n}\n\n.fixed-plugin .dropdown-menu>.active>a.img-holder,\n.fixed-plugin .dropdown-menu>.active>a.img-holder {\n    border-color: #00bbff;\n    background-color: #FFFFFF;\n}\n\n.fixed-plugin .dropdown-menu>li>a img {\n    margin-top: auto;\n}\n\n.fixed-plugin .btn-social {\n    width: 50%;\n    display: block;\n    width: 48%;\n    float: left;\n    font-weight: 600;\n}\n\n.fixed-plugin .btn-social i {\n    margin-right: 5px;\n}\n\n.fixed-plugin .btn-social:first-child {\n    margin-right: 2%;\n}\n\n.fixed-plugin .adjustments-line a:hover,\n.fixed-plugin .adjustments-line a:focus,\n.fixed-plugin .adjustments-line a {\n    color: transparent;\n}\n\n.fixed-plugin .dropdown .dropdown-menu {\n    transform: translateY(-15%);\n    top: 27px;\n    opacity: 0;\n    transform-origin: 0 0;\n}\n\n.fixed-plugin .dropdown.show .dropdown-menu {\n    opacity: 1;\n    transform: translateY(-13%);\n    transform-origin: 0 0;\n}\n\n.fixed-plugin .dropdown-menu:before,\n.fixed-plugin .dropdown-menu:after {\n    content: \"\";\n    display: inline-block;\n    position: absolute;\n    top: 65px;\n    width: 16px;\n    transform: translateY(-50%);\n    -webkit-transform: translateY(-50%);\n    -moz-transform: translateY(-50%);\n}\n\n.fixed-plugin .dropdown-menu:before {\n    border-bottom: 16px solid rgba(0, 0, 0, 0);\n    border-left: 16px solid rgba(0, 0, 0, 0.2);\n    border-top: 16px solid rgba(0, 0, 0, 0);\n    right: -16px;\n}\n\n.fixed-plugin .dropdown-menu:after {\n    border-bottom: 16px solid rgba(0, 0, 0, 0);\n    border-left: 16px solid #fff;\n    border-top: 16px solid rgba(0, 0, 0, 0);\n    right: -15px;\n}\n\n.wrapper-full-page~.fixed-plugin .dropdown.open .dropdown-menu {\n    transform: translateY(-17%);\n}\n\n.wrapper-full-page~.fixed-plugin .dropdown .dropdown-menu {\n    transform: translateY(-19%);\n}\n\n.places-buttons .btn {\n    margin-bottom: 30px;\n}\n\n.map-container {\n    width: 100%;\n    height: 100vh;\n    max-height: 100vh;\n}\n\n#menu-dropdown .navbar {\n    border-radius: 3px;\n}\n\n#pagination-row .pagination-container {\n    height: 100%;\n    max-height: 100%;\n    display: flex;\n    align-items: center;\n}\n\n.all-icons .font-icon-detail {\n    text-align: center;\n    padding: 45px 0px 30px;\n    border: 1px solid #e5e5e5;\n    border-radius: 0.1875rem;\n    margin: 15px 0;\n    min-height: 168px;\n}\n\n.all-icons [class*=\"now-ui-icons\"] {\n    font-size: 32px;\n}\n\n.all-icons .font-icon-detail p {\n    margin: 25px auto 0;\n    width: 100%;\n    text-align: center;\n    display: block;\n    color: #B8B8B8;\n    padding: 0 10px;\n    font-size: 0.7142em;\n}\n\n#icons-row i.now-ui-icons {\n    font-size: 30px;\n}\n\n.space {\n    height: 130px;\n    display: block;\n}\n\n.space-110 {\n    height: 110px;\n    display: block;\n}\n\n.space-50 {\n    height: 50px;\n    display: block;\n}\n\n.space-70 {\n    height: 70px;\n    display: block;\n}\n\n.navigation-example .img-src {\n    background-attachment: scroll;\n}\n\n.navigation-example {\n    background-position: center center;\n    background-size: cover;\n    margin-top: 0;\n    min-height: 740px;\n}\n\n#notifications {\n    background-color: #FFFFFF;\n    display: block;\n    width: 100%;\n    position: relative;\n}\n\n.tim-note {\n    text-transform: capitalize;\n}\n\n#buttons .btn,\n#javascriptComponents .btn {\n    margin: 0 0px 10px;\n}\n\n.space-100 {\n    height: 100px;\n    display: block;\n    width: 100%;\n}\n\n.be-social {\n    padding-bottom: 20px;\n    /*     border-bottom: 1px solid #aaa; */\n    margin: 0 auto 40px;\n}\n\n.txt-white {\n    color: #FFFFFF;\n}\n\n.txt-gray {\n    color: #ddd !important;\n}\n\n.parallax {\n    width: 100%;\n    height: 570px;\n    display: block;\n    background-attachment: fixed;\n    background-repeat: no-repeat;\n    background-size: cover;\n    background-position: center center;\n}\n\n.logo-container .logo {\n    overflow: hidden;\n    border-radius: 50%;\n    border: 1px solid #333333;\n    width: 50px;\n    float: left;\n}\n\n.logo-container .brand {\n    font-size: 16px;\n    color: #FFFFFF;\n    line-height: 18px;\n    float: left;\n    margin-left: 10px;\n    margin-top: 7px;\n    width: 70px;\n    height: 40px;\n    text-align: left;\n}\n\n.logo-container .brand-material {\n    font-size: 18px;\n    margin-top: 15px;\n    height: 25px;\n    width: auto;\n}\n\n.logo-container .logo img {\n    width: 100%;\n}\n\n.navbar-small .logo-container .brand {\n    color: #333333;\n}\n\n.fixed-section {\n    top: 90px;\n    max-height: 80vh;\n    overflow: scroll;\n    position: -webkit-sticky;\n    position: sticky;\n}\n\n.fixed-section ul {\n    padding: 0;\n}\n\n.fixed-section ul li {\n    list-style: none;\n}\n\n.fixed-section li a {\n    font-size: 14px;\n    padding: 2px;\n    display: block;\n    color: #666666;\n}\n\n.fixed-section li a.active {\n    color: #00bbff;\n}\n\n.fixed-section.float {\n    position: fixed;\n    top: 100px;\n    width: 200px;\n    margin-top: 0;\n}\n\n.parallax .parallax-image {\n    width: 100%;\n    overflow: hidden;\n    position: absolute;\n}\n\n.parallax .parallax-image img {\n    width: 100%;\n}\n\n@media (max-width: 768px) {\n    .parallax .parallax-image {\n        width: 100%;\n        height: 640px;\n        overflow: hidden;\n    }\n    .parallax .parallax-image img {\n        height: 100%;\n        width: auto;\n    }\n}\n\n/*.separator{\n    content: \"Separator\";\n    color: #FFFFFF;\n    display: block;\n    width: 100%;\n    padding: 20px;\n}\n.separator-line{\n    background-color: #EEE;\n    height: 1px;\n    width: 100%;\n    display: block;\n}\n.separator.separator-gray{\n    background-color: #EEEEEE;\n}*/\n\n.social-buttons-demo .btn {\n    margin-right: 5px;\n    margin-bottom: 7px;\n}\n\n.img-container {\n    width: 100%;\n    overflow: hidden;\n}\n\n.img-container img {\n    width: 100%;\n}\n\n.lightbox img {\n    width: 100%;\n}\n\n.lightbox .modal-content {\n    overflow: hidden;\n}\n\n.lightbox .modal-body {\n    padding: 0;\n}\n\n@media screen and (min-width: 991px) {\n    .lightbox .modal-dialog {\n        width: 960px;\n    }\n}\n\n@media (max-width: 991px) {\n    .fixed-section.affix {\n        position: relative;\n        margin-bottom: 100px;\n    }\n}\n\n@media (max-width: 768px) {\n    .btn,\n    .btn-morphing {\n        margin-bottom: 10px;\n    }\n    .parallax .motto {\n        top: 170px;\n        margin-top: 0;\n        font-size: 60px;\n        width: 270px;\n    }\n}\n\n/*       Loading dots  */\n\n/*      transitions */\n\n.presentation .front,\n.presentation .front:after,\n.presentation .front .btn,\n.logo-container .logo,\n.logo-container .brand {\n    transition: all .2s;\n}\n\n#images h4 {\n    margin-bottom: 30px;\n}\n\n#javascriptComponents {\n    padding-bottom: 0;\n}\n\n/*      layer animation          */\n\n.layers-container {\n    display: block;\n    margin-top: 50px;\n    position: relative;\n}\n\n.layers-container img {\n    position: absolute;\n    width: 100%;\n    height: auto;\n    top: 0;\n    left: 0;\n    text-align: center;\n}\n\n.animate {\n    transition: 1.5s ease-in-out;\n    -moz-transition: 1.5s ease-in-out;\n    -webkit-transition: 1.5s ease-in-out;\n}\n\n.navbar-default.navbar-small .logo-container .brand {\n    color: #333333;\n}\n\n.navbar-transparent.navbar-small .logo-container .brand {\n    color: #FFFFFF;\n}\n\n.navbar-default.navbar-small .logo-container .brand {\n    color: #333333;\n}\n\n.sharing-area {\n    margin-top: 80px;\n}\n\n.sharing-area .btn {\n    margin: 15px 4px 0;\n}\n\n.section-thin,\n.section-notifications {\n    padding: 0;\n}\n\n.section-navbars {\n    padding-top: 0;\n}\n\n#navbar .navbar {\n    margin-bottom: 20px;\n}\n\n#navbar .navbar-toggler,\n#menu-dropdown .navbar-toggler {\n    pointer-events: none;\n}\n\n.section-tabs {\n    background: #EEEEEE;\n}\n\n.section-pagination {\n    padding-bottom: 0;\n}\n\n.section-download {\n    padding-top: 130px;\n}\n\n.section-download .description {\n    margin-bottom: 60px;\n}\n\n.section-download h4 {\n    margin-bottom: 25px;\n}\n\n.section-examples a {\n    text-decoration: none;\n}\n\n.section-examples a+a {\n    margin-top: 30px;\n}\n\n.section-examples h5 {\n    margin-top: 30px;\n}\n\n.components-page .wrapper>.header,\n.tutorial-page .wrapper>.header {\n    height: 500px;\n    padding-top: 128px;\n    background-size: cover;\n    background-position: center center;\n}\n\n.components-page .title,\n.tutorial-page .title {\n    color: #FFFFFF;\n}\n\n.brand .h1-seo {\n    font-size: 2.8em;\n    text-transform: uppercase;\n    font-weight: 300;\n}\n\n.brand .n-logo {\n    max-width: 100px;\n    margin-bottom: 40px;\n}\n\n.invision-logo {\n    max-width: 70px;\n    top: -2px;\n    position: relative;\n}\n\n.creative-tim-logo {\n    max-width: 140px;\n    top: -2px;\n    position: relative;\n}\n\n.section-javascript .title {\n    margin-bottom: 0;\n}\n\n.navbar .switch-background {\n    display: block;\n}\n\n.navbar-transparent .switch-background {\n    display: none;\n}\n\n.section-signup .col .btn {\n    margin-top: 30px;\n}\n\n#buttons-row .btn {\n    margin-bottom: 10px;\n}\n\n.section-navbars .navbar-collapse {\n    display: none;\n}\n\n.section-basic {\n    padding-top: 0;\n}\n\n.section-images {\n    padding-bottom: 0;\n}\n\n.documentation .dropdown .dropdown-menu {\n    transform: translate3d(0, 0, 0) !important;\n}\n\n.documentation .dropdown .dropdown-menu.show {\n    transform: translate3d(0, 39px, 0) !important;\n}", ""]);
+exports.push([module.i, ".tim-row {\r\n    margin-bottom: 20px;\r\n}\r\n\r\n.tim-white-buttons {\r\n    background-color: #777777;\r\n}\r\n\r\n.typography-line {\r\n    padding-left: 15%;\r\n    margin-bottom: 35px;\r\n    position: relative;\r\n    display: block;\r\n    width: 100%;\r\n}\r\n\r\n.typography-line span {\r\n    bottom: 10px;\r\n    color: #9A9A9A;\r\n    display: block;\r\n    font-weight: 400;\r\n    font-size: 14px;\r\n    line-height: 13px;\r\n    left: 5px;\r\n    position: absolute;\r\n    width: 260px;\r\n    text-transform: none;\r\n}\r\n\r\n.tim-row {\r\n    padding-top: 60px;\r\n}\r\n\r\n.tim-row h3 {\r\n    margin-top: 0;\r\n}\r\n\r\n#navbar-full .navbar {\r\n    border-radius: 0 !important;\r\n    margin-bottom: 15px;\r\n    z-index: 2;\r\n}\r\n\r\n#map {\r\n    position: relative;\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n\r\n.fixed-plugin li>a,\r\n.fixed-plugin .badge {\r\n    transition: all .34s;\r\n    -webkit-transition: all .34s;\r\n    -moz-transition: all .34s;\r\n}\r\n\r\n.fixed-plugin {\r\n    position: fixed;\r\n    top: 200px;\r\n    right: 0;\r\n    width: 64px;\r\n    background: rgba(0, 0, 0, .3);\r\n    z-index: 1031;\r\n    border-radius: 8px 0 0 8px;\r\n    text-align: center;\r\n}\r\n\r\n.fixed-plugin .fa-cog {\r\n    color: #FFFFFF;\r\n    padding: 10px;\r\n    border-radius: 0 0 6px 6px;\r\n    width: auto;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu {\r\n    right: 80px;\r\n    left: auto;\r\n    width: 290px;\r\n    border-radius: 0.1875rem;\r\n    padding: 0 10px;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu:after,\r\n.fixed-plugin .dropdown-menu:before {\r\n    right: 10px;\r\n    margin-left: auto;\r\n    left: auto;\r\n}\r\n\r\n.fixed-plugin .fa-circle-thin {\r\n    color: #FFFFFF;\r\n}\r\n\r\n.fixed-plugin .active .fa-circle-thin {\r\n    color: #00bbff;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>.active>a,\r\n.fixed-plugin .dropdown-menu>.active>a:hover,\r\n.fixed-plugin .dropdown-menu>.active>a:focus {\r\n    color: #777777;\r\n    text-align: center;\r\n}\r\n\r\n.fixed-plugin img {\r\n    border-radius: 0;\r\n    width: 100%;\r\n    height: 100px;\r\n    margin: 0 auto;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu li>a:hover,\r\n.fixed-plugin .dropdown-menu li>a:focus {\r\n    box-shadow: none;\r\n}\r\n\r\n.fixed-plugin .badge {\r\n    border: 3px solid #FFFFFF;\r\n    border-radius: 50%;\r\n    cursor: pointer;\r\n    display: inline-block;\r\n    height: 23px;\r\n    margin-right: 5px;\r\n    position: relative;\r\n    width: 23px;\r\n}\r\n\r\n.fixed-plugin .badge.active,\r\n.fixed-plugin .badge:hover {\r\n    border-color: #00bbff;\r\n}\r\n\r\n.fixed-plugin .badge-black {\r\n    background-color: #777;\r\n}\r\n\r\n.fixed-plugin .badge-azure {\r\n    background-color: #2CA8FF;\r\n}\r\n\r\n.fixed-plugin .badge-green {\r\n    background-color: #18ce0f;\r\n}\r\n\r\n.fixed-plugin .badge-orange {\r\n    background-color: #f96332;\r\n}\r\n\r\n.fixed-plugin .badge-yellow {\r\n    background-color: #FFB236;\r\n}\r\n\r\n.fixed-plugin .badge-red {\r\n    background-color: #FF3636;\r\n}\r\n\r\n.fixed-plugin .badge-purple {\r\n    background-color: #9368E9;\r\n}\r\n\r\n.fixed-plugin h5 {\r\n    font-size: 14px;\r\n    margin: 10px;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu li {\r\n    display: block;\r\n    padding: 18px 2px;\r\n    width: 25%;\r\n    float: left;\r\n}\r\n\r\n.fixed-plugin li.adjustments-line,\r\n.fixed-plugin li.header-title,\r\n.fixed-plugin li.button-container {\r\n    width: 100%;\r\n    height: 50px;\r\n    min-height: inherit;\r\n}\r\n\r\n.fixed-plugin li.button-container {\r\n    height: auto;\r\n}\r\n\r\n.fixed-plugin li.button-container div {\r\n    margin-bottom: 5px;\r\n}\r\n\r\n.fixed-plugin #sharrreTitle {\r\n    text-align: center;\r\n    padding: 10px 0;\r\n    height: 50px;\r\n}\r\n\r\n.fixed-plugin li.header-title {\r\n    height: 30px;\r\n    line-height: 25px;\r\n    font-size: 12px;\r\n    font-weight: 600;\r\n    text-transform: uppercase;\r\n}\r\n\r\n.fixed-plugin .adjustments-line p {\r\n    float: left;\r\n    display: inline-block;\r\n    margin-bottom: 0;\r\n    font-size: 1em;\r\n    color: #3C4858;\r\n}\r\n\r\n.fixed-plugin .adjustments-line a .badge-colors {\r\n    position: relative;\r\n    top: -2px;\r\n}\r\n\r\n.fixed-plugin .adjustments-line .togglebutton {\r\n    float: right;\r\n}\r\n\r\n.fixed-plugin .adjustments-line .togglebutton .toggle {\r\n    margin-right: 0;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>li.adjustments-line>a {\r\n    padding-right: 0;\r\n    padding-left: 0;\r\n    /*border-bottom: 1px solid #ddd;*/\r\n    border-radius: 0;\r\n    margin: 0;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>li>a.img-holder {\r\n    font-size: 16px;\r\n    text-align: center;\r\n    border-radius: 10px;\r\n    background-color: #FFF;\r\n    border: 3px solid #FFF;\r\n    padding-left: 0;\r\n    padding-right: 0;\r\n    opacity: 1;\r\n    cursor: pointer;\r\n    display: block;\r\n    max-height: 100px;\r\n    overflow: hidden;\r\n    padding: 0;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>li>a.switch-trigger:hover,\r\n.fixed-plugin .dropdown-menu>li>a.switch-trigger:focus {\r\n    background-color: transparent;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>li:hover>a.img-holder,\r\n.fixed-plugin .dropdown-menu>li:focus>a.img-holder {\r\n    border-color: rgba(0, 187, 255, 0.53);\r\n    ;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>.active>a.img-holder,\r\n.fixed-plugin .dropdown-menu>.active>a.img-holder {\r\n    border-color: #00bbff;\r\n    background-color: #FFFFFF;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>li>a img {\r\n    margin-top: auto;\r\n}\r\n\r\n.fixed-plugin .btn-social {\r\n    width: 50%;\r\n    display: block;\r\n    width: 48%;\r\n    float: left;\r\n    font-weight: 600;\r\n}\r\n\r\n.fixed-plugin .btn-social i {\r\n    margin-right: 5px;\r\n}\r\n\r\n.fixed-plugin .btn-social:first-child {\r\n    margin-right: 2%;\r\n}\r\n\r\n.fixed-plugin .adjustments-line a:hover,\r\n.fixed-plugin .adjustments-line a:focus,\r\n.fixed-plugin .adjustments-line a {\r\n    color: transparent;\r\n}\r\n\r\n.fixed-plugin .dropdown .dropdown-menu {\r\n    transform: translateY(-15%);\r\n    top: 27px;\r\n    opacity: 0;\r\n    transform-origin: 0 0;\r\n}\r\n\r\n.fixed-plugin .dropdown.show .dropdown-menu {\r\n    opacity: 1;\r\n    transform: translateY(-13%);\r\n    transform-origin: 0 0;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu:before,\r\n.fixed-plugin .dropdown-menu:after {\r\n    content: \"\";\r\n    display: inline-block;\r\n    position: absolute;\r\n    top: 65px;\r\n    width: 16px;\r\n    transform: translateY(-50%);\r\n    -webkit-transform: translateY(-50%);\r\n    -moz-transform: translateY(-50%);\r\n}\r\n\r\n.fixed-plugin .dropdown-menu:before {\r\n    border-bottom: 16px solid rgba(0, 0, 0, 0);\r\n    border-left: 16px solid rgba(0, 0, 0, 0.2);\r\n    border-top: 16px solid rgba(0, 0, 0, 0);\r\n    right: -16px;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu:after {\r\n    border-bottom: 16px solid rgba(0, 0, 0, 0);\r\n    border-left: 16px solid #fff;\r\n    border-top: 16px solid rgba(0, 0, 0, 0);\r\n    right: -15px;\r\n}\r\n\r\n.wrapper-full-page~.fixed-plugin .dropdown.open .dropdown-menu {\r\n    transform: translateY(-17%);\r\n}\r\n\r\n.wrapper-full-page~.fixed-plugin .dropdown .dropdown-menu {\r\n    transform: translateY(-19%);\r\n}\r\n\r\n.places-buttons .btn {\r\n    margin-bottom: 30px;\r\n}\r\n\r\n.map-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n    max-height: 100vh;\r\n}\r\n\r\n#menu-dropdown .navbar {\r\n    border-radius: 3px;\r\n}\r\n\r\n#pagination-row .pagination-container {\r\n    height: 100%;\r\n    max-height: 100%;\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n.all-icons .font-icon-detail {\r\n    text-align: center;\r\n    padding: 45px 0px 30px;\r\n    border: 1px solid #e5e5e5;\r\n    border-radius: 0.1875rem;\r\n    margin: 15px 0;\r\n    min-height: 168px;\r\n}\r\n\r\n.all-icons [class*=\"now-ui-icons\"] {\r\n    font-size: 32px;\r\n}\r\n\r\n.all-icons .font-icon-detail p {\r\n    margin: 25px auto 0;\r\n    width: 100%;\r\n    text-align: center;\r\n    display: block;\r\n    color: #B8B8B8;\r\n    padding: 0 10px;\r\n    font-size: 0.7142em;\r\n}\r\n\r\n#icons-row i.now-ui-icons {\r\n    font-size: 30px;\r\n}\r\n\r\n.space {\r\n    height: 130px;\r\n    display: block;\r\n}\r\n\r\n.space-110 {\r\n    height: 110px;\r\n    display: block;\r\n}\r\n\r\n.space-50 {\r\n    height: 50px;\r\n    display: block;\r\n}\r\n\r\n.space-70 {\r\n    height: 70px;\r\n    display: block;\r\n}\r\n\r\n.navigation-example .img-src {\r\n    background-attachment: scroll;\r\n}\r\n\r\n.navigation-example {\r\n    background-position: center center;\r\n    background-size: cover;\r\n    margin-top: 0;\r\n    min-height: 740px;\r\n}\r\n\r\n#notifications {\r\n    background-color: #FFFFFF;\r\n    display: block;\r\n    width: 100%;\r\n    position: relative;\r\n}\r\n\r\n.tim-note {\r\n    text-transform: capitalize;\r\n}\r\n\r\n#buttons .btn,\r\n#javascriptComponents .btn {\r\n    margin: 0 0px 10px;\r\n}\r\n\r\n.space-100 {\r\n    height: 100px;\r\n    display: block;\r\n    width: 100%;\r\n}\r\n\r\n.be-social {\r\n    padding-bottom: 20px;\r\n    /*     border-bottom: 1px solid #aaa; */\r\n    margin: 0 auto 40px;\r\n}\r\n\r\n.txt-white {\r\n    color: #FFFFFF;\r\n}\r\n\r\n.txt-gray {\r\n    color: #ddd !important;\r\n}\r\n\r\n.parallax {\r\n    width: 100%;\r\n    height: 570px;\r\n    display: block;\r\n    background-attachment: fixed;\r\n    background-repeat: no-repeat;\r\n    background-size: cover;\r\n    background-position: center center;\r\n}\r\n\r\n.logo-container .logo {\r\n    overflow: hidden;\r\n    border-radius: 50%;\r\n    border: 1px solid #333333;\r\n    width: 50px;\r\n    float: left;\r\n}\r\n\r\n.logo-container .brand {\r\n    font-size: 16px;\r\n    color: #FFFFFF;\r\n    line-height: 18px;\r\n    float: left;\r\n    margin-left: 10px;\r\n    margin-top: 7px;\r\n    width: 70px;\r\n    height: 40px;\r\n    text-align: left;\r\n}\r\n\r\n.logo-container .brand-material {\r\n    font-size: 18px;\r\n    margin-top: 15px;\r\n    height: 25px;\r\n    width: auto;\r\n}\r\n\r\n.logo-container .logo img {\r\n    width: 100%;\r\n}\r\n\r\n.navbar-small .logo-container .brand {\r\n    color: #333333;\r\n}\r\n\r\n.fixed-section {\r\n    top: 90px;\r\n    max-height: 80vh;\r\n    overflow: scroll;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n}\r\n\r\n.fixed-section ul {\r\n    padding: 0;\r\n}\r\n\r\n.fixed-section ul li {\r\n    list-style: none;\r\n}\r\n\r\n.fixed-section li a {\r\n    font-size: 14px;\r\n    padding: 2px;\r\n    display: block;\r\n    color: #666666;\r\n}\r\n\r\n.fixed-section li a.active {\r\n    color: #00bbff;\r\n}\r\n\r\n.fixed-section.float {\r\n    position: fixed;\r\n    top: 100px;\r\n    width: 200px;\r\n    margin-top: 0;\r\n}\r\n\r\n.parallax .parallax-image {\r\n    width: 100%;\r\n    overflow: hidden;\r\n    position: absolute;\r\n}\r\n\r\n.parallax .parallax-image img {\r\n    width: 100%;\r\n}\r\n\r\n@media (max-width: 768px) {\r\n    .parallax .parallax-image {\r\n        width: 100%;\r\n        height: 640px;\r\n        overflow: hidden;\r\n    }\r\n    .parallax .parallax-image img {\r\n        height: 100%;\r\n        width: auto;\r\n    }\r\n}\r\n\r\n/*.separator{\r\n    content: \"Separator\";\r\n    color: #FFFFFF;\r\n    display: block;\r\n    width: 100%;\r\n    padding: 20px;\r\n}\r\n.separator-line{\r\n    background-color: #EEE;\r\n    height: 1px;\r\n    width: 100%;\r\n    display: block;\r\n}\r\n.separator.separator-gray{\r\n    background-color: #EEEEEE;\r\n}*/\r\n\r\n.social-buttons-demo .btn {\r\n    margin-right: 5px;\r\n    margin-bottom: 7px;\r\n}\r\n\r\n.img-container {\r\n    width: 100%;\r\n    overflow: hidden;\r\n}\r\n\r\n.img-container img {\r\n    width: 100%;\r\n}\r\n\r\n.lightbox img {\r\n    width: 100%;\r\n}\r\n\r\n.lightbox .modal-content {\r\n    overflow: hidden;\r\n}\r\n\r\n.lightbox .modal-body {\r\n    padding: 0;\r\n}\r\n\r\n@media screen and (min-width: 991px) {\r\n    .lightbox .modal-dialog {\r\n        width: 960px;\r\n    }\r\n}\r\n\r\n@media (max-width: 991px) {\r\n    .fixed-section.affix {\r\n        position: relative;\r\n        margin-bottom: 100px;\r\n    }\r\n}\r\n\r\n@media (max-width: 768px) {\r\n    .btn,\r\n    .btn-morphing {\r\n        margin-bottom: 10px;\r\n    }\r\n    .parallax .motto {\r\n        top: 170px;\r\n        margin-top: 0;\r\n        font-size: 60px;\r\n        width: 270px;\r\n    }\r\n}\r\n\r\n/*       Loading dots  */\r\n\r\n/*      transitions */\r\n\r\n.presentation .front,\r\n.presentation .front:after,\r\n.presentation .front .btn,\r\n.logo-container .logo,\r\n.logo-container .brand {\r\n    transition: all .2s;\r\n}\r\n\r\n#images h4 {\r\n    margin-bottom: 30px;\r\n}\r\n\r\n#javascriptComponents {\r\n    padding-bottom: 0;\r\n}\r\n\r\n/*      layer animation          */\r\n\r\n.layers-container {\r\n    display: block;\r\n    margin-top: 50px;\r\n    position: relative;\r\n}\r\n\r\n.layers-container img {\r\n    position: absolute;\r\n    width: 100%;\r\n    height: auto;\r\n    top: 0;\r\n    left: 0;\r\n    text-align: center;\r\n}\r\n\r\n.animate {\r\n    transition: 1.5s ease-in-out;\r\n    -moz-transition: 1.5s ease-in-out;\r\n    -webkit-transition: 1.5s ease-in-out;\r\n}\r\n\r\n.navbar-default.navbar-small .logo-container .brand {\r\n    color: #333333;\r\n}\r\n\r\n.navbar-transparent.navbar-small .logo-container .brand {\r\n    color: #FFFFFF;\r\n}\r\n\r\n.navbar-default.navbar-small .logo-container .brand {\r\n    color: #333333;\r\n}\r\n\r\n.sharing-area {\r\n    margin-top: 80px;\r\n}\r\n\r\n.sharing-area .btn {\r\n    margin: 15px 4px 0;\r\n}\r\n\r\n.section-thin,\r\n.section-notifications {\r\n    padding: 0;\r\n}\r\n\r\n.section-navbars {\r\n    padding-top: 0;\r\n}\r\n\r\n#navbar .navbar {\r\n    margin-bottom: 20px;\r\n}\r\n\r\n#navbar .navbar-toggler,\r\n#menu-dropdown .navbar-toggler {\r\n    pointer-events: none;\r\n}\r\n\r\n.section-tabs {\r\n    background: #EEEEEE;\r\n}\r\n\r\n.section-pagination {\r\n    padding-bottom: 0;\r\n}\r\n\r\n.section-download {\r\n    padding-top: 130px;\r\n}\r\n\r\n.section-download .description {\r\n    margin-bottom: 60px;\r\n}\r\n\r\n.section-download h4 {\r\n    margin-bottom: 25px;\r\n}\r\n\r\n.section-examples a {\r\n    text-decoration: none;\r\n}\r\n\r\n.section-examples a+a {\r\n    margin-top: 30px;\r\n}\r\n\r\n.section-examples h5 {\r\n    margin-top: 30px;\r\n}\r\n\r\n.components-page .wrapper>.header,\r\n.tutorial-page .wrapper>.header {\r\n    height: 500px;\r\n    padding-top: 128px;\r\n    background-size: cover;\r\n    background-position: center center;\r\n}\r\n\r\n.components-page .title,\r\n.tutorial-page .title {\r\n    color: #FFFFFF;\r\n}\r\n\r\n.brand .h1-seo {\r\n    font-size: 2.8em;\r\n    text-transform: uppercase;\r\n    font-weight: 300;\r\n}\r\n\r\n.brand .n-logo {\r\n    max-width: 100px;\r\n    margin-bottom: 40px;\r\n}\r\n\r\n.invision-logo {\r\n    max-width: 70px;\r\n    top: -2px;\r\n    position: relative;\r\n}\r\n\r\n.creative-tim-logo {\r\n    max-width: 140px;\r\n    top: -2px;\r\n    position: relative;\r\n}\r\n\r\n.section-javascript .title {\r\n    margin-bottom: 0;\r\n}\r\n\r\n.navbar .switch-background {\r\n    display: block;\r\n}\r\n\r\n.navbar-transparent .switch-background {\r\n    display: none;\r\n}\r\n\r\n.section-signup .col .btn {\r\n    margin-top: 30px;\r\n}\r\n\r\n#buttons-row .btn {\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.section-navbars .navbar-collapse {\r\n    display: none;\r\n}\r\n\r\n.section-basic {\r\n    padding-top: 0;\r\n}\r\n\r\n.section-images {\r\n    padding-bottom: 0;\r\n}\r\n\r\n.documentation .dropdown .dropdown-menu {\r\n    transform: translate3d(0, 0, 0) !important;\r\n}\r\n\r\n.documentation .dropdown .dropdown-menu.show {\r\n    transform: translate3d(0, 39px, 0) !important;\r\n}", ""]);
 
 // exports
 
@@ -7889,7 +7889,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "html,body {\n\theight: 100%;\n}\n\nbody.my-login-page {\n\tbackground-color: #f7f9fb;\n\tfont-size: 14px;\n}\n\n.my-login-page .brand {\n\twidth: 90px;\n\theight: 90px;\n\toverflow: hidden;\n\tborder-radius: 50%;\n\tmargin: 0 auto;\n\tmargin: 40px auto;\n\tbox-shadow: 0 4px 8px rgba(0,0,0,.05);\n\tposition: relative;\n\tz-index: 1;\n}\n\n.my-login-page .brand img {\n\twidth: 100%;\n}\n\n.my-login-page .card-wrapper {\n\twidth: 400px;\n}\n\n.my-login-page .card {\n\tborder-color: transparent;\n\tbox-shadow: 0 4px 8px rgba(0,0,0,.05);\n}\n\n.my-login-page .card.fat {\n\tpadding: 10px;\n}\n\n.my-login-page .card .card-title {\n\tmargin-bottom: 30px;\n}\n\n.my-login-page .form-control {\n\tborder-width: 2.3px;\n}\n\n.my-login-page .form-group label {\n\twidth: 100%;\n}\n\n.my-login-page .btn.btn-block {\n\tpadding: 12px 10px;\n}\n\n.my-login-page .footer {\n\tmargin: 40px 0;\n\tcolor: #888;\n\ttext-align: center;\n}\n\n@media screen and (max-width: 425px) {\n\t.my-login-page .card-wrapper {\n\t\twidth: 90%;\n\t\tmargin: 0 auto;\n\t}\n}\n\n@media screen and (max-width: 320px) {\n\t.my-login-page .card.fat {\n\t\tpadding: 0;\n\t}\n\n\t.my-login-page .card.fat .card-body {\n\t\tpadding: 15px;\n\t}\n}\n", ""]);
+exports.push([module.i, "html,body {\r\n\theight: 100%;\r\n}\r\n\r\nbody.my-login-page {\r\n\tbackground-color: #f7f9fb;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.my-login-page .brand {\r\n\twidth: 90px;\r\n\theight: 90px;\r\n\toverflow: hidden;\r\n\tborder-radius: 50%;\r\n\tmargin: 0 auto;\r\n\tmargin: 40px auto;\r\n\tbox-shadow: 0 4px 8px rgba(0,0,0,.05);\r\n\tposition: relative;\r\n\tz-index: 1;\r\n}\r\n\r\n.my-login-page .brand img {\r\n\twidth: 100%;\r\n}\r\n\r\n.my-login-page .card-wrapper {\r\n\twidth: 400px;\r\n}\r\n\r\n.my-login-page .card {\r\n\tborder-color: transparent;\r\n\tbox-shadow: 0 4px 8px rgba(0,0,0,.05);\r\n}\r\n\r\n.my-login-page .card.fat {\r\n\tpadding: 10px;\r\n}\r\n\r\n.my-login-page .card .card-title {\r\n\tmargin-bottom: 30px;\r\n}\r\n\r\n.my-login-page .form-control {\r\n\tborder-width: 2.3px;\r\n}\r\n\r\n.my-login-page .form-group label {\r\n\twidth: 100%;\r\n}\r\n\r\n.my-login-page .btn.btn-block {\r\n\tpadding: 12px 10px;\r\n}\r\n\r\n.my-login-page .footer {\r\n\tmargin: 40px 0;\r\n\tcolor: #888;\r\n\ttext-align: center;\r\n}\r\n\r\n@media screen and (max-width: 425px) {\r\n\t.my-login-page .card-wrapper {\r\n\t\twidth: 90%;\r\n\t\tmargin: 0 auto;\r\n\t}\r\n}\r\n\r\n@media screen and (max-width: 320px) {\r\n\t.my-login-page .card.fat {\r\n\t\tpadding: 0;\r\n\t}\r\n\r\n\t.my-login-page .card.fat .card-body {\r\n\t\tpadding: 15px;\r\n\t}\r\n}\r\n", ""]);
 
 // exports
 
@@ -7947,6 +7947,25 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 // module
 exports.push([module.i, "\n.fade-enter-active,\n.fade-leave-active {\n  transition: opacity .1s\n}\n.fade-enter,\n.fade-leave-to\n  /* .fade-leave-active in <2.1.8 */\n\n{\n  opacity: 0\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/NotFoundPage.vue?vue&type=style&index=0&id=70390ab2&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/NotFoundPage.vue?vue&type=style&index=0&id=70390ab2&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.main[data-v-70390ab2] {\n  background-color: #2F3242 !important;\n  height: 100vh;\n}\nsvg[data-v-70390ab2] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-top: -250px;\n  margin-left: -400px;\n}\n.message-box[data-v-70390ab2] {\n  height: 200px;\n  width: 380px;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-top: -100px;\n  margin-left: 50px;\n  color: #FFF;\n  font-family: Roboto;\n  font-weight: 300;\n}\n.message-box h1[data-v-70390ab2] {\n  font-size: 60px;\n  line-height: 46px;\n  margin-bottom: 40px;\n}\n.buttons-con .action-link-wrap[data-v-70390ab2] {\n  margin-top: 40px;\n}\n.buttons-con .action-link-wrap a[data-v-70390ab2] {\n  background: #68c950;\n  padding: 8px 25px;\n  border-radius: 4px;\n  color: #FFF;\n  font-weight: bold;\n  font-size: 14px;\n  transition: all 0.3s linear;\n  cursor: pointer;\n  text-decoration: none;\n  margin-right: 10px\n}\n.buttons-con .action-link-wrap a[data-v-70390ab2]:hover {\n  background: #5A5C6C;\n  color: #fff;\n}\n#Polygon-1[data-v-70390ab2], #Polygon-2[data-v-70390ab2], #Polygon-3[data-v-70390ab2], #Polygon-4[data-v-70390ab2], #Polygon-4[data-v-70390ab2], #Polygon-5[data-v-70390ab2] {\n  -webkit-animation: float-data-v-70390ab2 1s infinite ease-in-out alternate;\n          animation: float-data-v-70390ab2 1s infinite ease-in-out alternate;\n}\n#Polygon-2[data-v-70390ab2] {\n  -webkit-animation-delay: .2s;\n          animation-delay: .2s;\n}\n#Polygon-3[data-v-70390ab2] {\n  -webkit-animation-delay: .4s;\n          animation-delay: .4s;\n}\n#Polygon-4[data-v-70390ab2] {\n  -webkit-animation-delay: .6s;\n          animation-delay: .6s;\n}\n#Polygon-5[data-v-70390ab2] {\n  -webkit-animation-delay: .8s;\n          animation-delay: .8s;\n}\n@-webkit-keyframes float-data-v-70390ab2 {\n100% {\n    transform: translateY(20px);\n}\n}\n@keyframes float-data-v-70390ab2 {\n100% {\n    transform: translateY(20px);\n}\n}\n@media (max-width: 450px) {\nsvg[data-v-70390ab2] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    margin-top: -250px;\n    margin-left: -190px;\n}\n.message-box[data-v-70390ab2] {\n    top: 50%;\n    left: 50%;\n    margin-top: -100px;\n    margin-left: -190px;\n    text-align: center;\n}\n}\n", ""]);
 
 // exports
 
@@ -39772,6 +39791,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/NotFoundPage.vue?vue&type=style&index=0&id=70390ab2&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/NotFoundPage.vue?vue&type=style&index=0&id=70390ab2&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./NotFoundPage.vue?vue&type=style&index=0&id=70390ab2&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/NotFoundPage.vue?vue&type=style&index=0&id=70390ab2&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -46868,6 +46917,153 @@ var render = function() {
                 ])
               ],
               2
+            )
+          ],
+          1
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/NotFoundPage.vue?vue&type=template&id=70390ab2&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/NotFoundPage.vue?vue&type=template&id=70390ab2&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "main" }, [
+    _c(
+      "svg",
+      {
+        attrs: {
+          width: "380px",
+          height: "500px",
+          viewBox: "0 0 837 1045",
+          version: "1.1",
+          xmlns: "http://www.w3.org/2000/svg",
+          "xmlns:xlink": "http://www.w3.org/1999/xlink",
+          "xmlns:sketch": "http://www.bohemiancoding.com/sketch/ns"
+        }
+      },
+      [
+        _c(
+          "g",
+          {
+            attrs: {
+              id: "Page-1",
+              stroke: "none",
+              "stroke-width": "1",
+              fill: "none",
+              "fill-rule": "evenodd",
+              "sketch:type": "MSPage"
+            }
+          },
+          [
+            _c("path", {
+              attrs: {
+                d:
+                  "M353,9 L626.664028,170 L626.664028,487 L353,642 L79.3359724,487 L79.3359724,170 L353,9 Z",
+                id: "Polygon-1",
+                stroke: "#007FB2",
+                "stroke-width": "6",
+                "sketch:type": "MSShapeGroup"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M78.5,529 L147,569.186414 L147,648.311216 L78.5,687 L10,648.311216 L10,569.186414 L78.5,529 Z",
+                id: "Polygon-2",
+                stroke: "#EF4A5B",
+                "stroke-width": "6",
+                "sketch:type": "MSShapeGroup"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M773,186 L827,217.538705 L827,279.636651 L773,310 L719,279.636651 L719,217.538705 L773,186 Z",
+                id: "Polygon-3",
+                stroke: "#795D9C",
+                "stroke-width": "6",
+                "sketch:type": "MSShapeGroup"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M639,529 L773,607.846761 L773,763.091627 L639,839 L505,763.091627 L505,607.846761 L639,529 Z",
+                id: "Polygon-4",
+                stroke: "#F2773F",
+                "stroke-width": "6",
+                "sketch:type": "MSShapeGroup"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M281,801 L383,861.025276 L383,979.21169 L281,1037 L179,979.21169 L179,861.025276 L281,801 Z",
+                id: "Polygon-5",
+                stroke: "#36B455",
+                "stroke-width": "6",
+                "sketch:type": "MSShapeGroup"
+              }
+            })
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "message-box" }, [
+      _c("h1", [_vm._v("404")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Page not found")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "buttons-con" }, [
+        _c(
+          "div",
+          { staticClass: "action-link-wrap" },
+          [
+            _c(
+              "a",
+              {
+                staticClass: "link-button link-back-button",
+                on: {
+                  click: function($event) {
+                    return _vm.$router.go(-1)
+                  }
+                }
+              },
+              [_vm._v("Go Back")]
+            ),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              {
+                staticClass: "link-button",
+                attrs: { to: { name: "mainPage" } }
+              },
+              [_vm._v("Go to Home Page")]
             )
           ],
           1
@@ -63657,7 +63853,7 @@ module.exports = "/fonts/nucleo-icons.eot?8224e0160e362e117cbe00495919e2af";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/fonts/nucleo-icons.svg?ae42fa524981a56f3f289447cff36eb1";
+module.exports = "/fonts/nucleo-icons.svg?dc0cdfac3187d5fe800b249201cdf9b0";
 
 /***/ }),
 
@@ -65243,6 +65439,77 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/NotFoundPage.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/pages/NotFoundPage.vue ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotFoundPage_vue_vue_type_template_id_70390ab2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NotFoundPage.vue?vue&type=template&id=70390ab2&scoped=true& */ "./resources/js/pages/NotFoundPage.vue?vue&type=template&id=70390ab2&scoped=true&");
+/* harmony import */ var _NotFoundPage_vue_vue_type_style_index_0_id_70390ab2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NotFoundPage.vue?vue&type=style&index=0&id=70390ab2&scoped=true&lang=css& */ "./resources/js/pages/NotFoundPage.vue?vue&type=style&index=0&id=70390ab2&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  script,
+  _NotFoundPage_vue_vue_type_template_id_70390ab2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NotFoundPage_vue_vue_type_template_id_70390ab2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "70390ab2",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/NotFoundPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/NotFoundPage.vue?vue&type=style&index=0&id=70390ab2&scoped=true&lang=css&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/pages/NotFoundPage.vue?vue&type=style&index=0&id=70390ab2&scoped=true&lang=css& ***!
+  \******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFoundPage_vue_vue_type_style_index_0_id_70390ab2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./NotFoundPage.vue?vue&type=style&index=0&id=70390ab2&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/NotFoundPage.vue?vue&type=style&index=0&id=70390ab2&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFoundPage_vue_vue_type_style_index_0_id_70390ab2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFoundPage_vue_vue_type_style_index_0_id_70390ab2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFoundPage_vue_vue_type_style_index_0_id_70390ab2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFoundPage_vue_vue_type_style_index_0_id_70390ab2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFoundPage_vue_vue_type_style_index_0_id_70390ab2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/NotFoundPage.vue?vue&type=template&id=70390ab2&scoped=true&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/pages/NotFoundPage.vue?vue&type=template&id=70390ab2&scoped=true& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFoundPage_vue_vue_type_template_id_70390ab2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./NotFoundPage.vue?vue&type=template&id=70390ab2&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/NotFoundPage.vue?vue&type=template&id=70390ab2&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFoundPage_vue_vue_type_template_id_70390ab2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFoundPage_vue_vue_type_template_id_70390ab2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/routes.js":
 /*!********************************!*\
   !*** ./resources/js/routes.js ***!
@@ -65256,13 +65523,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _layout_DashboardLayout_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layout/DashboardLayout.vue */ "./resources/js/layout/DashboardLayout.vue");
-/* harmony import */ var _pages_Mainpage_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/Mainpage.vue */ "./resources/js/pages/Mainpage.vue");
-/* harmony import */ var _pages_Auth_Signin_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @pages/Auth/Signin.vue */ "./resources/js/pages/Auth/Signin.vue");
-/* harmony import */ var _pages_Auth_Signup_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @pages/Auth/Signup.vue */ "./resources/js/pages/Auth/Signup.vue");
-/* harmony import */ var _pages_Auth_MessageAuth_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @pages/Auth/MessageAuth.vue */ "./resources/js/pages/Auth/MessageAuth.vue");
-/* harmony import */ var _pages_Auth_ResetPassword_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @pages/Auth/ResetPassword.vue */ "./resources/js/pages/Auth/ResetPassword.vue");
-/* harmony import */ var _pages_Auth_NewPass_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @pages/Auth/NewPass.vue */ "./resources/js/pages/Auth/NewPass.vue");
-/* harmony import */ var _modules_index_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @modules/index.js */ "./resources/js/store/index.js");
+/* harmony import */ var _pages_Mainpage_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @pages/Mainpage.vue */ "./resources/js/pages/Mainpage.vue");
+/* harmony import */ var _pages_NotFoundPage_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @pages/NotFoundPage.vue */ "./resources/js/pages/NotFoundPage.vue");
+/* harmony import */ var _pages_Auth_Signin_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @pages/Auth/Signin.vue */ "./resources/js/pages/Auth/Signin.vue");
+/* harmony import */ var _pages_Auth_Signup_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @pages/Auth/Signup.vue */ "./resources/js/pages/Auth/Signup.vue");
+/* harmony import */ var _pages_Auth_MessageAuth_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @pages/Auth/MessageAuth.vue */ "./resources/js/pages/Auth/MessageAuth.vue");
+/* harmony import */ var _pages_Auth_ResetPassword_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @pages/Auth/ResetPassword.vue */ "./resources/js/pages/Auth/ResetPassword.vue");
+/* harmony import */ var _pages_Auth_NewPass_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @pages/Auth/NewPass.vue */ "./resources/js/pages/Auth/NewPass.vue");
+/* harmony import */ var _modules_index_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @modules/index.js */ "./resources/js/store/index.js");
+
 
 
 
@@ -65291,23 +65560,26 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/signin',
     name: 'signin',
-    component: _pages_Auth_Signin_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _pages_Auth_Signin_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
     path: '/signup',
     name: 'signup',
-    component: _pages_Auth_Signup_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: _pages_Auth_Signup_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
     path: '/password/reset',
     name: 'resetPassword',
-    component: _pages_Auth_ResetPassword_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _pages_Auth_ResetPassword_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
   }, {
     path: '/password/new/:token',
     name: 'newPass',
-    component: _pages_Auth_NewPass_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _pages_Auth_NewPass_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
   }, {
     path: '/message/auth',
     name: 'messageAuth',
-    component: _pages_Auth_MessageAuth_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _pages_Auth_MessageAuth_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }, {
+    path: '*',
+    component: _pages_NotFoundPage_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
   }],
   linkActiveClass: 'nav-item active',
   scrollBehavior: function scrollBehavior(to) {
@@ -65327,7 +65599,7 @@ router.beforeEach(function (to, from, next) {
   if (to.matched.some(function (record) {
     return record.meta.requiresAuth;
   })) {
-    if (_modules_index_js__WEBPACK_IMPORTED_MODULE_9__["default"].getters.isAuthenticated) {
+    if (_modules_index_js__WEBPACK_IMPORTED_MODULE_10__["default"].getters.isAuthenticated) {
       next();
       return;
     }
@@ -65967,8 +66239,8 @@ var ModuleTask = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\todo-vue\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\todo-vue\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Vova\laragon\www\todo-vue\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Vova\laragon\www\todo-vue\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

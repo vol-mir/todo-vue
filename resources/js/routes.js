@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 
 import DashboardLayout from './layout/DashboardLayout.vue'
 
-import Mainpage from './pages/Mainpage.vue'
+import Mainpage from '@pages/Mainpage.vue'
+import NotFound from '@pages/NotFoundPage.vue'
 
 import Signin from '@pages/Auth/Signin.vue'
 import Signup from '@pages/Auth/Signup.vue'
@@ -56,7 +57,8 @@ const router = new VueRouter({
       path: '/message/auth',
       name: 'messageAuth',
       component: MessageAuth
-    }
+    },
+    { path: '*', component: NotFound }
   ],
   linkActiveClass: 'nav-item active',
   scrollBehavior: (to) => {
