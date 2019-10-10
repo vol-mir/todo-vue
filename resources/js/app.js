@@ -4,7 +4,6 @@ import './assets/css/my-login.css'
 import Vue from 'vue'
 import VueNoty from 'vuejs-noty'
 import VueLocalStorage from 'vue-localstorage'
-import Loading from 'vue-loading-overlay'
 import VTooltip from 'v-tooltip'
 
 // LightBootstrap plugin
@@ -20,13 +19,11 @@ Vue.use(VueNoty, {
 })
 
 Vue.use(VueLocalStorage)
-Vue.use(Loading)
 Vue.use(LightBootstrap)
 Vue.use(VTooltip)
 
 window.onload = function () {
   store.dispatch('init')
-
   window.Vue = new Vue({
     router,
     store,

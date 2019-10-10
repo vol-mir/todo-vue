@@ -34,8 +34,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "nprogress": "^0.2.0",
         "v-tooltip": "^2.0.2",
-        "vue-loading-overlay": "^3.2.0",
         "vue-localstorage": "^0.6.2",
         "vue-router": "^3.1.2",
         "vuejs-noty": "^0.1.3",

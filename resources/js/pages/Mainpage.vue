@@ -209,17 +209,7 @@ export default {
 
   methods: {
     fetchTasks () {
-      const loader = this.$loading.show({
-        backgroundColor: '#ffffff',
-        opacity: 0.0,
-        zIndex: 999
-      })
-      this.$store.dispatch('setTasks').then(() => {
-        loader.hide()
-      }).catch((error) => {
-        loader.hide()
-        this.$noty.error(error)
-      })
+      this.$store.dispatch('setTasks')
     },
 
     addNewTask () {

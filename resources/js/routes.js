@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import NProgress from 'nprogress'
 
 import DashboardLayout from './layout/DashboardLayout.vue'
 
@@ -80,6 +81,17 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+})
+
+router.beforeResolve((to, from, next) => {
+  if (to.name) {
+    NProgress.start()
+  }
+  next()
+})
+
+router.afterEach((to, from) => {
+  NProgress.done()
 })
 
 export default router
