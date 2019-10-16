@@ -46284,51 +46284,58 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("nav", { staticClass: "navbar navbar-expand-lg" }, [
-    _c("div", { staticClass: "container-fluid" }, [
-      _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-        _vm._v("Dashboard")
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "navbar-toggler navbar-toggler-right",
-          class: { toggled: _vm.$sidebar.showSidebar },
-          attrs: {
-            type: "button",
-            "aria-controls": "navigation-index",
-            "aria-expanded": "false",
-            "aria-label": "Toggle navigation"
+    _c(
+      "div",
+      { staticClass: "container-fluid" },
+      [
+        _c(
+          "router-link",
+          { staticClass: "navbar-brand", attrs: { to: this.$route.path } },
+          [_vm._v(_vm._s(this.$route.meta.description))]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "navbar-toggler navbar-toggler-right",
+            class: { toggled: _vm.$sidebar.showSidebar },
+            attrs: {
+              type: "button",
+              "aria-controls": "navigation-index",
+              "aria-expanded": "false",
+              "aria-label": "Toggle navigation"
+            },
+            on: { click: _vm.toggleSidebar }
           },
-          on: { click: _vm.toggleSidebar }
-        },
-        [
-          _c("span", { staticClass: "navbar-toggler-bar burger-lines" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "navbar-toggler-bar burger-lines" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "navbar-toggler-bar burger-lines" })
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "collapse navbar-collapse justify-content-end" },
-        [
-          _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-            _vm.isAuthenticated
-              ? _c("li", { staticClass: "nav-item" }, [
-                  _c(
-                    "a",
-                    { staticClass: "nav-link", on: { click: _vm.logout } },
-                    [_vm._v("\n            Log out\n          ")]
-                  )
-                ])
-              : _vm._e()
-          ])
-        ]
-      )
-    ])
+          [
+            _c("span", { staticClass: "navbar-toggler-bar burger-lines" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "navbar-toggler-bar burger-lines" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "navbar-toggler-bar burger-lines" })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "collapse navbar-collapse justify-content-end" },
+          [
+            _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+              _vm.isAuthenticated
+                ? _c("li", { staticClass: "nav-item" }, [
+                    _c(
+                      "a",
+                      { staticClass: "nav-link", on: { click: _vm.logout } },
+                      [_vm._v("\n            Log out\n          ")]
+                    )
+                  ])
+                : _vm._e()
+            ])
+          ]
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -66870,14 +66877,16 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       name: 'mainPage',
       component: _pages_Mainpage_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        description: 'To-do List'
       }
     }, {
       path: 'profile',
       name: 'userProfile',
       component: _pages_UserProfile_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        description: 'User profile'
       }
     }]
   }, {

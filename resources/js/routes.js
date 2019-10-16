@@ -30,7 +30,8 @@ const router = new VueRouter({
           name: 'mainPage',
           component: Mainpage,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            description: 'To-do List'
           }
         },
         {
@@ -38,7 +39,8 @@ const router = new VueRouter({
           name: 'userProfile',
           component: UserProfile,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            description: 'User profile'
           }
         }
       ]
