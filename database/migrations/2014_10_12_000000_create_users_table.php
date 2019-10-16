@@ -23,6 +23,12 @@ class CreateUsersTable extends Migration
             $table->boolean('active')->default(false);
             $table->string('activation_token');
 
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->text('about_me')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

@@ -109,7 +109,10 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        return response()->json($request->user());
+        return response()->json([
+            'message' => 'Successfully get the user',
+            'user' => $request->user()
+        ], 200);
     }
 
     /**
@@ -131,5 +134,36 @@ class AuthController extends Controller
         $user->save();
 
         return response()->redirectTo("signin");
+    }
+
+    /**
+     * Update the user in storage.
+     *
+     * @param  [object] request
+     * @return [string] message
+     * @return [object] user
+     */
+    public function update(Request $request)
+    {
+        $user = $request->user();
+
+        $data = $request->validate([
+            'name' => 'string|unique:users,name,'.$user->id,
+            'first_name' => 'string|nullable',
+            'last_name' => 'string|nullable',
+            'city' => 'string|nullable',
+            'country' => 'string|nullable',
+            'about_me' => 'string|nullable'
+        ]);
+
+        foreach($data as $key => $value) {
+            $user->$key = $value;
+        }
+        $user->save();
+
+        return response()->json([
+            'message' => 'Successfully update user',
+            'user' => $user
+        ], 200);
     }
 }

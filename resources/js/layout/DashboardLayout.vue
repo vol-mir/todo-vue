@@ -6,7 +6,7 @@
         <i class="nc-icon nc-notes"></i>
         <p>To-do list</p>
       </sidebar-link>
-      <sidebar-link to="/user">
+      <sidebar-link to="/profile">
         <i class="nc-icon nc-circle-09"></i>
         <p>User Profile</p>
       </sidebar-link>

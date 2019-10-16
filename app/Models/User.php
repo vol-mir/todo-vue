@@ -19,7 +19,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'active', 'activation_token'
+        'name', 'email', 'password', 'active', 'activation_token', 'first_name',
+        'last_name', 'city', 'country', 'about_me'
     ];
 
     /**
@@ -48,6 +49,11 @@ class User extends Authenticatable
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getSelectNameAttribute()
+    {
+        return $this->name;
     }
 
 }
