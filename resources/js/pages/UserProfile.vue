@@ -11,17 +11,25 @@
           </user-card>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-8">
+          <edit-avatar>
+          </edit-avatar>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import EditProfileForm from './UserProfile/EditProfileForm.vue'
+import EditAvatar from './UserProfile/EditAvatar.vue'
 import UserCard from './UserProfile/UserCard.vue'
 
 export default {
   components: {
     EditProfileForm,
-    UserCard
+    UserCard,
+    EditAvatar
   }
 }
 

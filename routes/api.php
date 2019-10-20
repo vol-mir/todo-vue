@@ -19,6 +19,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
         Route::get('/user', [AuthController::class, 'user'])->name('auth.user');
         Route::patch('/user/update', [AuthController::class, 'update'])->name('auth.update');
+        Route::post('/user/update/avatar', [AuthController::class, 'updateAvatar'])->name('auth.update.avatar');
     });
 
     Route::group(['prefix' => 'password'

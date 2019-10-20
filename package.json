@@ -36,6 +36,8 @@
     "dependencies": {
         "nprogress": "^0.2.0",
         "v-tooltip": "^2.0.2",
+        "vue-advanced-cropper": "^0.12.6",
+        "vue-avatar": "^2.1.8",
         "vue-localstorage": "^0.6.2",
         "vue-router": "^3.1.2",
         "vuejs-noty": "^0.1.3",

@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Notifications\SignupActivate;
 use Carbon\Carbon;
 use App\Models\User;
+use File;
+use Image;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -166,4 +169,42 @@ class AuthController extends Controller
             'user' => $user
         ], 200);
     }
+
+    /**
+     * Update the avatar user in storage.
+     *
+     * @param  [object] request
+     * @return [string] message
+     * @return [object] avatar
+     */
+    public function updateAvatar(Request $request)
+    {
+        $user = $request->user();
+        $oldAvatar = $user->avatar;
+
+        if (Storage::disk('avatars')->exists($oldAvatar)) {
+            Storage::disk('avatars')->delete($oldAvatar);
+        }
+
+        $imageName = null;
+
+        if ($request->has('avatar') && $request->input('avatar')) {
+            $image = $request->input('avatar'); // image base64 encoded
+            preg_match("/data:image\/(.*?);/",$image,$image_extension); // extract the image extension
+            $image = preg_replace('/data:image\/(.*?);base64,/','',$image); // remove the type part
+            $image = str_replace(' ', '+', $image);
+            $imageName = 'avatar_' . time() . '.' . $image_extension[1]; //generating unique file name;
+            Storage::disk('avatars')->put($imageName,base64_decode($image));
+        }
+
+        $user->avatar = $imageName;
+        $user->save();
+
+        return response()->json([
+            'message' => 'Successfully update avatar user',
+            'user' => $user,
+        ], 200);
+    }
+
+
 }

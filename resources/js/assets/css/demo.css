@@ -826,3 +826,15 @@
 .documentation .dropdown .dropdown-menu.show {
     transform: translate3d(0, 39px, 0) !important;
 }
+
+.avatar-cent{
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: auto;
+  position: relative;
+  z-index: 105;
+}
+
+

@@ -107,19 +107,10 @@ export default {
   },
 
   mounted () {
-    this.fetchUser()
+    this.retrieveFromStore()
   },
 
   methods: {
-    fetchUser () {
-      this.$store.dispatch('loadUser')
-        .then(() => {
-          this.retrieveFromStore()
-        }).catch(error => {
-          console.log(error)
-        })
-    },
-
     retrieveFromStore () {
       this.user = {
         name: this.storeUser.name,
