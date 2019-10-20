@@ -17,19 +17,27 @@
           </edit-avatar>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-8">
+          <edit-password-form>
+          </edit-password-form>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import EditProfileForm from './UserProfile/EditProfileForm.vue'
 import EditAvatar from './UserProfile/EditAvatar.vue'
+import EditPasswordForm from './UserProfile/EditPasswordForm.vue'
 import UserCard from './UserProfile/UserCard.vue'
 
 export default {
   components: {
     EditProfileForm,
-    UserCard,
-    EditAvatar
+    EditAvatar,
+    EditPasswordForm,
+    UserCard
   }
 }
 

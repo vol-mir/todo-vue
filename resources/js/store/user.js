@@ -160,6 +160,19 @@ const ModuleUser = {
       })
     },
 
+    async updatePassword (context, payload) {
+      return new Promise((resolve, reject) => {
+        Axios.patch(`/api/v1/user/update/password`, keyToSnakeClase(payload))
+          .then(response => {
+            context.commit('setUser', response.data)
+            resolve(response)
+          }).catch(error => {
+            console.error(error)
+            reject(error)
+          })
+      })
+    },
+
     init (context) {
       context.commit('addTokenToAxios')
 

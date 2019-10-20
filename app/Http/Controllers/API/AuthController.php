@@ -206,5 +206,29 @@ class AuthController extends Controller
         ], 200);
     }
 
+    /**
+     * Update the user password in storage.
+     *
+     * @param  [object] request
+     * @return [string] message
+     * @return [object] user
+     */
+    public function updatePassword(Request $request)
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'password' => 'required|string|confirmed'
+        ]);
+
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return response()->json([
+            'message' => 'Successfully update user password',
+            'user' => $user
+        ], 200);
+    }
+
 
 }

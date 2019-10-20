@@ -20,6 +20,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/user', [AuthController::class, 'user'])->name('auth.user');
         Route::patch('/user/update', [AuthController::class, 'update'])->name('auth.update');
         Route::post('/user/update/avatar', [AuthController::class, 'updateAvatar'])->name('auth.update.avatar');
+        Route::patch('/user/update/password', [AuthController::class, 'updatePassword'])->name('auth.update.password');
     });
 
     Route::group(['prefix' => 'password'

@@ -3391,7 +3391,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UserProfile_EditProfileForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserProfile/EditProfileForm.vue */ "./resources/js/pages/UserProfile/EditProfileForm.vue");
 /* harmony import */ var _UserProfile_EditAvatar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserProfile/EditAvatar.vue */ "./resources/js/pages/UserProfile/EditAvatar.vue");
-/* harmony import */ var _UserProfile_UserCard_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UserProfile/UserCard.vue */ "./resources/js/pages/UserProfile/UserCard.vue");
+/* harmony import */ var _UserProfile_EditPasswordForm_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UserProfile/EditPasswordForm.vue */ "./resources/js/pages/UserProfile/EditPasswordForm.vue");
+/* harmony import */ var _UserProfile_UserCard_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UserProfile/UserCard.vue */ "./resources/js/pages/UserProfile/UserCard.vue");
 //
 //
 //
@@ -3414,14 +3415,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     EditProfileForm: _UserProfile_EditProfileForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    UserCard: _UserProfile_UserCard_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    EditAvatar: _UserProfile_EditAvatar_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    EditAvatar: _UserProfile_EditAvatar_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    EditPasswordForm: _UserProfile_EditPasswordForm_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    UserCard: _UserProfile_UserCard_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 });
 
@@ -3574,6 +3583,94 @@ __webpack_require__.r(__webpack_exports__);
         _this3.imageData = null;
         _this3.cropImage = null;
         _this3.$refs.file.value = '';
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/UserProfile/EditPasswordForm.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/UserProfile/EditPasswordForm.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_Cards_Card_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/Cards/Card.vue */ "./resources/js/components/Cards/Card.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'EditPasswordForm',
+  components: {
+    Card: _components_Cards_Card_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      password: null,
+      passwordConfirmation: null
+    };
+  },
+  computed: {
+    hasChanges: function hasChanges() {
+      return !_.isEmpty(this.passwordConfirmation) && !_.isEmpty(this.password) && this.passwordConfirmation === this.password;
+    }
+  },
+  methods: {
+    updatePassword: function updatePassword() {
+      var _this = this;
+
+      if (!this.hasChanges) {
+        return;
+      }
+
+      this.$store.dispatch('updatePassword', {
+        'password': this.password,
+        'passwordConfirmation': this.passwordConfirmation
+      }).then(function () {
+        _this.password = null;
+        _this.passwordConfirmation = null;
       })["catch"](function (error) {
         console.error(error);
       });
@@ -48195,6 +48292,10 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-8" }, [_c("edit-avatar")], 1)
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-8" }, [_c("edit-password-form")], 1)
       ])
     ])
   ])
@@ -48333,6 +48434,105 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "clearfix" })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/UserProfile/EditPasswordForm.vue?vue&type=template&id=d5d2b23a&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/UserProfile/EditPasswordForm.vue?vue&type=template&id=d5d2b23a& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("card", [
+    _c(
+      "h4",
+      { staticClass: "card-title", attrs: { slot: "header" }, slot: "header" },
+      [_vm._v("Edit Password")]
+    ),
+    _vm._v(" "),
+    _c("form", [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-12" },
+          [
+            _c("base-input", {
+              attrs: {
+                type: "password",
+                label: "Password",
+                placeholder: "Password"
+              },
+              model: {
+                value: _vm.password,
+                callback: function($$v) {
+                  _vm.password = $$v
+                },
+                expression: "password"
+              }
+            })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-12" },
+          [
+            _c("base-input", {
+              attrs: {
+                type: "password",
+                label: "Password Confirmation",
+                placeholder: "Password Confirmation"
+              },
+              model: {
+                value: _vm.passwordConfirmation,
+                callback: function($$v) {
+                  _vm.passwordConfirmation = $$v
+                },
+                expression: "passwordConfirmation"
+              }
+            })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "text-center" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-info btn-fill float-right",
+            attrs: { type: "submit", disabled: !_vm.hasChanges },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.updatePassword($event)
+              }
+            }
+          },
+          [_vm._v("\n        Update Password\n      ")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" })
+    ])
   ])
 }
 var staticRenderFns = []
@@ -67322,6 +67522,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/UserProfile/EditPasswordForm.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/pages/UserProfile/EditPasswordForm.vue ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditPasswordForm_vue_vue_type_template_id_d5d2b23a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditPasswordForm.vue?vue&type=template&id=d5d2b23a& */ "./resources/js/pages/UserProfile/EditPasswordForm.vue?vue&type=template&id=d5d2b23a&");
+/* harmony import */ var _EditPasswordForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditPasswordForm.vue?vue&type=script&lang=js& */ "./resources/js/pages/UserProfile/EditPasswordForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditPasswordForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditPasswordForm_vue_vue_type_template_id_d5d2b23a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditPasswordForm_vue_vue_type_template_id_d5d2b23a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/UserProfile/EditPasswordForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/UserProfile/EditPasswordForm.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/pages/UserProfile/EditPasswordForm.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPasswordForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditPasswordForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/UserProfile/EditPasswordForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPasswordForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/UserProfile/EditPasswordForm.vue?vue&type=template&id=d5d2b23a&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/pages/UserProfile/EditPasswordForm.vue?vue&type=template&id=d5d2b23a& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPasswordForm_vue_vue_type_template_id_d5d2b23a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditPasswordForm.vue?vue&type=template&id=d5d2b23a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/UserProfile/EditPasswordForm.vue?vue&type=template&id=d5d2b23a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPasswordForm_vue_vue_type_template_id_d5d2b23a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPasswordForm_vue_vue_type_template_id_d5d2b23a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/pages/UserProfile/EditProfileForm.vue":
 /*!************************************************************!*\
   !*** ./resources/js/pages/UserProfile/EditProfileForm.vue ***!
@@ -68279,6 +68548,38 @@ var ModuleUser = {
       }
 
       return updateAvatar;
+    }(),
+    updatePassword: function () {
+      var _updatePassword = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(context, payload) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                return _context8.abrupt("return", new Promise(function (resolve, reject) {
+                  axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch("/api/v1/user/update/password", Object(_extensions_Object_KeyToSnakeClase__WEBPACK_IMPORTED_MODULE_4__["keyToSnakeClase"])(payload)).then(function (response) {
+                    context.commit('setUser', response.data);
+                    resolve(response);
+                  })["catch"](function (error) {
+                    console.error(error);
+                    reject(error);
+                  });
+                }));
+
+              case 1:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
+      }));
+
+      function updatePassword(_x14, _x15) {
+        return _updatePassword.apply(this, arguments);
+      }
+
+      return updatePassword;
     }(),
     init: function init(context) {
       context.commit('addTokenToAxios');
