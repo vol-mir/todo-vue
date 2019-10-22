@@ -5,7 +5,7 @@
         <div class="col-md-12">
           <card>
             <template slot="header">
-              <h5 class="title">Tasks</h5>
+              <h4 slot="header" class="card-title">Tasks</h4>
             </template>
             <div
               class="row"
@@ -19,9 +19,21 @@
             <div
               v-else
               key="tasks-no-empty"
+              class="my-custom-scrollbar table-wrapper-scroll-y"
+              id="tasks-list"
+              ref="tasksList"
             >
               <table class="table">
                 <tbody>
+                <infinite-loading
+                  slot="append"
+                  @infinite="infiniteHandler"
+                  direction="top"
+                  @distance="1">
+                  <span slot="no-more">
+                    No hay más datos que cargar :(
+                  </span>
+                </infinite-loading>
                 <tr
                   v-for="task in orderedTasks"
                   :key="task.id"
@@ -158,8 +170,14 @@
 </template>
 
 <script>
+import InfiniteLoading from 'vue-infinite-loading'
+
 export default {
   name: 'Mainpage',
+
+  components: {
+    InfiniteLoading
+  },
 
   data () {
     return {
@@ -168,13 +186,18 @@ export default {
       editTask: {},
       editTaskOri: {},
       editTooltip: 'Edit Task',
-      deleteTooltip: 'Remove'
+      deleteTooltip: 'Remove',
+      page: 2
     }
   },
 
   computed: {
     allTasks () {
       return this.$store.getters.allTasks
+    },
+
+    pageTasks () {
+      return this.$store.getters.pageTasks
     },
 
     doneTasks () {
@@ -186,7 +209,7 @@ export default {
     },
 
     orderedTasks () {
-      return _.orderBy(this.filteredTasks, ['done', 'created_at'], ['asc', 'desc'])
+      return _.orderBy(this.filteredTasks, ['done', 'created_at'], ['asc', 'asc'])
     },
 
     isAuthenticated () {
@@ -210,12 +233,22 @@ export default {
   methods: {
     fetchTasks () {
       this.$store.dispatch('setTasks')
+        .then(() => {
+          this.$nextTick(function () {
+            this.$refs.tasksList.scrollTop = this.$refs.tasksList.scrollHeight
+          })
+        })
     },
 
     addNewTask () {
       this.$store.dispatch('addTask', {
         'name': this.newTaskText
       })
+        .then(() => {
+          this.$nextTick(function () {
+            this.$refs.tasksList.scrollTop = this.$refs.tasksList.scrollHeight
+          })
+        })
       this.$store.commit('updateNewTaskText', '')
     },
 
@@ -268,8 +301,32 @@ export default {
         .then(() => {
           this.$router.push('/signin')
         })
-    }
+    },
 
+    infiniteHandler ($state) {
+      this.$store.dispatch('setPageTasks', this.page)
+        .then(() => {
+          if (this.pageTasks.length) {
+            this.page += 1
+            setTimeout(() => {
+              $state.loaded()
+            }, 1000)
+          } else {
+            $state.complete()
+          }
+        })
+    }
   }
 }
 </script>
+
+<style scoped>
+  .my-custom-scrollbar {
+    position: relative;
+    height: 50vh;
+    overflow: auto;
+  }
+  .table-wrapper-scroll-y {
+    display: block;
+  }
+</style>

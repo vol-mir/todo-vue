@@ -19,9 +19,8 @@ class TaskController extends Controller
     {
         $tasks = Auth::user()
             ->tasks()
-            ->orderBy('done')
-            ->orderByDesc('created_at')
-            ->get();
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
 
         return response()->json([
             'message' => 'Successfully get a listing of the tasks',

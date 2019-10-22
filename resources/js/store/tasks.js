@@ -4,7 +4,8 @@ const ModuleTask = {
 
   state: {
     tasks: [],
-    newTaskText: ''
+    newTaskText: '',
+    pageTasks: []
   },
 
   getters: {
@@ -16,6 +17,10 @@ const ModuleTask = {
       return state.tasks
     },
 
+    pageTasks: state => {
+      return state.pageTasks
+    },
+
     doneTasks: state => {
       return state.tasks.filter(t => !t.done)
     }
@@ -23,7 +28,11 @@ const ModuleTask = {
 
   mutations: {
     setTasks: (state, payload) => {
-      state.tasks = payload.tasks
+      state.tasks.push(...payload.tasks.data)
+    },
+
+    setPageTasks: (state, payload) => {
+      state.pageTasks = payload.tasks.data
     },
 
     addTask: (state, payload) => {
@@ -52,11 +61,29 @@ const ModuleTask = {
   },
 
   actions: {
-    async setTasks (context) {
+    setTasks (context) {
       return new Promise((resolve, reject) => {
         Axios.get(`/api/v1/tasks`)
           .then(response => {
             context.commit('setTasks', response.data)
+            resolve(response)
+          }).catch(error => {
+            console.error(error)
+            reject(error)
+          })
+      })
+    },
+
+    async setPageTasks (context, page) {
+      return new Promise((resolve, reject) => {
+        Axios.get(`/api/v1/tasks`, {
+          params: {
+            page: page
+          }
+        })
+          .then(response => {
+            context.commit('setTasks', response.data)
+            context.commit('setPageTasks', response.data)
             resolve(response)
           }).catch(error => {
             console.error(error)

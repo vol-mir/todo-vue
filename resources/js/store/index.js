@@ -11,12 +11,14 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
-    tasks,
-    user
+    tasks: tasks,
+    user: user
   },
 
   plugins: [
-    createPersistedState(),
+    createPersistedState({
+      paths: [ 'user', 'tasks.getNewTaskText' ]
+    }),
     createMutationsSharer({ predicate: ['updateNewTaskText'] })
   ]
 })
