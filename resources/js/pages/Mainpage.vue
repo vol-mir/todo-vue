@@ -30,9 +30,8 @@
                   @infinite="infiniteHandler"
                   direction="top"
                   @distance="1">
-                  <span slot="no-more">
-                    No hay más datos que cargar :(
-                  </span>
+                  <div slot="no-more"></div>
+                  <div slot="no-results"></div>
                 </infinite-loading>
                 <tr
                   v-for="task in orderedTasks"
@@ -117,49 +116,45 @@
             </div>
             <hr>
 
-            <div class="row bg-secondary py-2 mt-2 ml-2 mr-2">
-              <div class="col-10 text-center text-secondary">
-                <input
-                  type="text"
-                  v-model="newTaskText"
-                  class="form-control"
-                  @keydown.enter="addNewTask"
-                  @keydown.esc="cancelAddingTask"/>
-              </div>
-              <div class="col-2">
-                <button
-                  class="btn btn-primary btn-fill "
-                  @click="addNewTask"
-                >
-                  new task
-                </button>
-              </div>
-            </div>
-
-            <div class="row bg-secondary py-2 text-white ml-2 mr-2 ">
-              <div class="col text-center">
-                <input
-                  type="checkbox"
-                  v-model="hideCompleted"
-                  class="form-check-input"
-                />
-                <label class="form-check-label font-weight-bold">
-                  Hide completed tasks
-                </label>
-              </div>
-              <div class="col text-center">
-                <button
-                  class="btn btn-sm btn-fill btn-warning"
-                  @click="deleteCompletedTasks"
-                >Delete Completed</button>
-              </div>
-            </div>
-
-            <div class="footer">
-              <hr>
-              <div class="stats">
-                <i class="fa fa-history"></i> Updated 3 minutes ago
-              </div>
+            <div class="row py-2 mt-2 ml-2 mr-2">
+              <div class="col-12 input-group">
+                  <input
+                    type="text"
+                    v-model="newTaskText"
+                    class="form-control"
+                    @keydown.enter="addNewTask"
+                    placeholder="New tasks..."
+                    @keydown.esc="cancelAddingTask"
+                    aria-label="New tasks..."
+                    style="height:45px; border-color:grey"
+                  >
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary btn-fill"
+                      type="button"
+                      @click="addNewTask"
+                      v-tooltip.top-center="'Add new task'"
+                    >
+                      Add
+                    </button>
+                    <button
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      @click="hideComlTask"
+                      v-tooltip.top-center="this.hideCompleted?'Show completed tasks':'Hide completed tasks'"
+                    >
+                      {{ this.hideCompleted?'Show Compl':'Hide Compl' }}
+                    </button>
+                    <button
+                      class="btn btn-outline-secondary"
+                      @click="deleteCompletedTasks"
+                      type="button"
+                      v-tooltip.top-center="'Delete completed task'"
+                    >
+                      Del Compl
+                    </button>
+                  </div>
+                </div>
             </div>
           </card>
         </div>
@@ -235,7 +230,9 @@ export default {
       this.$store.dispatch('setTasks')
         .then(() => {
           this.$nextTick(function () {
-            this.$refs.tasksList.scrollTop = this.$refs.tasksList.scrollHeight
+            if (this.$refs.tasksList) {
+              this.$refs.tasksList.scrollTop = this.$refs.tasksList.scrollHeight
+            }
           })
         })
     },
@@ -250,6 +247,10 @@ export default {
           })
         })
       this.$store.commit('updateNewTaskText', '')
+    },
+
+    hideComlTask () {
+      this.hideCompleted = !this.hideCompleted
     },
 
     cancelAddingTask () {
@@ -313,6 +314,9 @@ export default {
             }, 1000)
           } else {
             $state.complete()
+            if (this.$refs.tasksList) {
+              this.$refs.tasksList.scrollTop = this.$refs.tasksList.scrollHeight
+            }
           }
         })
     }
@@ -323,7 +327,7 @@ export default {
 <style scoped>
   .my-custom-scrollbar {
     position: relative;
-    height: 50vh;
+    height: 55vh;
     overflow: auto;
   }
   .table-wrapper-scroll-y {

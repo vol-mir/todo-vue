@@ -3286,11 +3286,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Mainpage',
@@ -3345,7 +3340,9 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$store.dispatch('setTasks').then(function () {
         _this.$nextTick(function () {
-          this.$refs.tasksList.scrollTop = this.$refs.tasksList.scrollHeight;
+          if (this.$refs.tasksList) {
+            this.$refs.tasksList.scrollTop = this.$refs.tasksList.scrollHeight;
+          }
         });
       });
     },
@@ -3360,6 +3357,9 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
       this.$store.commit('updateNewTaskText', '');
+    },
+    hideComlTask: function hideComlTask() {
+      this.hideCompleted = !this.hideCompleted;
     },
     cancelAddingTask: function cancelAddingTask() {
       this.$store.commit('updateNewTaskText', '');
@@ -3422,6 +3422,10 @@ __webpack_require__.r(__webpack_exports__);
           }, 1000);
         } else {
           $state.complete();
+
+          if (_this5.$refs.tasksList) {
+            _this5.$refs.tasksList.scrollTop = _this5.$refs.tasksList.scrollHeight;
+          }
         }
       });
     }
@@ -8532,7 +8536,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.my-custom-scrollbar[data-v-6820ca51] {\n  position: relative;\n  height: 50vh;\n  overflow: auto;\n}\n.table-wrapper-scroll-y[data-v-6820ca51] {\n  display: block;\n}\n", ""]);
+exports.push([module.i, "\n.my-custom-scrollbar[data-v-6820ca51] {\n  position: relative;\n  height: 55vh;\n  overflow: auto;\n}\n.table-wrapper-scroll-y[data-v-6820ca51] {\n  display: block;\n}\n", ""]);
 
 // exports
 
@@ -47831,18 +47835,15 @@ var render = function() {
                                   slot: "append"
                                 },
                                 [
-                                  _c(
-                                    "span",
-                                    {
-                                      attrs: { slot: "no-more" },
-                                      slot: "no-more"
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                  No hay más datos que cargar :(\n                "
-                                      )
-                                    ]
-                                  )
+                                  _c("div", {
+                                    attrs: { slot: "no-more" },
+                                    slot: "no-more"
+                                  }),
+                                  _vm._v(" "),
+                                  _c("div", {
+                                    attrs: { slot: "no-results" },
+                                    slot: "no-results"
+                                  })
                                 ]
                               ),
                               _vm._v(" "),
@@ -48120,160 +48121,141 @@ var render = function() {
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "row bg-secondary py-2 mt-2 ml-2 mr-2" },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "col-10 text-center text-secondary" },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.newTaskText,
-                              expression: "newTaskText"
+                _c("div", { staticClass: "row py-2 mt-2 ml-2 mr-2" }, [
+                  _c("div", { staticClass: "col-12 input-group" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.newTaskText,
+                          expression: "newTaskText"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      staticStyle: { height: "45px", "border-color": "grey" },
+                      attrs: {
+                        type: "text",
+                        placeholder: "New tasks...",
+                        "aria-label": "New tasks..."
+                      },
+                      domProps: { value: _vm.newTaskText },
+                      on: {
+                        keydown: [
+                          function($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
                             }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.newTaskText },
-                          on: {
-                            keydown: [
-                              function($event) {
-                                if (
-                                  !$event.type.indexOf("key") &&
-                                  _vm._k(
-                                    $event.keyCode,
-                                    "enter",
-                                    13,
-                                    $event.key,
-                                    "Enter"
-                                  )
-                                ) {
-                                  return null
-                                }
-                                return _vm.addNewTask($event)
-                              },
-                              function($event) {
-                                if (
-                                  !$event.type.indexOf("key") &&
-                                  _vm._k(
-                                    $event.keyCode,
-                                    "esc",
-                                    27,
-                                    $event.key,
-                                    ["Esc", "Escape"]
-                                  )
-                                ) {
-                                  return null
-                                }
-                                return _vm.cancelAddingTask($event)
-                              }
-                            ],
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.newTaskText = $event.target.value
+                            return _vm.addNewTask($event)
+                          },
+                          function($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k($event.keyCode, "esc", 27, $event.key, [
+                                "Esc",
+                                "Escape"
+                              ])
+                            ) {
+                              return null
                             }
+                            return _vm.cancelAddingTask($event)
                           }
-                        })
-                      ]
-                    ),
+                        ],
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.newTaskText = $event.target.value
+                        }
+                      }
+                    }),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-2" }, [
+                    _c("div", { staticClass: "input-group-append" }, [
                       _c(
                         "button",
                         {
-                          staticClass: "btn btn-primary btn-fill ",
+                          directives: [
+                            {
+                              name: "tooltip",
+                              rawName: "v-tooltip.top-center",
+                              value: "Add new task",
+                              expression: "'Add new task'",
+                              modifiers: { "top-center": true }
+                            }
+                          ],
+                          staticClass: "btn btn-outline-secondary btn-fill",
+                          attrs: { type: "button" },
                           on: { click: _vm.addNewTask }
                         },
-                        [_vm._v("\n                new task\n              ")]
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "row bg-secondary py-2 text-white ml-2 mr-2 "
-                  },
-                  [
-                    _c("div", { staticClass: "col text-center" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.hideCompleted,
-                            expression: "hideCompleted"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: Array.isArray(_vm.hideCompleted)
-                            ? _vm._i(_vm.hideCompleted, null) > -1
-                            : _vm.hideCompleted
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.hideCompleted,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = null,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  (_vm.hideCompleted = $$a.concat([$$v]))
-                              } else {
-                                $$i > -1 &&
-                                  (_vm.hideCompleted = $$a
-                                    .slice(0, $$i)
-                                    .concat($$a.slice($$i + 1)))
-                              }
-                            } else {
-                              _vm.hideCompleted = $$c
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        { staticClass: "form-check-label font-weight-bold" },
                         [
                           _vm._v(
-                            "\n                Hide completed tasks\n              "
+                            "\n                    Add\n                  "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          directives: [
+                            {
+                              name: "tooltip",
+                              rawName: "v-tooltip.top-center",
+                              value: this.hideCompleted
+                                ? "Show completed tasks"
+                                : "Hide completed tasks",
+                              expression:
+                                "this.hideCompleted?'Show completed tasks':'Hide completed tasks'",
+                              modifiers: { "top-center": true }
+                            }
+                          ],
+                          staticClass: "btn btn-outline-secondary",
+                          attrs: { type: "button" },
+                          on: { click: _vm.hideComlTask }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(
+                                this.hideCompleted ? "Show Compl" : "Hide Compl"
+                              ) +
+                              "\n                  "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          directives: [
+                            {
+                              name: "tooltip",
+                              rawName: "v-tooltip.top-center",
+                              value: "Delete completed task",
+                              expression: "'Delete completed task'",
+                              modifiers: { "top-center": true }
+                            }
+                          ],
+                          staticClass: "btn btn-outline-secondary",
+                          attrs: { type: "button" },
+                          on: { click: _vm.deleteCompletedTasks }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    Del Compl\n                  "
                           )
                         ]
                       )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col text-center" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-sm btn-fill btn-warning",
-                          on: { click: _vm.deleteCompletedTasks }
-                        },
-                        [_vm._v("Delete Completed")]
-                      )
                     ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "footer" }, [
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "stats" }, [
-                    _c("i", { staticClass: "fa fa-history" }),
-                    _vm._v(" Updated 3 minutes ago\n            ")
                   ])
                 ])
               ],
@@ -68218,6 +68200,9 @@ var ModuleTask = {
 
       (_state$tasks = state.tasks).push.apply(_state$tasks, _toConsumableArray(payload.tasks.data));
     },
+    clearTasks: function clearTasks(state) {
+      state.tasks = [];
+    },
     setPageTasks: function setPageTasks(state, payload) {
       state.pageTasks = payload.tasks.data;
     },
@@ -68252,6 +68237,7 @@ var ModuleTask = {
     setTasks: function setTasks(context) {
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/v1/tasks").then(function (response) {
+          context.commit('clearTasks');
           context.commit('setTasks', response.data);
           resolve(response);
         })["catch"](function (error) {

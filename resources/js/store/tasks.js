@@ -31,6 +31,10 @@ const ModuleTask = {
       state.tasks.push(...payload.tasks.data)
     },
 
+    clearTasks: (state) => {
+      state.tasks = []
+    },
+
     setPageTasks: (state, payload) => {
       state.pageTasks = payload.tasks.data
     },
@@ -65,6 +69,7 @@ const ModuleTask = {
       return new Promise((resolve, reject) => {
         Axios.get(`/api/v1/tasks`)
           .then(response => {
+            context.commit('clearTasks')
             context.commit('setTasks', response.data)
             resolve(response)
           }).catch(error => {
