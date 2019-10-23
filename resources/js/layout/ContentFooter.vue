@@ -9,8 +9,7 @@
         </ul>
       </nav>
       <div class="copyright text-center">
-        &copy; Coded with
-        <i class="fa fa-heart heart"></i> by
+        &copy; Coded with by
         <a href="https://www.linkedin.com/in/vladimirbykovski/" target="_blank">Vladimir Bykovsky</a>.
       </div>
     </div>

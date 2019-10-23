@@ -4,9 +4,10 @@ import NProgress from 'nprogress'
 
 import DashboardLayout from './layout/DashboardLayout.vue'
 
-import Mainpage from '@pages/Mainpage.vue'
+import MainPage from '@pages/MainPage.vue'
 import NotFound from '@pages/NotFoundPage.vue'
 import UserProfile from '@pages/UserProfile.vue'
+import AboutPage from '@pages/AboutPage.vue'
 
 import Signin from '@pages/Auth/Signin.vue'
 import Signup from '@pages/Auth/Signup.vue'
@@ -28,7 +29,7 @@ const router = new VueRouter({
         {
           path: 'main',
           name: 'mainPage',
-          component: Mainpage,
+          component: MainPage,
           meta: {
             requiresAuth: true,
             description: 'To-do List'
@@ -41,6 +42,15 @@ const router = new VueRouter({
           meta: {
             requiresAuth: true,
             description: 'User profile'
+          }
+        },
+        {
+          path: 'about',
+          name: 'aboutPage',
+          component: AboutPage,
+          meta: {
+            requiresAuth: true,
+            description: 'About'
           }
         }
       ]

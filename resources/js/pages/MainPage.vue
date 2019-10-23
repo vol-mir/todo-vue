@@ -168,7 +168,7 @@
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
-  name: 'Mainpage',
+  name: 'MainPage',
 
   components: {
     InfiniteLoading

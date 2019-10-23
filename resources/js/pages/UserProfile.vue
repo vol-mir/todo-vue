@@ -26,6 +26,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import EditProfileForm from './UserProfile/EditProfileForm.vue'
 import EditAvatar from './UserProfile/EditAvatar.vue'
@@ -33,6 +34,8 @@ import EditPasswordForm from './UserProfile/EditPasswordForm.vue'
 import UserCard from './UserProfile/UserCard.vue'
 
 export default {
+  name: 'UserProfile',
+
   components: {
     EditProfileForm,
     EditAvatar,
@@ -40,8 +43,4 @@ export default {
     UserCard
   }
 }
-
 </script>
-<style>
-
-</style>

@@ -22,6 +22,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'NotFoundPage'
+}
+</script>
+
 <style scoped>
   .main {
     background-color: #2F3242 !important;
