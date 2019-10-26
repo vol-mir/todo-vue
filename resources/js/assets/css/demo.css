@@ -837,4 +837,24 @@
   z-index: 105;
 }
 
+.my-custom-scrollbar {
+  position: relative;
+  height: 55vh;
+  overflow: auto;
+}
+.table-wrapper-scroll-y {
+  display: block;
+}
+.input-new-task {
+  height:45px;
+  border-color:grey;
+}
+.manage-task {
+  display: inline-block;
+  text-align: right;
+  width: 100%;
+}
 
+.grey-text {
+  color: grey;
+}
