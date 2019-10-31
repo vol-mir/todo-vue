@@ -1716,9 +1716,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'App',
-  mounted: function mounted() {// this.$store.dispatch('init')
-  }
+  name: 'App'
 });
 
 /***/ }),
@@ -1840,6 +1838,467 @@ __webpack_require__.r(__webpack_exports__);
     footerClasses: {
       type: [String, Object, Array],
       description: 'Card footer css classes'
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_InfiniteLoading_Spinner_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/InfiniteLoading/Spinner.vue */ "./resources/js/components/InfiniteLoading/Spinner.vue");
+/* harmony import */ var _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/InfiniteLoading/config */ "./resources/js/components/InfiniteLoading/config.js");
+/* harmony import */ var _components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @components/InfiniteLoading/utils */ "./resources/js/components/InfiniteLoading/utils.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'InfiniteLoading',
+  data: function data() {
+    return {
+      scrollParent: null,
+      scrollHandler: null,
+      isFirstLoad: true,
+      // save the current loading whether it is the first loading
+      status: _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].READY,
+      slots: _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["default"].slots
+    };
+  },
+  components: {
+    Spinner: _components_InfiniteLoading_Spinner_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  computed: {
+    isShowSpinner: function isShowSpinner() {
+      return this.status === _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].LOADING;
+    },
+    isShowError: function isShowError() {
+      return this.status === _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].ERROR;
+    },
+    isShowNoResults: function isShowNoResults() {
+      return this.status === _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].COMPLETE && this.isFirstLoad;
+    },
+    isShowNoMore: function isShowNoMore() {
+      return this.status === _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].COMPLETE && !this.isFirstLoad;
+    },
+    slotStyles: function slotStyles() {
+      var _this = this;
+
+      var styles = {};
+      Object.keys(_components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["default"].slots).forEach(function (key) {
+        var name = Object(_components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["kebabCase"])(key);
+
+        if ( // no slot and the configured default slot is not a Vue component
+        !_this.$slots[name] && !_components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["default"].slots[key].render || // has slot and slot is pure text node
+        _this.$slots[name] && !_this.$slots[name][0].tag) {
+          // only apply default styles for pure text slot
+          styles[key] = _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["SLOT_STYLES"];
+        }
+      });
+      return styles;
+    }
+  },
+  props: {
+    distance: {
+      type: Number,
+      "default": _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["default"].props.distance
+    },
+    spinner: String,
+    direction: {
+      type: String,
+      "default": 'bottom'
+    },
+    forceUseInfiniteWrapper: {
+      type: [Boolean, String],
+      "default": _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["default"].props.forceUseInfiniteWrapper
+    },
+    identifier: {
+      "default": +new Date()
+    },
+    onInfinite: Function
+  },
+  watch: {
+    identifier: function identifier() {
+      this.stateChanger.reset();
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$watch('forceUseInfiniteWrapper', function () {
+      _this2.scrollParent = _this2.getScrollParent();
+    }, {
+      immediate: true
+    });
+
+    this.scrollHandler = function (ev) {
+      if (_this2.status === _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].READY) {
+        if (ev && ev.constructor === Event && Object(_components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["isVisible"])(_this2.$el)) {
+          _components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["throttleer"].throttle(_this2.attemptLoad);
+        } else {
+          _this2.attemptLoad();
+        }
+      }
+    };
+
+    setTimeout(function () {
+      _this2.scrollHandler();
+
+      _this2.scrollParent.addEventListener('scroll', _this2.scrollHandler, _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["evt3rdArg"]);
+    }, 1);
+    this.$on('$InfiniteLoading:loaded', function (ev) {
+      _this2.isFirstLoad = false;
+
+      if (_this2.direction === 'top') {
+        // wait for DOM updated
+        _this2.$nextTick(function () {
+          _components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["scrollBarStorage"].restore(_this2.scrollParent);
+        });
+      }
+
+      if (_this2.status === _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].LOADING) {
+        _this2.$nextTick(_this2.attemptLoad.bind(null, true));
+      }
+
+      if (!ev || ev.target !== _this2) {
+        Object(_components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["warn"])(_components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["WARNINGS"].STATE_CHANGER);
+      }
+    });
+    this.$on('$InfiniteLoading:complete', function (ev) {
+      _this2.status = _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].COMPLETE; // force re-complation computed properties to fix the problem of get slot text delay
+
+      _this2.$nextTick(function () {
+        _this2.$forceUpdate();
+      });
+
+      _this2.scrollParent.removeEventListener('scroll', _this2.scrollHandler, _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["evt3rdArg"]);
+
+      if (!ev || ev.target !== _this2) {
+        Object(_components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["warn"])(_components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["WARNINGS"].STATE_CHANGER);
+      }
+    });
+    this.$on('$InfiniteLoading:reset', function (ev) {
+      _this2.status = _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].READY;
+      _this2.isFirstLoad = true;
+      _components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["scrollBarStorage"].remove(_this2.scrollParent);
+
+      _this2.scrollParent.addEventListener('scroll', _this2.scrollHandler, _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["evt3rdArg"]); // wait for list to be empty and the empty action may trigger a scroll event
+
+
+      setTimeout(function () {
+        _components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["throttleer"].reset();
+
+        _this2.scrollHandler();
+      }, 1);
+
+      if (!ev || ev.target !== _this2) {
+        Object(_components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["warn"])(_components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["WARNINGS"].IDENTIFIER);
+      }
+    });
+    /**
+     * change state for this component, pass to the callback
+     */
+
+    this.stateChanger = {
+      loaded: function loaded() {
+        _this2.$emit('$InfiniteLoading:loaded', {
+          target: _this2
+        });
+      },
+      complete: function complete() {
+        _this2.$emit('$InfiniteLoading:complete', {
+          target: _this2
+        });
+      },
+      reset: function reset() {
+        _this2.$emit('$InfiniteLoading:reset', {
+          target: _this2
+        });
+      },
+      error: function error() {
+        _this2.status = _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].ERROR;
+        _components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["throttleer"].reset();
+      }
+    };
+
+    if (this.onInfinite) {
+      Object(_components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["warn"])(_components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["WARNINGS"].INFINITE_EVENT);
+    }
+  },
+
+  /**
+   * To adapt to keep-alive feature, but only work on Vue 2.2.0 and above, see: https://vuejs.org/v2/api/#keep-alive
+   */
+  deactivated: function deactivated() {
+    /* istanbul ignore else */
+    if (this.status === _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].LOADING) {
+      this.status = _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].READY;
+    }
+
+    this.scrollParent.removeEventListener('scroll', this.scrollHandler, _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["evt3rdArg"]);
+  },
+  activated: function activated() {
+    this.scrollParent.addEventListener('scroll', this.scrollHandler, _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["evt3rdArg"]);
+  },
+  methods: {
+    /**
+    * attempt trigger load
+    * @param {Boolean} isContinuousCall  the flag of continuous call, it will be true
+    *                                    if this method be called in the `loaded`
+    *                                    event handler
+    */
+    attemptLoad: function attemptLoad(isContinuousCall) {
+      var _this3 = this;
+
+      if (this.status !== _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].COMPLETE && Object(_components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["isVisible"])(this.$el) && this.getCurrentDistance() <= this.distance) {
+        this.status = _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].LOADING;
+
+        if (this.direction === 'top') {
+          // wait for spinner display
+          this.$nextTick(function () {
+            _components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["scrollBarStorage"].save(_this3.scrollParent);
+          });
+        }
+
+        if (typeof this.onInfinite === 'function') {
+          this.onInfinite.call(null, this.stateChanger);
+        } else {
+          this.$emit('infinite', this.stateChanger);
+        }
+
+        if (isContinuousCall && !this.forceUseInfiniteWrapper && !_components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["loopTracker"].isChecked) {
+          // check this component whether be in an infinite loop if it is not checked
+          // more details: https://github.com/PeachScript/vue-infinite-loading/issues/55#issuecomment-316934169
+          _components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["loopTracker"].track();
+        }
+      } else if (this.status === _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].LOADING) {
+        this.status = _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].READY;
+      }
+    },
+
+    /**
+    * get current distance from the specified direction
+    * @return {Number}     distance
+    */
+    getCurrentDistance: function getCurrentDistance() {
+      var distance;
+
+      if (this.direction === 'top') {
+        distance = typeof this.scrollParent.scrollTop === 'number' ? this.scrollParent.scrollTop : this.scrollParent.pageYOffset;
+      } else {
+        var infiniteElmOffsetTopFromBottom = this.$el.getBoundingClientRect().top;
+        var scrollElmOffsetTopFromBottom = this.scrollParent === window ? window.innerHeight : this.scrollParent.getBoundingClientRect().bottom;
+        distance = infiniteElmOffsetTopFromBottom - scrollElmOffsetTopFromBottom;
+      }
+
+      return distance;
+    },
+
+    /**
+    * get the first scroll parent of an element
+    * @param  {DOM} elm    cache element for recursive search
+    * @return {DOM}        the first scroll parent
+    */
+    getScrollParent: function getScrollParent() {
+      var elm = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.$el;
+      var result;
+
+      if (typeof this.forceUseInfiniteWrapper === 'string') {
+        result = elm.querySelector(this.forceUseInfiniteWrapper);
+      }
+
+      if (!result) {
+        if (elm.tagName === 'BODY') {
+          result = window;
+        } else if (!this.forceUseInfiniteWrapper && ['scroll', 'auto'].indexOf(getComputedStyle(elm).overflowY) > -1) {
+          result = elm;
+        } else if (elm.hasAttribute('infinite-wrapper') || elm.hasAttribute('data-infinite-wrapper')) {
+          result = elm;
+        }
+      }
+
+      return result || this.getScrollParent(elm.parentNode);
+    }
+  },
+  destroyed: function destroyed() {
+    /* istanbul ignore else */
+    if (!this.status !== _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["STATUS"].COMPLETE) {
+      _components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["throttleer"].reset();
+      _components_InfiniteLoading_utils__WEBPACK_IMPORTED_MODULE_2__["scrollBarStorage"].remove(this.scrollParent);
+      this.scrollParent.removeEventListener('scroll', this.scrollHandler, _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_1__["evt3rdArg"]);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfiniteLoading/Spinner.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InfiniteLoading/Spinner.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/InfiniteLoading/config */ "./resources/js/components/InfiniteLoading/config.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+//
+//
+//
+//
+
+var SPINNERS = {
+  BUBBLES: {
+    render: function render(createElement) {
+      return createElement('span', {
+        attrs: {
+          "class": 'loading-bubbles'
+        }
+      }, Array.apply(Array, Array(8)).map(function () {
+        return createElement('span', {
+          attrs: {
+            "class": 'bubble-item'
+          }
+        });
+      }));
+    }
+  },
+  CIRCLES: {
+    render: function render(createElement) {
+      return createElement('span', {
+        attrs: {
+          "class": 'loading-circles'
+        }
+      }, Array.apply(Array, Array(8)).map(function () {
+        return createElement('span', {
+          attrs: {
+            "class": 'circle-item'
+          }
+        });
+      }));
+    }
+  },
+  DEFAULT: {
+    render: function render(createElement) {
+      return createElement('i', {
+        attrs: {
+          "class": 'loading-default'
+        }
+      });
+    }
+  },
+  SPIRAL: {
+    render: function render(createElement) {
+      return createElement('i', {
+        attrs: {
+          "class": 'loading-spiral'
+        }
+      });
+    }
+  },
+  WAVEDOTS: {
+    render: function render(createElement) {
+      return createElement('span', {
+        attrs: {
+          "class": 'loading-wave-dots'
+        }
+      }, Array.apply(Array, Array(5)).map(function () {
+        return createElement('span', {
+          attrs: {
+            "class": 'wave-item'
+          }
+        });
+      }));
+    }
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'Spinner',
+  computed: {
+    spinnerView: function spinnerView() {
+      return SPINNERS[(this.$attrs.spinner || '').toUpperCase()] || this.spinnerInConfig // fallback to spinner of config
+      ;
+    },
+    spinnerInConfig: function spinnerInConfig() {
+      var result;
+
+      if (_components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_0__["default"].slots.spinner && typeof _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_0__["default"].slots.spinner === 'string') {
+        // as spinner slot config a pure text spinner
+        result = {
+          render: function render() {
+            return this._v(_components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_0__["default"].slots.spinner); // eslint-disable-line no-underscore-dangle
+          }
+        };
+      } else if (_typeof(_components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_0__["default"].slots.spinner) === 'object') {
+        // as spinner slot config a Vue component
+        result = _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_0__["default"].slots.spinner;
+      } else {
+        // fallback to spinner property config
+
+        /* istanbul ignore next */
+        result = SPINNERS[_components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_0__["default"].props.spinner.toUpperCase()] || SPINNERS.DEFAULT;
+      }
+
+      return result;
     }
   }
 });
@@ -2093,7 +2552,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _SidebarLink_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SidebarLink.vue */ "./resources/js/components/SidebarPlugin/SidebarLink.vue");
+/* harmony import */ var _components_SidebarPlugin_SidebarLink_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/SidebarPlugin/SidebarLink.vue */ "./resources/js/components/SidebarPlugin/SidebarLink.vue");
+//
 //
 //
 //
@@ -2133,7 +2593,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SideBar',
   components: {
-    SidebarLink: _SidebarLink_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    SidebarLink: _components_SidebarPlugin_SidebarLink_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
     title: {
@@ -2259,6 +2719,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -2289,6 +2750,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -2302,12 +2764,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _TopNavbar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TopNavbar.vue */ "./resources/js/layout/TopNavbar.vue");
-/* harmony import */ var _ContentFooter_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ContentFooter.vue */ "./resources/js/layout/ContentFooter.vue");
-/* harmony import */ var _Content_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Content.vue */ "./resources/js/layout/Content.vue");
-/* harmony import */ var _MobileMenu_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MobileMenu.vue */ "./resources/js/layout/MobileMenu.vue");
-//
-//
+/* harmony import */ var _layout_TopNavbar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @layout/TopNavbar.vue */ "./resources/js/layout/TopNavbar.vue");
+/* harmony import */ var _layout_ContentFooter_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @layout/ContentFooter.vue */ "./resources/js/layout/ContentFooter.vue");
+/* harmony import */ var _layout_Content_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @layout/Content.vue */ "./resources/js/layout/Content.vue");
+/* harmony import */ var _layout_MobileMenu_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @layout/MobileMenu.vue */ "./resources/js/layout/MobileMenu.vue");
 //
 //
 //
@@ -2342,10 +2802,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    TopNavbar: _TopNavbar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    ContentFooter: _ContentFooter_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    DashboardContent: _Content_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    MobileMenu: _MobileMenu_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    TopNavbar: _layout_TopNavbar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ContentFooter: _layout_ContentFooter_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    DashboardContent: _layout_Content_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    MobileMenu: _layout_MobileMenu_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   methods: {
     toggleSidebar: function toggleSidebar() {
@@ -2367,6 +2827,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -2405,6 +2866,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -2485,6 +2947,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Cards_Card_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/Cards/Card.vue */ "./resources/js/components/Cards/Card.vue");
+//
 //
 //
 //
@@ -3214,7 +3677,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _TasksList_TasksList_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TasksList/TasksList.vue */ "./resources/js/pages/TasksList/TasksList.vue");
+/* harmony import */ var _pages_TasksList_TasksList_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pages/TasksList/TasksList.vue */ "./resources/js/pages/TasksList/TasksList.vue");
 //
 //
 //
@@ -3231,7 +3694,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'MainPage',
   components: {
-    TasksList: _TasksList_TasksList_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    TasksList: _pages_TasksList_TasksList_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -3285,8 +3748,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-infinite-loading */ "./node_modules/vue-infinite-loading/dist/vue-infinite-loading.js");
-/* harmony import */ var vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_InfiniteLoading_InfiniteLoading_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/InfiniteLoading/InfiniteLoading.vue */ "./resources/js/components/InfiniteLoading/InfiniteLoading.vue");
+//
 //
 //
 //
@@ -3447,7 +3910,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'TasksList',
   components: {
-    InfiniteLoading: vue_infinite_loading__WEBPACK_IMPORTED_MODULE_0___default.a
+    InfiniteLoading: _components_InfiniteLoading_InfiniteLoading_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -3457,7 +3920,8 @@ __webpack_require__.r(__webpack_exports__);
       editTaskOri: {},
       editTooltip: 'Edit Task',
       deleteTooltip: 'Remove',
-      page: 2
+      page: 2,
+      height: 0
     };
   },
   computed: {
@@ -3468,7 +3932,9 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.pageTasks;
     },
     doneTasks: function doneTasks() {
-      return this.$store.getters.doneTasks;
+      return this.allTasks.filter(function (t) {
+        return !t.done;
+      });
     },
     filteredTasks: function filteredTasks() {
       return this.hideCompleted ? this.doneTasks : this.allTasks;
@@ -3503,6 +3969,10 @@ __webpack_require__.r(__webpack_exports__);
     addNewTask: function addNewTask() {
       var _this2 = this;
 
+      if (this.newTaskText.length === 0) {
+        return;
+      }
+
       this.$store.dispatch('addTask', {
         'name': this.newTaskText
       }).then(function () {
@@ -3514,12 +3984,26 @@ __webpack_require__.r(__webpack_exports__);
     },
     hideComlTask: function hideComlTask() {
       this.hideCompleted = !this.hideCompleted;
+      this.$nextTick(function () {
+        this.$refs.tasksList.scrollTop = this.$refs.tasksList.scrollHeight;
+      });
     },
     cancelAddingTask: function cancelAddingTask() {
       this.$store.commit('updateNewTaskText', '');
     },
     deleteCompletedTasks: function deleteCompletedTasks() {
-      this.$store.dispatch('deleteCompletedTasks');
+      var _this3 = this;
+
+      this.$store.dispatch('deleteCompletedTasks').then(function () {
+        _this3.$nextTick(function () {
+          if (this.$refs.tasksList) {
+            this.page = 2;
+            var stateChanger = this.$refs.infiniteLoading.stateChanger;
+            stateChanger.reset();
+            this.$refs.tasksList.scrollTop = this.$refs.tasksList.scrollHeight;
+          }
+        });
+      });
     },
     deleteTask: function deleteTask(task) {
       this.$store.dispatch('deleteTask', task);
@@ -3536,16 +4020,20 @@ __webpack_require__.r(__webpack_exports__);
       }.bind(this));
     },
     updateTask: function updateTask() {
+      if (this.editTask.name.length === 0) {
+        return;
+      }
+
       this.$store.dispatch('updateTask', this.editTask);
       this.editOffset = -1;
       this.editTaskOri = {};
       this.editTask = {};
     },
     cancelEditingTask: function cancelEditingTask() {
-      var _this3 = this;
+      var _this4 = this;
 
       var indexFiltTask = this.orderedTasks.findIndex(function (elem) {
-        return elem.id === _this3.editOffset;
+        return elem.id === _this4.editOffset;
       });
       this.$set(this.orderedTasks, indexFiltTask, this.editTaskOri);
       this.editOffset = -1;
@@ -3559,20 +4047,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     infiniteHandler: function infiniteHandler($state) {
-      var _this4 = this;
+      var _this5 = this;
 
       this.$store.dispatch('setPageTasks', this.page).then(function () {
-        if (_this4.pageTasks.length) {
-          _this4.page += 1;
+        if (_this5.pageTasks.length) {
+          _this5.page += 1;
           setTimeout(function () {
             $state.loaded();
-          }, 1000);
+          }, 2000);
         } else {
           $state.complete();
-
-          if (_this4.$refs.tasksList) {
-            _this4.$refs.tasksList.scrollTop = _this4.$refs.tasksList.scrollHeight;
-          }
         }
       });
     }
@@ -3843,6 +4327,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'EditPasswordForm',
@@ -3894,6 +4379,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _extensions_Object_Difference__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/extensions/Object+Difference */ "./resources/js/extensions/Object+Difference.js");
 /* harmony import */ var _components_Cards_Card_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/Cards/Card.vue */ "./resources/js/components/Cards/Card.vue");
+//
 //
 //
 //
@@ -8558,6 +9044,25 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/postcss-loader/src/index.js?!./node_modules/less-loader/dist/cjs.js!./resources/js/assets/infinite-loading/spinner.less":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/postcss-loader/src??ref--9-2!./node_modules/less-loader/dist/cjs.js!./resources/js/assets/infinite-loading/spinner.less ***!
+  \************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".loading-wave-dots {\n  position: relative;\n}\n.loading-wave-dots >>> .wave-item {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  display: inline-block;\n  margin-top: -4px;\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  -webkit-animation: loading-wave-dots linear 2.8s infinite;\n          animation: loading-wave-dots linear 2.8s infinite;\n}\n.loading-wave-dots >>> .wave-item:first-child {\n  margin-left: -36px;\n}\n.loading-wave-dots >>> .wave-item:nth-child(2) {\n  margin-left: -20px;\n  -webkit-animation-delay: 0.14s;\n          animation-delay: 0.14s;\n}\n.loading-wave-dots >>> .wave-item:nth-child(3) {\n  margin-left: -4px;\n  -webkit-animation-delay: 0.28s;\n          animation-delay: 0.28s;\n}\n.loading-wave-dots >>> .wave-item:nth-child(4) {\n  margin-left: 12px;\n  -webkit-animation-delay: 0.42s;\n          animation-delay: 0.42s;\n}\n.loading-wave-dots >>> .wave-item:last-child {\n  margin-left: 28px;\n  -webkit-animation-delay: 0.56s;\n          animation-delay: 0.56s;\n}\n@-webkit-keyframes loading-wave-dots {\n  0% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    background: #bbb;\n  }\n  10% {\n    -webkit-transform: translateY(-6px);\n            transform: translateY(-6px);\n    background: #999;\n  }\n  20% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    background: #bbb;\n  }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    background: #bbb;\n  }\n}\n@keyframes loading-wave-dots {\n  0% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    background: #bbb;\n  }\n  10% {\n    -webkit-transform: translateY(-6px);\n            transform: translateY(-6px);\n    background: #999;\n  }\n  20% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    background: #bbb;\n  }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    background: #bbb;\n  }\n}\n.loading-circles >>> .circle-item {\n  width: 5px;\n  height: 5px;\n  -webkit-animation: loading-circles linear 0.75s infinite;\n          animation: loading-circles linear 0.75s infinite;\n}\n.loading-circles >>> .circle-item:first-child {\n  margin-top: -14.5px;\n  margin-left: -2.5px;\n}\n.loading-circles >>> .circle-item:nth-child(2) {\n  margin-top: -11.26px;\n  margin-left: 6.26px;\n}\n.loading-circles >>> .circle-item:nth-child(3) {\n  margin-top: -2.5px;\n  margin-left: 9.5px;\n}\n.loading-circles >>> .circle-item:nth-child(4) {\n  margin-top: 6.26px;\n  margin-left: 6.26px;\n}\n.loading-circles >>> .circle-item:nth-child(5) {\n  margin-top: 9.5px;\n  margin-left: -2.5px;\n}\n.loading-circles >>> .circle-item:nth-child(6) {\n  margin-top: 6.26px;\n  margin-left: -11.26px;\n}\n.loading-circles >>> .circle-item:nth-child(7) {\n  margin-top: -2.5px;\n  margin-left: -14.5px;\n}\n.loading-circles >>> .circle-item:last-child {\n  margin-top: -11.26px;\n  margin-left: -11.26px;\n}\n@-webkit-keyframes loading-circles {\n  0% {\n    background: #dfdfdf;\n  }\n  90% {\n    background: #505050;\n  }\n  100% {\n    background: #dfdfdf;\n  }\n}\n@keyframes loading-circles {\n  0% {\n    background: #dfdfdf;\n  }\n  90% {\n    background: #505050;\n  }\n  100% {\n    background: #dfdfdf;\n  }\n}\n.loading-bubbles >>> .bubble-item {\n  background: #666;\n  -webkit-animation: loading-bubbles linear 0.75s infinite;\n          animation: loading-bubbles linear 0.75s infinite;\n}\n.loading-bubbles >>> .bubble-item:first-child {\n  margin-top: -12.5px;\n  margin-left: -0.5px;\n}\n.loading-bubbles >>> .bubble-item:nth-child(2) {\n  margin-top: -9.26px;\n  margin-left: 8.26px;\n}\n.loading-bubbles >>> .bubble-item:nth-child(3) {\n  margin-top: -0.5px;\n  margin-left: 11.5px;\n}\n.loading-bubbles >>> .bubble-item:nth-child(4) {\n  margin-top: 8.26px;\n  margin-left: 8.26px;\n}\n.loading-bubbles >>> .bubble-item:nth-child(5) {\n  margin-top: 11.5px;\n  margin-left: -0.5px;\n}\n.loading-bubbles >>> .bubble-item:nth-child(6) {\n  margin-top: 8.26px;\n  margin-left: -9.26px;\n}\n.loading-bubbles >>> .bubble-item:nth-child(7) {\n  margin-top: -0.5px;\n  margin-left: -12.5px;\n}\n.loading-bubbles >>> .bubble-item:last-child {\n  margin-top: -9.26px;\n  margin-left: -9.26px;\n}\n@-webkit-keyframes loading-bubbles {\n  0% {\n    width: 1px;\n    height: 1px;\n    box-shadow: 0 0 0 3px #666;\n  }\n  90% {\n    width: 1px;\n    height: 1px;\n    box-shadow: 0 0 0 0 #666;\n  }\n  100% {\n    width: 1px;\n    height: 1px;\n    box-shadow: 0 0 0 3px #666;\n  }\n}\n@keyframes loading-bubbles {\n  0% {\n    width: 1px;\n    height: 1px;\n    box-shadow: 0 0 0 3px #666;\n  }\n  90% {\n    width: 1px;\n    height: 1px;\n    box-shadow: 0 0 0 0 #666;\n  }\n  100% {\n    width: 1px;\n    height: 1px;\n    box-shadow: 0 0 0 3px #666;\n  }\n}\n.loading-default {\n  position: relative;\n  border: 1px solid #999;\n  -webkit-animation: loading-rotating ease 1.5s infinite;\n          animation: loading-rotating ease 1.5s infinite;\n}\n.loading-default:before {\n  content: '';\n  position: absolute;\n  display: block;\n  top: 0;\n  left: 50%;\n  margin-top: -3px;\n  margin-left: -3px;\n  width: 6px;\n  height: 6px;\n  background-color: #999;\n  border-radius: 50%;\n}\n.loading-spiral {\n  border: 2px solid #777;\n  border-right-color: transparent;\n  -webkit-animation: loading-rotating linear 0.85s infinite;\n          animation: loading-rotating linear 0.85s infinite;\n}\n@-webkit-keyframes loading-rotating {\n  0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@keyframes loading-rotating {\n  0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n.loading-bubbles,\n.loading-circles {\n  position: relative;\n}\n.loading-circles >>> .circle-item,\n.loading-bubbles >>> .bubble-item {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  display: inline-block;\n  border-radius: 50%;\n}\n.loading-circles >>> .circle-item:nth-child(2),\n.loading-bubbles >>> .bubble-item:nth-child(2) {\n  -webkit-animation-delay: 0.093s;\n          animation-delay: 0.093s;\n}\n.loading-circles >>> .circle-item:nth-child(3),\n.loading-bubbles >>> .bubble-item:nth-child(3) {\n  -webkit-animation-delay: 0.186s;\n          animation-delay: 0.186s;\n}\n.loading-circles >>> .circle-item:nth-child(4),\n.loading-bubbles >>> .bubble-item:nth-child(4) {\n  -webkit-animation-delay: 0.279s;\n          animation-delay: 0.279s;\n}\n.loading-circles >>> .circle-item:nth-child(5),\n.loading-bubbles >>> .bubble-item:nth-child(5) {\n  -webkit-animation-delay: 0.372s;\n          animation-delay: 0.372s;\n}\n.loading-circles >>> .circle-item:nth-child(6),\n.loading-bubbles >>> .bubble-item:nth-child(6) {\n  -webkit-animation-delay: 0.465s;\n          animation-delay: 0.465s;\n}\n.loading-circles >>> .circle-item:nth-child(7),\n.loading-bubbles >>> .bubble-item:nth-child(7) {\n  -webkit-animation-delay: 0.558s;\n          animation-delay: 0.558s;\n}\n.loading-circles >>> .circle-item:last-child,\n.loading-bubbles >>> .bubble-item:last-child {\n  -webkit-animation-delay: 0.651s;\n          animation-delay: 0.651s;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./resources/js/assets/sass/light-bootstrap-dashboard.scss":
 /*!****************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./resources/js/assets/sass/light-bootstrap-dashboard.scss ***!
@@ -8572,6 +9077,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, "@charset \"UTF-8\";\n/*!\n\n =========================================================\n * Vue Light Bootstrap Dashboard - v2.0.0 (Bootstrap 4)\n =========================================================\n\n * Product Page: http://www.creative-tim.com/product/light-bootstrap-dashboard\n * Copyright 2019 Creative Tim (http://www.creative-tim.com)\n * Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard/blob/master/LICENSE.md)\n\n =========================================================\n\n * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\n */\n/*      light colors         */\n@keyframes spin {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@-webkit-keyframes spin {\n  from {\n    -webkit-transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n  }\n}\n/*           Font Smoothing      */\nbody,\nh1, .h1,\nh2, .h2,\nh3, .h3,\nh4, .h4,\nh5, .h5,\nh6, .h6,\np,\n.navbar,\n.brand,\n.btn-simple,\n.alert,\na,\n.td-name,\ntd,\nbutton.close {\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-family: \"Roboto\", \"Helvetica Neue\", Arial, sans-serif;\n  font-weight: 400;\n}\n\nh1, .h1, h2, .h2, h3, .h3, h4, .h4 {\n  font-weight: 300;\n  margin: 30px 0 15px;\n}\n\nh1, .h1 {\n  font-size: 52px;\n}\n\nh2, .h2 {\n  font-size: 36px;\n}\n\nh3, .h3 {\n  font-size: 28px;\n  margin: 20px 0 10px;\n}\n\nh4, .h4 {\n  font-size: 22px;\n  line-height: 30px;\n}\n\nh5, .h5 {\n  font-size: 16px;\n  margin-bottom: 15px;\n}\n\nh6, .h6 {\n  font-size: 14px;\n  font-weight: 600;\n  text-transform: uppercase;\n}\n\np {\n  font-size: 16px;\n  line-height: 1.5;\n}\n\nh1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {\n  color: #9A9A9A;\n  font-weight: 300;\n  line-height: 1.5;\n}\n\nh1 small, h2 small, h3 small, h1 .small, h2 .small, h3 .small {\n  font-size: 60%;\n}\n\nh1 .subtitle {\n  display: block;\n  margin: 0 0 30px;\n}\n\n.text-muted {\n  color: #9A9A9A;\n}\n\n.text-primary, .text-primary:hover {\n  color: #1D62F0 !important;\n}\n\n.text-info, .text-info:hover {\n  color: #1DC7EA !important;\n}\n\n.text-success, .text-success:hover {\n  color: #87CB16 !important;\n}\n\n.text-warning, .text-warning:hover {\n  color: #FF9500 !important;\n}\n\n.text-danger, .text-danger:hover {\n  color: #FF4A55 !important;\n}\n\n/*     General overwrite     */\nbody,\n.wrapper {\n  min-height: 100vh;\n  position: relative;\n}\n\na {\n  color: #1DC7EA;\n}\na:hover, a:focus {\n  color: #42d0ed;\n  text-decoration: none;\n}\n\na:focus, a:active,\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner,\ninput[type=reset]::-moz-focus-inner,\ninput[type=button]::-moz-focus-inner,\ninput[type=submit]::-moz-focus-inner,\nselect::-moz-focus-inner,\ninput[type=file] > input[type=button]::-moz-focus-inner {\n  outline: 0;\n}\n\n.ui-slider-handle:focus,\n.navbar-toggle,\ninput:focus {\n  outline: 0 !important;\n}\n\n/*           Animations              */\n.form-control,\n.input-group-addon,\n.tagsinput,\n.navbar,\n.navbar .alert {\n  -webkit-transition: all 300ms linear;\n  transition: all 300ms linear;\n}\n\n.sidebar .nav a,\n.table > tbody > tr .td-actions .btn {\n  -webkit-transition: all 150ms ease-in;\n  transition: all 150ms ease-in;\n}\n\n.btn {\n  -webkit-transition: all 100ms ease-in;\n  transition: all 100ms ease-in;\n}\n\n.fa {\n  width: 18px;\n  text-align: center;\n}\n\n.margin-top {\n  margin-top: 50px;\n}\n\n.wrapper {\n  position: relative;\n  top: 0;\n  height: 100vh;\n}\n\n.page-header .page-header-image {\n  background-position: center center;\n  background-size: cover;\n  overflow: hidden;\n  width: 100%;\n  z-index: 1;\n}\n.page-header .title-container {\n  color: #fff;\n  position: relative;\n  top: 250px;\n  z-index: 3;\n}\n.page-header .filter:after {\n  background: rgba(0, 0, 0, 0) -webkit-gradient(linear, left top, left bottom, from(#9368e9), to(#943bea)) repeat scroll 0 0/150% 150%;\n  background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #9368e9 0%, #943bea 100%) repeat scroll 0 0/150% 150%;\n  content: \"\";\n  display: block;\n  height: 100%;\n  left: 0;\n  opacity: 0.77;\n  position: absolute;\n  top: 0;\n  width: 100%;\n  z-index: 2;\n}\n\n.documentation .page-header,\n.documentation .page-header-image,\n.documentation .page-header-image .filter:after {\n  height: 100vh;\n}\n\n.documentation .footer {\n  z-index: 3;\n}\n\n.documentation .wrapper {\n  margin-top: -61px;\n  height: 100vh;\n}\n\n.documentation .navbar {\n  z-index: 21;\n}\n\n.card-tasks .card-body .table td {\n  font-size: 14px;\n}\n.card-tasks .card-body .table td .btn {\n  font-size: 14px;\n}\n.card-tasks .card-body .table td .btn-info {\n  margin-top: 3px;\n  padding-right: 0;\n}\n.card-tasks .card-body .table td:last-child {\n  padding-right: 0;\n}\n\n.sidebar,\nbody > .navbar-collapse {\n  position: fixed;\n  height: 100vh;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  width: 260px;\n  display: block;\n  z-index: 1;\n  color: #fff;\n  font-weight: 200;\n  background-size: cover;\n  background-position: center center;\n}\n.sidebar .sidebar-wrapper,\nbody > .navbar-collapse .sidebar-wrapper {\n  position: relative;\n  max-height: calc(100vh - 75px);\n  min-height: 100%;\n  overflow: auto;\n  width: 260px;\n  z-index: 4;\n  padding-bottom: 20px;\n}\n.sidebar .sidebar-background,\nbody > .navbar-collapse .sidebar-background {\n  position: absolute;\n  z-index: 1;\n  height: 100%;\n  width: 100%;\n  display: block;\n  top: 0;\n  left: 0;\n  background-size: cover;\n  background-position: center center;\n}\n.sidebar .logo,\nbody > .navbar-collapse .logo {\n  padding: 10px 15px 9px 15px;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.2);\n  position: relative;\n  z-index: 4;\n}\n.sidebar .logo p,\nbody > .navbar-collapse .logo p {\n  float: left;\n  font-size: 20px;\n  margin: 10px 10px;\n  color: #FFFFFF;\n  line-height: 20px;\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n}\n.sidebar .logo .simple-text,\nbody > .navbar-collapse .logo .simple-text {\n  text-transform: uppercase;\n  padding: 5px 0px;\n  font-size: 18px;\n  color: #FFFFFF;\n  text-align: center;\n  font-weight: 400;\n  line-height: 30px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.sidebar .logo .simple-text .logo-img,\nbody > .navbar-collapse .logo .simple-text .logo-img {\n  width: 40px;\n  display: -webkit-inline-box;\n  display: inline-flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center;\n  height: 40px;\n  margin-left: 0px;\n  margin-right: 10px;\n  background: white;\n  border-radius: 40px;\n}\n.sidebar .logo .simple-text .logo-img img,\nbody > .navbar-collapse .logo .simple-text .logo-img img {\n  max-width: 21px;\n}\n.sidebar .logo-tim,\nbody > .navbar-collapse .logo-tim {\n  border-radius: 50%;\n  border: 1px solid #333;\n  display: block;\n  height: 61px;\n  width: 61px;\n  float: left;\n  overflow: hidden;\n}\n.sidebar .logo-tim img,\nbody > .navbar-collapse .logo-tim img {\n  width: 60px;\n  height: 60px;\n}\n.sidebar .nav,\nbody > .navbar-collapse .nav {\n  margin-top: 20px;\n  float: none;\n  display: block;\n}\n.sidebar .nav li .nav-link,\nbody > .navbar-collapse .nav li .nav-link {\n  color: #FFFFFF;\n  margin: 5px 15px;\n  opacity: 0.86;\n  border-radius: 4px;\n  display: block;\n  padding: 10px 15px;\n}\n.sidebar .nav li .nav-link:hover,\nbody > .navbar-collapse .nav li .nav-link:hover {\n  background: rgba(255, 255, 255, 0.13);\n  opacity: 1;\n}\n.sidebar .nav li .nav-link p,\nbody > .navbar-collapse .nav li .nav-link p {\n  margin: 0;\n  line-height: 31px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: uppercase;\n  display: -webkit-inline-box;\n  display: inline-flex;\n}\n.sidebar .nav li .nav-link i,\nbody > .navbar-collapse .nav li .nav-link i {\n  font-size: 28px;\n  margin-right: 15px;\n  width: 30px;\n  text-align: center;\n  vertical-align: middle;\n  float: left;\n}\n.sidebar .nav li:hover .nav-link,\nbody > .navbar-collapse .nav li:hover .nav-link {\n  background: rgba(255, 255, 255, 0.13);\n  opacity: 1;\n}\n.sidebar .nav li.active .nav-link,\nbody > .navbar-collapse .nav li.active .nav-link {\n  color: #FFFFFF;\n  opacity: 1;\n  background: rgba(255, 255, 255, 0.23);\n}\n.sidebar .nav li.separator,\nbody > .navbar-collapse .nav li.separator {\n  margin: 15px 0;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.2);\n}\n.sidebar .nav li.separator + .nav-item,\nbody > .navbar-collapse .nav li.separator + .nav-item {\n  margin-top: 31px;\n}\n.sidebar .nav .caret,\nbody > .navbar-collapse .nav .caret {\n  margin-top: 13px;\n  position: absolute;\n  right: 30px;\n}\n.sidebar .nav .active-pro,\nbody > .navbar-collapse .nav .active-pro {\n  position: absolute;\n  width: 100%;\n  bottom: 10px;\n}\n.sidebar .nav .active-pro a,\nbody > .navbar-collapse .nav .active-pro a {\n  color: #FFFFFF !important;\n}\n.sidebar .nav .nav-link,\nbody > .navbar-collapse .nav .nav-link {\n  color: #FFFFFF;\n  margin: 5px 15px;\n  opacity: 0.86;\n  border-radius: 4px;\n  text-transform: uppercase;\n  line-height: 30px;\n  font-size: 12px;\n  font-weight: 600;\n}\n.sidebar .logo,\nbody > .navbar-collapse .logo {\n  padding: 10px 15px;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.2);\n}\n.sidebar .logo p,\nbody > .navbar-collapse .logo p {\n  float: left;\n  font-size: 20px;\n  margin: 10px 10px;\n  color: #FFFFFF;\n  line-height: 20px;\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n}\n.sidebar .logo .simple-text,\nbody > .navbar-collapse .logo .simple-text {\n  text-transform: uppercase;\n  padding: 5px 0px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  font-size: 18px;\n  color: #FFFFFF;\n  text-align: center;\n  font-weight: 400;\n  line-height: 30px;\n}\n.sidebar .logo-tim,\nbody > .navbar-collapse .logo-tim {\n  border-radius: 50%;\n  border: 1px solid #333;\n  display: block;\n  height: 61px;\n  width: 61px;\n  float: left;\n  overflow: hidden;\n}\n.sidebar .logo-tim img,\nbody > .navbar-collapse .logo-tim img {\n  width: 60px;\n  height: 60px;\n}\n.sidebar:after, .sidebar:before,\nbody > .navbar-collapse:after,\nbody > .navbar-collapse:before {\n  display: block;\n  content: \"\";\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0;\n  z-index: 2;\n}\n.sidebar:before,\nbody > .navbar-collapse:before {\n  opacity: 0.33;\n  background: #000000;\n}\n.sidebar:after,\nbody > .navbar-collapse:after {\n  background: #9368E9;\n  background: -webkit-gradient(linear, left top, left bottom, from(#9368E9), to(#943bea));\n  background: linear-gradient(to bottom, #9368E9 0%, #943bea 100%);\n  background-size: 150% 150%;\n  z-index: 3;\n  opacity: 1;\n}\n.sidebar[data-image]:after, .sidebar.has-image:after,\nbody > .navbar-collapse[data-image]:after,\nbody > .navbar-collapse.has-image:after {\n  opacity: 0.77;\n}\n.sidebar[data-color=black]:after,\nbody > .navbar-collapse[data-color=black]:after {\n  background: #292929;\n  background: -webkit-gradient(linear, left top, left bottom, from(#292929), to(#0e0e0e));\n  background: linear-gradient(to bottom, #292929 0%, #0e0e0e 100%);\n  background-size: 150% 150%;\n}\n.sidebar[data-color=blue]:after,\nbody > .navbar-collapse[data-color=blue]:after {\n  background: #1F77D0;\n  background: -webkit-gradient(linear, left top, left bottom, from(#1F77D0), to(#533ce1));\n  background: linear-gradient(to bottom, #1F77D0 0%, #533ce1 100%);\n  background-size: 150% 150%;\n}\n.sidebar[data-color=azure]:after,\nbody > .navbar-collapse[data-color=azure]:after {\n  background: #1DC7EA;\n  background: -webkit-gradient(linear, left top, left bottom, from(#1DC7EA), to(#4091ff));\n  background: linear-gradient(to bottom, #1DC7EA 0%, #4091ff 100%);\n  background-size: 150% 150%;\n}\n.sidebar[data-color=green]:after,\nbody > .navbar-collapse[data-color=green]:after {\n  background: #87CB16;\n  background: -webkit-gradient(linear, left top, left bottom, from(#87CB16), to(#6dc030));\n  background: linear-gradient(to bottom, #87CB16 0%, #6dc030 100%);\n  background-size: 150% 150%;\n}\n.sidebar[data-color=orange]:after,\nbody > .navbar-collapse[data-color=orange]:after {\n  background: #FFA534;\n  background: -webkit-gradient(linear, left top, left bottom, from(#FFA534), to(#ff5221));\n  background: linear-gradient(to bottom, #FFA534 0%, #ff5221 100%);\n  background-size: 150% 150%;\n}\n.sidebar[data-color=red]:after,\nbody > .navbar-collapse[data-color=red]:after {\n  background: #FB404B;\n  background: -webkit-gradient(linear, left top, left bottom, from(#FB404B), to(#bb0502));\n  background: linear-gradient(to bottom, #FB404B 0%, #bb0502 100%);\n  background-size: 150% 150%;\n}\n.sidebar[data-color=purple]:after,\nbody > .navbar-collapse[data-color=purple]:after {\n  background: #9368E9;\n  background: -webkit-gradient(linear, left top, left bottom, from(#9368E9), to(#943bea));\n  background: linear-gradient(to bottom, #9368E9 0%, #943bea 100%);\n  background-size: 150% 150%;\n}\n\n.main-panel {\n  position: relative;\n  float: right;\n  width: calc(100% - 260px);\n  min-height: 100%;\n}\n.main-panel > .content {\n  padding: 30px 15px;\n  min-height: calc(100% - 123px);\n}\n.main-panel > .footer {\n  border-top: 1px solid #e7e7e7;\n}\n.main-panel .navbar {\n  margin-bottom: 0;\n}\n\n.sidebar,\n.main-panel {\n  max-height: 100%;\n  height: 100%;\n  -webkit-transition-property: top, bottom;\n  transition-property: top, bottom;\n  -webkit-transition-duration: 0.2s, 0.2s;\n  transition-duration: 0.2s, 0.2s;\n  -webkit-transition-timing-function: linear, linear;\n  transition-timing-function: linear, linear;\n  -webkit-overflow-scrolling: touch;\n}\n\n.fixed-plugin .dropdown .dropdown-menu {\n  -webkit-transform: translate3d(0, -5%, 0) !important;\n  transform: translate3d(0, -5%, 0) !important;\n  border-radius: 10px;\n}\n.fixed-plugin .dropdown .dropdown-menu li.adjustments-line {\n  border-bottom: 1px solid #ddd;\n}\n.fixed-plugin .dropdown .dropdown-menu li {\n  padding: 5px 2px !important;\n}\n.fixed-plugin .dropdown .dropdown-menu .button-container a {\n  font-size: 14px;\n}\n.fixed-plugin .dropdown .dropdown-menu .button-container.show {\n  -webkit-transform: translate3d(0, 0%, 0) !important;\n  transform: translate3d(0, 0%, 0) !important;\n  -webkit-transform-origin: 0 0;\n          transform-origin: 0 0;\n  left: -303px !important;\n}\n\n.fixed-plugin .dropdown .dropdown-menu {\n  -webkit-transform: translate3d(0, -5%, 0) !important;\n  transform: translate3d(0, -5%, 0) !important;\n  top: -40px !important;\n  opacity: 0;\n  left: -303px !important;\n  -webkit-transform-origin: 0 0;\n          transform-origin: 0 0;\n}\n\n.fixed-plugin .dropdown.show .dropdown-menu {\n  opacity: 1;\n  -webkit-transform: translate3d(0, 0%, 0) !important;\n  transform: translate3d(0, 0%, 0) !important;\n  -webkit-transform-origin: 0 0;\n          transform-origin: 0 0;\n  left: -303px !important;\n}\n\n.fixed-plugin .dropdown-menu:before,\n.fixed-plugin .dropdown-menu:after {\n  content: \"\";\n  display: inline-block;\n  position: absolute;\n  top: 65px;\n  width: 16px;\n  transform: translateY(-50%);\n  -webkit-transform: translateY(-50%);\n  -moz-transform: translateY(-50%);\n}\n\n.fixed-plugin .dropdown-menu:before {\n  border-bottom: 16px solid rgba(0, 0, 0, 0);\n  border-left: 16px solid rgba(0, 0, 0, 0.2);\n  border-top: 16px solid rgba(0, 0, 0, 0);\n  right: -16px;\n}\n\n.fixed-plugin .dropdown-menu:after {\n  border-bottom: 16px solid rgba(0, 0, 0, 0);\n  border-left: 16px solid #fff;\n  border-top: 16px solid rgba(0, 0, 0, 0);\n  right: -15px;\n}\n\n.modal.show .modal-dialog {\n  -webkit-transform: translate(0, 30%);\n  transform: translate(0, 30%);\n}\n.modal.modal-mini .modal-dialog {\n  max-width: 255px;\n  margin: 0 auto;\n}\n.modal .modal-content .modal-header {\n  border-bottom: none;\n  padding-top: 24px;\n  padding-right: 24px;\n  padding-bottom: 0;\n  padding-left: 24px;\n}\n.modal .modal-content .modal-header .modal-profile {\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  text-align: center;\n  line-height: 5.7;\n  box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.3);\n}\n.modal .modal-content .modal-header .modal-profile i {\n  font-size: 32px;\n  padding-top: 24px;\n}\n.modal .modal-content .modal-body {\n  padding-top: 24px;\n  padding-right: 24px;\n  padding-bottom: 16px;\n  padding-left: 24px;\n  line-height: 1.9;\n}\n.modal .modal-content .modal-body + .modal-footer {\n  padding-top: 0;\n}\n.modal .modal-content .modal-footer {\n  border-top: none;\n  padding-right: 24px;\n  padding-bottom: 16px;\n  padding-left: 24px;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n}\n.modal .modal-content .modal-footer .btn {\n  margin: 0;\n  padding-left: 16px;\n  padding-right: 16px;\n  width: auto;\n}\n.modal .modal-content .modal-footer .btn:hover, .modal .modal-content .modal-footer .btnfocus {\n  text-decoration: none;\n}\n\n.btn {\n  border-width: 2px;\n  background-color: transparent;\n  font-weight: 400;\n  opacity: 0.8;\n  filter: alpha(opacity=80);\n  padding: 8px 16px;\n  border-color: #888888;\n  color: #888888;\n}\n.btn:hover, .btn:focus, .btn:active, .btn.active, .open > .btn.dropdown-toggle {\n  background-color: transparent;\n  color: #777777;\n  border-color: #777777;\n}\n.btn.disabled, .btn.disabled:hover, .btn.disabled:focus, .btn.disabled.focus, .btn.disabled:active, .btn.disabled.active, .btn:disabled, .btn:disabled:hover, .btn:disabled:focus, .btn:disabled.focus, .btn:disabled:active, .btn:disabled.active, .btn[disabled], .btn[disabled]:hover, .btn[disabled]:focus, .btn[disabled].focus, .btn[disabled]:active, .btn[disabled].active, fieldset[disabled] .btn, fieldset[disabled] .btn:hover, fieldset[disabled] .btn:focus, fieldset[disabled] .btn.focus, fieldset[disabled] .btn:active, fieldset[disabled] .btn.active {\n  background-color: transparent;\n  border-color: #888888;\n}\n.btn.btn-fill {\n  color: #FFFFFF;\n  background-color: #888888;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n.btn.btn-fill:hover, .btn.btn-fill:focus, .btn.btn-fill:active, .btn.btn-fill.active, .open > .btn.btn-fill.dropdown-toggle {\n  background-color: #777777;\n  color: #FFFFFF;\n}\n.btn.btn-fill .caret {\n  border-top-color: #FFFFFF;\n}\n.btn .caret {\n  border-top-color: #888888;\n}\n.btn:hover, .btn:focus {\n  opacity: 1;\n  filter: alpha(opacity=100);\n  outline: 0 !important;\n  box-shadow: none;\n}\n.btn:active, .btn.active, .open > .btn.dropdown-toggle {\n  box-shadow: none;\n  outline: 0 !important;\n}\n.btn.btn-icon {\n  padding: 8px;\n}\n\n.btn-primary {\n  border-color: #3472F7;\n  color: #3472F7;\n}\n.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {\n  background-color: transparent;\n  color: #1D62F0;\n  border-color: #1D62F0;\n}\n.btn-primary.disabled, .btn-primary.disabled:hover, .btn-primary.disabled:focus, .btn-primary.disabled.focus, .btn-primary.disabled:active, .btn-primary.disabled.active, .btn-primary:disabled, .btn-primary:disabled:hover, .btn-primary:disabled:focus, .btn-primary:disabled.focus, .btn-primary:disabled:active, .btn-primary:disabled.active, .btn-primary[disabled], .btn-primary[disabled]:hover, .btn-primary[disabled]:focus, .btn-primary[disabled].focus, .btn-primary[disabled]:active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary.active {\n  background-color: transparent;\n  border-color: #3472F7;\n}\n.btn-primary.btn-fill {\n  color: #FFFFFF;\n  background-color: #3472F7;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n.btn-primary.btn-fill:hover, .btn-primary.btn-fill:focus, .btn-primary.btn-fill:active, .btn-primary.btn-fill.active, .open > .btn-primary.btn-fill.dropdown-toggle {\n  background-color: #1D62F0;\n  color: #FFFFFF;\n}\n.btn-primary.btn-fill .caret {\n  border-top-color: #FFFFFF;\n}\n.btn-primary .caret {\n  border-top-color: #3472F7;\n}\n\n.btn-success {\n  border-color: #87CB16;\n  color: #87CB16;\n}\n.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open > .btn-success.dropdown-toggle {\n  background-color: transparent;\n  color: #049F0C;\n  border-color: #049F0C;\n}\n.btn-success.disabled, .btn-success.disabled:hover, .btn-success.disabled:focus, .btn-success.disabled.focus, .btn-success.disabled:active, .btn-success.disabled.active, .btn-success:disabled, .btn-success:disabled:hover, .btn-success:disabled:focus, .btn-success:disabled.focus, .btn-success:disabled:active, .btn-success:disabled.active, .btn-success[disabled], .btn-success[disabled]:hover, .btn-success[disabled]:focus, .btn-success[disabled].focus, .btn-success[disabled]:active, .btn-success[disabled].active, fieldset[disabled] .btn-success, fieldset[disabled] .btn-success:hover, fieldset[disabled] .btn-success:focus, fieldset[disabled] .btn-success.focus, fieldset[disabled] .btn-success:active, fieldset[disabled] .btn-success.active {\n  background-color: transparent;\n  border-color: #87CB16;\n}\n.btn-success.btn-fill {\n  color: #FFFFFF;\n  background-color: #87CB16;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n.btn-success.btn-fill:hover, .btn-success.btn-fill:focus, .btn-success.btn-fill:active, .btn-success.btn-fill.active, .open > .btn-success.btn-fill.dropdown-toggle {\n  background-color: #049F0C;\n  color: #FFFFFF;\n}\n.btn-success.btn-fill .caret {\n  border-top-color: #FFFFFF;\n}\n.btn-success .caret {\n  border-top-color: #87CB16;\n}\n\n.btn-info {\n  border-color: #1DC7EA;\n  color: #1DC7EA;\n}\n.btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open > .btn-info.dropdown-toggle {\n  background-color: transparent;\n  color: #42d0ed;\n  border-color: #42d0ed;\n}\n.btn-info.disabled, .btn-info.disabled:hover, .btn-info.disabled:focus, .btn-info.disabled.focus, .btn-info.disabled:active, .btn-info.disabled.active, .btn-info:disabled, .btn-info:disabled:hover, .btn-info:disabled:focus, .btn-info:disabled.focus, .btn-info:disabled:active, .btn-info:disabled.active, .btn-info[disabled], .btn-info[disabled]:hover, .btn-info[disabled]:focus, .btn-info[disabled].focus, .btn-info[disabled]:active, .btn-info[disabled].active, fieldset[disabled] .btn-info, fieldset[disabled] .btn-info:hover, fieldset[disabled] .btn-info:focus, fieldset[disabled] .btn-info.focus, fieldset[disabled] .btn-info:active, fieldset[disabled] .btn-info.active {\n  background-color: transparent;\n  border-color: #1DC7EA;\n}\n.btn-info.btn-fill {\n  color: #FFFFFF;\n  background-color: #1DC7EA;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n.btn-info.btn-fill:hover, .btn-info.btn-fill:focus, .btn-info.btn-fill:active, .btn-info.btn-fill.active, .open > .btn-info.btn-fill.dropdown-toggle {\n  background-color: #42d0ed;\n  color: #FFFFFF;\n}\n.btn-info.btn-fill .caret {\n  border-top-color: #FFFFFF;\n}\n.btn-info .caret {\n  border-top-color: #1DC7EA;\n}\n\n.btn-warning {\n  border-color: #FF9500;\n  color: #FF9500;\n}\n.btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .open > .btn-warning.dropdown-toggle {\n  background-color: transparent;\n  color: #ED8D00;\n  border-color: #ED8D00;\n}\n.btn-warning.disabled, .btn-warning.disabled:hover, .btn-warning.disabled:focus, .btn-warning.disabled.focus, .btn-warning.disabled:active, .btn-warning.disabled.active, .btn-warning:disabled, .btn-warning:disabled:hover, .btn-warning:disabled:focus, .btn-warning:disabled.focus, .btn-warning:disabled:active, .btn-warning:disabled.active, .btn-warning[disabled], .btn-warning[disabled]:hover, .btn-warning[disabled]:focus, .btn-warning[disabled].focus, .btn-warning[disabled]:active, .btn-warning[disabled].active, fieldset[disabled] .btn-warning, fieldset[disabled] .btn-warning:hover, fieldset[disabled] .btn-warning:focus, fieldset[disabled] .btn-warning.focus, fieldset[disabled] .btn-warning:active, fieldset[disabled] .btn-warning.active {\n  background-color: transparent;\n  border-color: #FF9500;\n}\n.btn-warning.btn-fill {\n  color: #FFFFFF;\n  background-color: #FF9500;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n.btn-warning.btn-fill:hover, .btn-warning.btn-fill:focus, .btn-warning.btn-fill:active, .btn-warning.btn-fill.active, .open > .btn-warning.btn-fill.dropdown-toggle {\n  background-color: #ED8D00;\n  color: #FFFFFF;\n}\n.btn-warning.btn-fill .caret {\n  border-top-color: #FFFFFF;\n}\n.btn-warning .caret {\n  border-top-color: #FF9500;\n}\n\n.btn-danger {\n  border-color: #FF4A55;\n  color: #FF4A55;\n}\n.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open > .btn-danger.dropdown-toggle {\n  background-color: transparent;\n  color: #EE2D20;\n  border-color: #EE2D20;\n}\n.btn-danger.disabled, .btn-danger.disabled:hover, .btn-danger.disabled:focus, .btn-danger.disabled.focus, .btn-danger.disabled:active, .btn-danger.disabled.active, .btn-danger:disabled, .btn-danger:disabled:hover, .btn-danger:disabled:focus, .btn-danger:disabled.focus, .btn-danger:disabled:active, .btn-danger:disabled.active, .btn-danger[disabled], .btn-danger[disabled]:hover, .btn-danger[disabled]:focus, .btn-danger[disabled].focus, .btn-danger[disabled]:active, .btn-danger[disabled].active, fieldset[disabled] .btn-danger, fieldset[disabled] .btn-danger:hover, fieldset[disabled] .btn-danger:focus, fieldset[disabled] .btn-danger.focus, fieldset[disabled] .btn-danger:active, fieldset[disabled] .btn-danger.active {\n  background-color: transparent;\n  border-color: #FF4A55;\n}\n.btn-danger.btn-fill {\n  color: #FFFFFF;\n  background-color: #FF4A55;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n.btn-danger.btn-fill:hover, .btn-danger.btn-fill:focus, .btn-danger.btn-fill:active, .btn-danger.btn-fill.active, .open > .btn-danger.btn-fill.dropdown-toggle {\n  background-color: #EE2D20;\n  color: #FFFFFF;\n}\n.btn-danger.btn-fill .caret {\n  border-top-color: #FFFFFF;\n}\n.btn-danger .caret {\n  border-top-color: #FF4A55;\n}\n\n.btn-neutral {\n  border-color: #FFFFFF;\n  color: #FFFFFF;\n}\n.btn-neutral:hover, .btn-neutral:focus, .btn-neutral:active, .btn-neutral.active, .open > .btn-neutral.dropdown-toggle {\n  background-color: transparent;\n  color: #FFFFFF;\n  border-color: #FFFFFF;\n}\n.btn-neutral.disabled, .btn-neutral.disabled:hover, .btn-neutral.disabled:focus, .btn-neutral.disabled.focus, .btn-neutral.disabled:active, .btn-neutral.disabled.active, .btn-neutral:disabled, .btn-neutral:disabled:hover, .btn-neutral:disabled:focus, .btn-neutral:disabled.focus, .btn-neutral:disabled:active, .btn-neutral:disabled.active, .btn-neutral[disabled], .btn-neutral[disabled]:hover, .btn-neutral[disabled]:focus, .btn-neutral[disabled].focus, .btn-neutral[disabled]:active, .btn-neutral[disabled].active, fieldset[disabled] .btn-neutral, fieldset[disabled] .btn-neutral:hover, fieldset[disabled] .btn-neutral:focus, fieldset[disabled] .btn-neutral.focus, fieldset[disabled] .btn-neutral:active, fieldset[disabled] .btn-neutral.active {\n  background-color: transparent;\n  border-color: #FFFFFF;\n}\n.btn-neutral.btn-fill {\n  color: #FFFFFF;\n  background-color: #FFFFFF;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n.btn-neutral.btn-fill:hover, .btn-neutral.btn-fill:focus, .btn-neutral.btn-fill:active, .btn-neutral.btn-fill.active, .open > .btn-neutral.btn-fill.dropdown-toggle {\n  background-color: #FFFFFF;\n  color: #FFFFFF;\n}\n.btn-neutral.btn-fill .caret {\n  border-top-color: #FFFFFF;\n}\n.btn-neutral .caret {\n  border-top-color: #FFFFFF;\n}\n.btn-neutral:active, .btn-neutral.active, .open > .btn-neutral.dropdown-toggle {\n  background-color: #FFFFFF;\n  color: #888888;\n}\n.btn-neutral.btn-fill, .btn-neutral.btn-fill:hover, .btn-neutral.btn-fill:focus {\n  color: #888888;\n}\n.btn-neutral.btn-simple:active, .btn-neutral.btn-simple.active {\n  background-color: transparent;\n}\n\n.btn:disabled, .btn[disabled], .btn.disabled {\n  opacity: 0.5;\n  filter: alpha(opacity=50);\n}\n\n.btn-round {\n  border-width: 1px;\n  border-radius: 30px !important;\n  padding: 9px 18px;\n}\n.btn-round.btn-icon {\n  padding: 9px;\n}\n\n.btn-simple {\n  border: 0;\n  font-size: 16px;\n  padding: 8px 16px;\n}\n.btn-simple.btn-icon {\n  padding: 8px;\n}\n\n.btn-lg {\n  font-size: 18px;\n  border-radius: 6px;\n  padding: 14px 30px;\n  font-weight: 400;\n}\n.btn-lg.btn-round {\n  padding: 15px 30px;\n}\n.btn-lg.btn-simple {\n  padding: 16px 30px;\n}\n\n.btn-sm {\n  font-size: 12px;\n  border-radius: 3px;\n  padding: 5px 10px;\n}\n.btn-sm.btn-round {\n  padding: 6px 10px;\n}\n.btn-sm.btn-simple {\n  padding: 7px 10px;\n}\n\n.btn-xs {\n  font-size: 12px;\n  border-radius: 3px;\n  padding: 1px 5px;\n}\n.btn-xs.btn-round {\n  padding: 2px 5px;\n}\n.btn-xs.btn-simple {\n  padding: 3px 5px;\n}\n\n.btn-wd {\n  min-width: 140px;\n}\n\n.btn-group.select {\n  width: 100%;\n}\n\n.btn-group.select .btn {\n  text-align: left;\n}\n\n.btn-group.select .caret {\n  position: absolute;\n  top: 50%;\n  margin-top: -1px;\n  right: 8px;\n}\n\n.btn-social {\n  opacity: 0.85;\n}\n\n.btn-twitter {\n  border-color: #55acee;\n  color: #55acee;\n}\n.btn-twitter:hover {\n  opacity: 1 !important;\n  border-color: #55acee;\n  color: #55acee;\n}\n\n.btn-facebook {\n  border-color: #3b5998;\n  color: #3b5998;\n}\n.btn-facebook:hover {\n  opacity: 1 !important;\n  border-color: #3b5998;\n  color: #3b5998;\n}\n\n.form-control::-moz-placeholder {\n  color: #DDDDDD;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n\n.form-control:-moz-placeholder {\n  color: #DDDDDD;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n\n.form-control::-webkit-input-placeholder {\n  color: #DDDDDD;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n\n.form-control:-ms-input-placeholder {\n  color: #DDDDDD;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n\n.form-control {\n  background-color: #FFFFFF;\n  border: 1px solid #E3E3E3;\n  border-radius: 4px;\n  color: #565656;\n  padding: 8px 12px;\n  height: 40px;\n  box-shadow: none;\n}\n.form-control:focus {\n  background-color: #FFFFFF;\n  border: 1px solid #AAAAAA;\n  box-shadow: none;\n  outline: 0 !important;\n  color: #333333;\n}\n.has-success .form-control, .has-error .form-control, .has-success .form-control:focus, .has-error .form-control:focus {\n  border-color: #E3E3E3;\n  box-shadow: none;\n}\n.has-success .form-control {\n  color: #87CB16;\n}\n.has-success .form-control:focus {\n  border-color: #87CB16;\n}\n.has-error .form-control {\n  color: #FF4A55;\n}\n.has-error .form-control:focus {\n  border-color: #FF4A55;\n}\n.form-control + .form-control-feedback {\n  border-radius: 6px;\n  font-size: 14px;\n  margin-top: -7px;\n  position: absolute;\n  right: 10px;\n  top: 50%;\n  vertical-align: middle;\n}\n.open .form-control {\n  border-radius: 4px 4px 0 0;\n  border-bottom-color: transparent;\n}\n\n.input-lg {\n  height: 55px;\n  padding: 14px 30px;\n}\n\n.has-error .form-control-feedback {\n  color: #FF4A55;\n}\n\n.has-success .form-control-feedback {\n  color: #87CB16;\n}\n\n.input-group-addon {\n  background-color: #FFFFFF;\n  border: 1px solid #E3E3E3;\n  border-radius: 4px;\n}\n.has-success .input-group-addon, .has-error .input-group-addon {\n  background-color: #FFFFFF;\n  border: 1px solid #E3E3E3;\n}\n.has-error .form-control:focus + .input-group-addon {\n  border-color: #FF4A55;\n  color: #FF4A55;\n}\n.has-success .form-control:focus + .input-group-addon {\n  border-color: #87CB16;\n  color: #87CB16;\n}\n.form-control:focus + .input-group-addon, .form-control:focus ~ .input-group-addon {\n  background-color: #FFFFFF;\n  border-color: #9A9A9A;\n}\n\n.input-group .form-control:first-child,\n.input-group-addon:first-child,\n.input-group-btn:first-child > .dropdown-toggle,\n.input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle) {\n  border-right: 0 none;\n}\n\n.input-group .form-control:last-child,\n.input-group-addon:last-child,\n.input-group-btn:last-child > .dropdown-toggle,\n.input-group-btn:first-child > .btn:not(:first-child) {\n  border-left: 0 none;\n}\n\n.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {\n  background-color: #F5F5F5;\n  color: #888888;\n  cursor: not-allowed;\n}\n\n.input-group-btn .btn {\n  border-width: 1px;\n  padding: 9px 16px;\n}\n\n.input-group-btn .btn-default:not(.btn-fill) {\n  border-color: #DDDDDD;\n}\n\n.input-group-btn:last-child > .btn {\n  margin-left: 0;\n}\n\n.input-group-focus .input-group-addon {\n  border-color: #9A9A9A;\n}\n\n.alert {\n  border: 0;\n  border-radius: 0;\n  color: #FFFFFF;\n  padding: 10px 15px;\n  font-size: 14px;\n}\n.container .alert {\n  border-radius: 4px;\n}\n.navbar .alert {\n  border-radius: 0;\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 85px;\n  width: 100%;\n  z-index: 3;\n}\n.navbar:not(.navbar-transparent) .alert {\n  top: 70px;\n}\n.alert span[data-notify=icon] {\n  font-size: 30px;\n  display: block;\n  left: 15px;\n  position: absolute;\n  top: 50%;\n  margin-top: -15px;\n}\n.alert i.nc-simple-remove {\n  font-size: 12px !important;\n  font: bold normal normal 14px/1 \"nucleo-icons\";\n}\n.alert button.close {\n  position: absolute;\n  right: 10px;\n  top: 50%;\n  margin-top: -13px;\n  z-index: 1033;\n  background-color: #FFFFFF;\n  display: block;\n  border-radius: 50%;\n  opacity: 0.4;\n  line-height: 9px;\n  width: 25px;\n  height: 25px;\n  outline: 0 !important;\n  text-align: center;\n  padding: 3px;\n  font-weight: 300;\n}\n.alert button.close:hover {\n  opacity: 0.55;\n}\n.alert .close ~ span {\n  display: block;\n  max-width: 89%;\n}\n.alert[data-notify=container] {\n  padding: 10px 10px 10px 20px;\n  border-radius: 4px;\n}\n.alert.alert-with-icon {\n  padding-left: 65px;\n}\n\n.alert-primary {\n  background-color: #4091e2;\n}\n\n.alert-info {\n  background-color: #63d8f1;\n}\n\n.alert-success {\n  background-color: #a1e82c;\n}\n\n.alert-warning {\n  background-color: #ffbc67;\n}\n\n.alert-danger {\n  background-color: #fc727a;\n}\n\n.table .radio,\n.table .checkbox {\n  position: relative;\n  height: 20px;\n  display: block;\n  width: 20px;\n  padding: 0px 0px;\n  margin: 0px 5px;\n  text-align: center;\n}\n.table .radio .icons,\n.table .checkbox .icons {\n  left: 5px;\n}\n.table > thead > tr > th,\n.table > tbody > tr > th,\n.table > tfoot > tr > th,\n.table > thead > tr > td,\n.table > tbody > tr > td,\n.table > tfoot > tr > td {\n  padding: 12px 8px;\n  vertical-align: middle;\n}\n.table > thead > tr > th:last-child,\n.table > tbody > tr > th:last-child,\n.table > tfoot > tr > th:last-child,\n.table > thead > tr > td:last-child,\n.table > tbody > tr > td:last-child,\n.table > tfoot > tr > td:last-child {\n  width: 100%;\n}\n.table > thead > tr > th {\n  border-bottom-width: 1px;\n  font-size: 12px;\n  text-transform: uppercase;\n  color: #9A9A9A;\n  font-weight: 400;\n  padding-bottom: 5px;\n  border-top: none !important;\n  border-bottom: none;\n  text-align: left !important;\n}\n.table .td-actions .btn {\n  opacity: 0.36;\n  filter: alpha(opacity=36);\n}\n.table .td-actions .btn.btn-xs {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n.table .td-actions {\n  min-width: 90px;\n}\n.table > tbody > tr {\n  position: relative;\n}\n.table > tbody > tr:hover .td-actions .btn {\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n.table .btn:focus {\n  box-shadow: none !important;\n}\n\n.table.table-sm > thead > tr > th,\n.table.table-sm > tbody > tr > th,\n.table.table-sm > tfoot > tr > th,\n.table.table-sm > thead > tr > td,\n.table.table-sm > tbody > tr > td,\n.table.table-sm > tfoot > tr > td {\n  padding: 6px 6px;\n}\n.table.table-sm > thead > tr > th,\n.table.table-sm > thead > th {\n  font-size: 12px;\n  padding-bottom: 3px;\n}\n.table.table-sm > tbody > tr > td {\n  font-size: 12px;\n}\n\n.table-upgrade .table tr td {\n  width: 100%;\n}\n\n.from-check,\n.form-check-radio {\n  margin-bottom: 12px;\n  position: relative;\n}\n\n.form-check {\n  padding-left: 0;\n}\n.form-check .form-check-label {\n  display: inline-block;\n  position: relative;\n  cursor: pointer;\n  padding-left: 35px;\n  line-height: 26px;\n  margin-bottom: 0;\n}\n.form-check .form-check-sign::before,\n.form-check .form-check-sign::after {\n  font-family: \"FontAwesome\";\n  content: \"\\F096\";\n  display: inline-block;\n  color: #1DC7EA;\n  position: absolute;\n  width: 19px;\n  height: 19px;\n  margin-top: -12px;\n  margin-left: -23px;\n  font-size: 21px;\n  cursor: pointer;\n  -webkit-transition: opacity 0.3s linear;\n  transition: opacity 0.3s linear;\n}\n.form-check .form-check-sign::after {\n  font-family: \"FontAwesome\";\n  content: \"\\F046\";\n  text-align: center;\n  opacity: 0;\n  color: #1DC7EA;\n  border: 0;\n  background-color: inherit;\n}\n.form-check.disabled .form-check-label {\n  color: #9A9A9A;\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n\n.form-check input[type=checkbox],\n.form-check-radio input[type=radio] {\n  opacity: 0;\n  position: absolute;\n  visibility: hidden;\n}\n\n.form-check input[type=checkbox]:checked + .form-check-sign::after {\n  opacity: 1;\n}\n\n.form-control input[type=checkbox]:disabled + .form-check-sign::before,\n.checkbox input[type=checkbox]:disabled + .form-check-sign::after {\n  cursor: not-allowed;\n}\n\n.form-check .form-check-label input[type=checkbox]:disabled + .form-check-sign,\n.form-check-radio input[type=radio]:disabled + .form-check-sign {\n  pointer-events: none !important;\n}\n\n.form-check-radio .form-check-label {\n  padding-left: 2rem;\n}\n.form-check-radio.disabled .form-check-label {\n  color: #9A9A9A;\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n\n.form-check-radio .form-check-sign::before {\n  font-family: \"FontAwesome\";\n  content: \"\\F10C\";\n  font-size: 22px;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  display: inline-block;\n  position: absolute;\n  opacity: 0.5;\n  left: 5px;\n  top: -5px;\n}\n\n.form-check-radio input[type=radio] + .form-check-sign:after,\n.form-check-radio input[type=radio] {\n  opacity: 0;\n  -webkit-transition: opacity 0.3s linear;\n  transition: opacity 0.3s linear;\n  content: \" \";\n  display: block;\n}\n\n.form-check-radio input[type=radio]:checked + .form-check-sign::after {\n  font-family: \"FontAwesome\";\n  content: \"\\F192\";\n  top: -5px;\n  position: absolute;\n  left: 5px;\n  opacity: 1;\n  font-size: 22px;\n}\n\n.form-check-radio input[type=radio]:checked + .form-check-sign::after {\n  opacity: 1;\n}\n\n.form-check-radio input[type=radio]:disabled + .form-check-sign::before,\n.form-check-radio input[type=radio]:disabled + .form-check-sign::after {\n  color: #9A9A9A;\n}\n\n.nav .nav-item .nav-link:hover,\n.nav .nav-item .nav-link:focus {\n  background-color: transparent;\n}\n\n.navbar {\n  border: 0;\n  font-size: 16px;\n  border-radius: 0;\n  min-height: 50px;\n  background-color: rgba(255, 255, 255, 0.96);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n  padding: 5px 15px;\n}\n.navbar .navbar-brand {\n  font-weight: 400;\n  margin: 5px 0px;\n  font-size: 20px;\n  color: #888888;\n}\n.navbar .navbar-brand:hover {\n  color: #5e5e5e;\n}\n.navbar .navbar-toggler {\n  width: 37px;\n  height: 27px;\n  vertical-align: middle;\n  outline: 0;\n  cursor: pointer;\n}\n.navbar .navbar-toggler.navbar-toggler-left {\n  position: relative;\n  left: 0;\n  padding-left: 0;\n}\n.navbar .navbar-toggler .navbar-toggler-bar {\n  width: 3px;\n  height: 3px;\n  border-radius: 50%;\n  margin: 0 auto;\n}\n.navbar .navbar-toggler .burger-lines {\n  display: block;\n  position: relative;\n  background-color: #888;\n  width: 24px;\n  height: 2px;\n  border-radius: 1px;\n  margin: 4px auto;\n}\n.navbar .dropdown.nav-item .dropdown-toggle:after {\n  margin-top: 8px;\n}\n.navbar .navbar-nav {\n  -webkit-box-align: center;\n          align-items: center;\n}\n.navbar .navbar-nav .nav-item .nav-link {\n  color: #888888;\n  padding: 10px 15px;\n  position: relative;\n  display: -webkit-inline-box;\n  display: inline-flex;\n  line-height: 1.2;\n}\n.navbar .navbar-nav .nav-item .nav-link.btn {\n  margin: 15px 3px;\n  padding: 8px 16px;\n}\n.navbar .navbar-nav .nav-item .nav-link.btn-round {\n  margin: 16px 3px;\n}\n.navbar .navbar-nav .nav-item .nav-link [class^=fa] {\n  font-size: 19px;\n  position: relative;\n  line-height: 40px;\n  top: 1px;\n}\n.navbar .navbar-nav .nav-item .nav-link:hover {\n  color: #1DC7EA;\n}\n.navbar .navbar-nav .nav-item .dropdown-menu {\n  border-radius: 10px;\n  margin-top: -5px;\n}\n.navbar .navbar-nav .nav-item .dropdown-menu .dropdown-item:first-child {\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n}\n.navbar .navbar-nav .nav-item .dropdown-menu .dropdown-item:last-child {\n  border-bottom-left-radius: 10px;\n  border-bottom-right-radius: 10px;\n}\n.navbar .navbar-nav .nav-item .dropdown-menu .divider {\n  height: 1px;\n  margin: 5px 0;\n  overflow: hidden;\n  background-color: #e5e5e5;\n}\n.navbar .navbar-nav .notification {\n  position: absolute;\n  background-color: #FB404B;\n  text-align: center;\n  border-radius: 10px;\n  min-width: 18px;\n  padding: 0 5px;\n  height: 18px;\n  font-size: 12px;\n  color: #FFFFFF;\n  font-weight: bold;\n  line-height: 18px;\n  top: 0;\n  left: 7px;\n}\n.navbar .navbar-nav .dropdown-toggle:after {\n  display: inline-block;\n  width: 0;\n  height: 0;\n  margin-left: 5px;\n  margin-top: 12px;\n  vertical-align: middle;\n  border-top: 4px dashed;\n  border-top: 4px solid\\9 ;\n  border-right: 4px solid transparent;\n  border-left: 4px solid transparent;\n}\n.navbar .btn {\n  margin: 15px 3px;\n  font-size: 14px;\n}\n.navbar .btn-simple {\n  font-size: 16px;\n}\n.navbar.fixed {\n  width: calc(100% - calc(100% - 260px));\n  right: 0;\n  left: auto;\n  border-radius: 0;\n}\n.navbar .nc-icon {\n  font-weight: 700;\n}\n\n.navbar-transparent .navbar-brand, [class*=navbar-ct] .navbar-brand {\n  color: #FFFFFF;\n  opacity: 0.9;\n  filter: alpha(opacity=90);\n}\n.navbar-transparent .navbar-brand:focus, .navbar-transparent .navbar-brand:hover, [class*=navbar-ct] .navbar-brand:focus, [class*=navbar-ct] .navbar-brand:hover {\n  background-color: transparent;\n  opacity: 1;\n  filter: alpha(opacity=100);\n  color: #FFFFFF;\n}\n.navbar-transparent .navbar-nav .nav-item .nav-link:not(.btn), [class*=navbar-ct] .navbar-nav .nav-item .nav-link:not(.btn) {\n  color: #FFFFFF;\n  border-color: #FFFFFF;\n  opacity: 0.8;\n  filter: alpha(opacity=80);\n}\n.navbar-transparent .navbar-nav .active .nav-link:not(.btn),\n.navbar-transparent .navbar-nav .active .nav-link:hover:not(.btn),\n.navbar-transparent .navbar-nav .active .nav-link:focus:not(.btn),\n.navbar-transparent .navbar-nav .nav-item .nav-link:not(.btn),\n.navbar-transparent .navbar-nav .nav-item .nav-link:hover:not(.btn),\n.navbar-transparent .navbar-nav .nav-item .nav-link:focus:not(.btn), [class*=navbar-ct] .navbar-nav .active .nav-link:not(.btn),\n[class*=navbar-ct] .navbar-nav .active .nav-link:hover:not(.btn),\n[class*=navbar-ct] .navbar-nav .active .nav-link:focus:not(.btn),\n[class*=navbar-ct] .navbar-nav .nav-item .nav-link:not(.btn),\n[class*=navbar-ct] .navbar-nav .nav-item .nav-link:hover:not(.btn),\n[class*=navbar-ct] .navbar-nav .nav-item .nav-link:focus:not(.btn) {\n  background-color: transparent;\n  border-radius: 3px;\n  color: #FFFFFF;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n.navbar-transparent .navbar-nav .nav .nav-item .nav-link.btn:hover, [class*=navbar-ct] .navbar-nav .nav .nav-item .nav-link.btn:hover {\n  background-color: transparent;\n}\n.navbar-transparent .navbar-nav .show .nav-link,\n.navbar-transparent .navbar-nav .show .nav-link:hover,\n.navbar-transparent .navbar-nav .show .nav-link:focus, [class*=navbar-ct] .navbar-nav .show .nav-link,\n[class*=navbar-ct] .navbar-nav .show .nav-link:hover,\n[class*=navbar-ct] .navbar-nav .show .nav-link:focus {\n  background-color: transparent;\n  color: #FFFFFF;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n.navbar-transparent .btn-default, [class*=navbar-ct] .btn-default {\n  color: #FFFFFF;\n  border-color: #FFFFFF;\n}\n.navbar-transparent .btn-default.btn-fill, [class*=navbar-ct] .btn-default.btn-fill {\n  color: #9A9A9A;\n  background-color: #FFFFFF;\n  opacity: 0.9;\n  filter: alpha(opacity=90);\n}\n.navbar-transparent .btn-default.btn-fill:hover,\n.navbar-transparent .btn-default.btn-fill:focus,\n.navbar-transparent .btn-default.btn-fill:active,\n.navbar-transparent .btn-default.btn-fill.active,\n.navbar-transparent .show .dropdown-toggle.btn-fill.btn-default, [class*=navbar-ct] .btn-default.btn-fill:hover,\n[class*=navbar-ct] .btn-default.btn-fill:focus,\n[class*=navbar-ct] .btn-default.btn-fill:active,\n[class*=navbar-ct] .btn-default.btn-fill.active,\n[class*=navbar-ct] .show .dropdown-toggle.btn-fill.btn-default {\n  border-color: #FFFFFF;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n\n.navbar-transparent .dropdown-menu .divider {\n  background-color: rgba(255, 255, 255, 0.2);\n}\n\n.navbar-default {\n  background-color: rgba(255, 255, 255, 0.96);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n.navbar-default .navbar-nav .nav-item .nav-link:not(.btn) {\n  color: #9A9A9A;\n}\n.navbar-default .navbar-nav .active .nav-link,\n.navbar-default .navbar-nav .active .nav-link:not(.btn):hover,\n.navbar-default .navbar-nav .active .nav-link:not(.btn):focus,\n.navbar-default .navbar-nav .nav-item .nav-link:not(.btn):hover,\n.navbar-default .navbar-nav .nav-item .nav-link:not(.btn):focus {\n  background-color: transparent;\n  border-radius: 3px;\n  color: #1DC7EA;\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n.navbar-default .navbar-nav .show .nav-link,\n.navbar-default .navbar-nav .show .nav-link:hover,\n.navbar-default .navbar-nav .show .nav-link:focus {\n  background-color: transparent;\n  color: #1DC7EA;\n}\n.navbar-default .navbar-nav .navbar-toggle:hover, .navbar-default .navbar-nav .navbar-toggle:focus {\n  background-color: transparent;\n}\n.navbar-default:not(.navbar-transparent) .btn-default:hover {\n  color: #1DC7EA;\n  border-color: #1DC7EA;\n}\n.navbar-default:not(.navbar-transparent) .btn-neutral, .navbar-default:not(.navbar-transparent) .btn-neutral:hover, .navbar-default:not(.navbar-transparent) .btn-neutral:active {\n  color: #9A9A9A;\n}\n\n/*      Navbar with icons            */\n.navbar-icons.navbar .navbar-brand {\n  margin-top: 12px;\n  margin-bottom: 12px;\n}\n.navbar-icons .navbar-nav .nav-item .nav-link {\n  text-align: center;\n  padding: 6px 15px;\n  margin: 6px 3px;\n}\n.navbar-icons .navbar-nav [class^=pe] {\n  font-size: 30px;\n  position: relative;\n}\n.navbar-icons .navbar-nav p {\n  margin: 3px 0 0;\n}\n\n.navbar-form {\n  box-shadow: none;\n}\n.navbar-form .form-control {\n  border-radius: 0;\n  border: 0;\n  padding: 0;\n  background-color: transparent;\n  height: 22px;\n  font-size: 16px;\n  line-height: 1.5;\n  color: #E3E3E3;\n}\n.navbar-transparent .navbar-form .form-control, [class*=navbar-ct] .navbar-form .form-control {\n  color: #FFFFFF;\n  border: 0;\n  border-bottom: 1px solid rgba(255, 255, 255, 0.6);\n}\n\n.navbar-ct-blue {\n  background-color: #4091e2;\n}\n\n.navbar-ct-azure {\n  background-color: #63d8f1;\n}\n\n.navbar-ct-green {\n  background-color: #a1e82c;\n}\n\n.navbar-ct-orange {\n  background-color: #ffbc67;\n}\n\n.navbar-ct-red {\n  background-color: #fc727a;\n}\n\n.navbar-transparent {\n  padding-top: 15px;\n  background-color: transparent;\n  border-bottom: 1px solid transparent;\n}\n\n.navbar-toggle {\n  margin-top: 19px;\n  margin-bottom: 19px;\n  border: 0;\n}\n.navbar-toggle .icon-bar {\n  background-color: #FFFFFF;\n}\n.navbar-toggle .navbar-collapse,\n.navbar-toggle .navbar-form {\n  border-color: transparent;\n}\n.navbar-toggle.navbar-default .navbar-toggle:hover, .navbar-toggle.navbar-default .navbar-toggle:focus {\n  background-color: transparent;\n}\n\n.footer {\n  background-color: #FFFFFF;\n}\n.footer .footer-menu {\n  height: 41px;\n}\n.footer nav > ul {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  font-weight: normal;\n}\n.footer nav > ul a:not(.btn) {\n  color: #9A9A9A;\n  display: block;\n  margin-bottom: 3px;\n}\n.footer nav > ul a:not(.btn):hover, .footer nav > ul a:not(.btn):focus {\n  color: #777777;\n}\n.footer .social-area {\n  padding: 15px 0;\n}\n.footer .social-area h5 {\n  padding-bottom: 15px;\n}\n.footer .social-area > a:not(.btn) {\n  color: #9A9A9A;\n  display: inline-block;\n  vertical-align: top;\n  padding: 10px 5px;\n  font-size: 20px;\n  font-weight: normal;\n  line-height: 20px;\n  text-align: center;\n}\n.footer .social-area > a:not(.btn):hover, .footer .social-area > a:not(.btn):focus {\n  color: #777777;\n}\n.footer .copyright {\n  color: #777777;\n  padding: 10px 15px;\n  margin: 10px 3px;\n  line-height: 20px;\n  font-size: 14px;\n}\n.footer hr {\n  border-color: #DDDDDD;\n}\n.footer .title {\n  color: #777777;\n}\n\n.footer-default {\n  background-color: #F5F5F5;\n}\n\n.footer:not(.footer-big) nav > ul {\n  font-size: 14px;\n}\n.footer:not(.footer-big) nav > ul li {\n  margin-left: 20px;\n  float: left;\n}\n.footer:not(.footer-big) nav > ul a {\n  padding: 10px 0px;\n  margin: 10px 10px 10px 0px;\n}\n\n/*!\nAnimate.css - http://daneden.me/animate\nLicensed under the MIT license - http://opensource.org/licenses/MIT\n\nCopyright (c) 2015 Daniel Eden\n*/\n.animated {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both;\n}\n\n.animated.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite;\n}\n\n.animated.hinge {\n  -webkit-animation-duration: 2s;\n  animation-duration: 2s;\n}\n\n.animated.bounceIn,\n.animated.bounceOut {\n  -webkit-animation-duration: 0.75s;\n  animation-duration: 0.75s;\n}\n\n.animated.flipOutX,\n.animated.flipOutY {\n  -webkit-animation-duration: 0.75s;\n  animation-duration: 0.75s;\n}\n\n@-webkit-keyframes shake {\n  from, to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n  10%, 30%, 50%, 70%, 90% {\n    -webkit-transform: translate3d(-10px, 0, 0);\n    transform: translate3d(-10px, 0, 0);\n  }\n  20%, 40%, 60%, 80% {\n    -webkit-transform: translate3d(10px, 0, 0);\n    transform: translate3d(10px, 0, 0);\n  }\n}\n@keyframes shake {\n  from, to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n  10%, 30%, 50%, 70%, 90% {\n    -webkit-transform: translate3d(-10px, 0, 0);\n    transform: translate3d(-10px, 0, 0);\n  }\n  20%, 40%, 60%, 80% {\n    -webkit-transform: translate3d(10px, 0, 0);\n    transform: translate3d(10px, 0, 0);\n  }\n}\n.shake {\n  -webkit-animation-name: shake;\n  animation-name: shake;\n}\n\n@-webkit-keyframes fadeInDown {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n@keyframes fadeInDown {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n.fadeInDown {\n  -webkit-animation-name: fadeInDown;\n  animation-name: fadeInDown;\n}\n\n@-webkit-keyframes fadeOut {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\n@keyframes fadeOut {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\n.fadeOut {\n  -webkit-animation-name: fadeOut;\n  animation-name: fadeOut;\n}\n\n@-webkit-keyframes fadeOutDown {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n}\n@keyframes fadeOutDown {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n}\n.fadeOutDown {\n  -webkit-animation-name: fadeOutDown;\n  animation-name: fadeOutDown;\n}\n\n@-webkit-keyframes fadeOutUp {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n}\n@keyframes fadeOutUp {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n}\n.fadeOutUp {\n  -webkit-animation-name: fadeOutUp;\n  animation-name: fadeOutUp;\n}\n\n.dropdown-menu {\n  visibility: hidden;\n  margin: 0;\n  padding: 0;\n  border-radius: 10px;\n  display: block;\n  z-index: 9000;\n  position: absolute;\n  opacity: 0;\n  filter: alpha(opacity=0);\n  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.125);\n}\n.show .dropdown-menu {\n  opacity: 1;\n  filter: alpha(opacity=100);\n  visibility: visible;\n  -webkit-transform: translate3d(0px, 0px, 0px) !important;\n          transform: translate3d(0px, 0px, 0px) !important;\n}\n.select .dropdown-menu {\n  border-radius: 0 0 10px 10px;\n  box-shadow: none;\n  -webkit-transform-origin: 50% -40px;\n  transform-origin: 50% -40px;\n  -webkit-transform: scale(1);\n  transform: scale(1);\n  -webkit-transition: all 150ms linear;\n  transition: all 150ms linear;\n  margin-top: -20px;\n}\n.select.show .dropdown-menu {\n  margin-top: -1px;\n}\n.dropdown-menu .dropdown-item {\n  padding: 8px 16px;\n  color: #333333;\n}\n.dropdown-menu .dropdown-item img {\n  margin-top: -3px;\n}\n.dropdown-menu .dropdown-item:focus {\n  outline: 0 !important;\n}\n.btn-group.select .dropdown-menu {\n  min-width: 100%;\n}\n.dropdown-menu > li:first-child > a {\n  border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n}\n.dropdown-menu > li:last-child > a {\n  border-bottom-left-radius: 10px;\n  border-bottom-right-radius: 10px;\n}\n.select .dropdown-menu > li:first-child > a {\n  border-radius: 0;\n  border-bottom: 0 none;\n}\n.dropdown-menu .dropdown-item:hover,\n.dropdown-menu .dropdown-item:focus {\n  background-color: #F5F5F5;\n  color: #333333;\n  opacity: 1;\n  text-decoration: none;\n}\n.dropdown-menu.dropdown-blue > li > a:hover, .dropdown-menu.dropdown-blue > li > a:focus {\n  background-color: rgba(52, 114, 247, 0.2);\n}\n.dropdown-menu.dropdown-azure > li > a:hover, .dropdown-menu.dropdown-azure > li > a:focus {\n  background-color: rgba(29, 199, 234, 0.2);\n}\n.dropdown-menu.ct-green > li > a:hover, .dropdown-menu.ct-green > li > a:focus {\n  background-color: rgba(135, 203, 22, 0.2);\n}\n.dropdown-menu.dropdown-orange > li > a:hover, .dropdown-menu.dropdown-orange > li > a:focus {\n  background-color: rgba(255, 149, 0, 0.2);\n}\n.dropdown-menu.dropdown-red > li > a:hover, .dropdown-menu.dropdown-red > li > a:focus {\n  background-color: rgba(255, 74, 85, 0.2);\n}\n.dropdown-menu .dropdown-item i[class*=nc-icon] {\n  font-size: 18px;\n  text-align: center;\n  line-height: 25px;\n  float: left;\n  padding-right: 10px;\n}\n.dropdown-menu.dropdown-menu-right:before, .dropdown-menu.dropdown-menu-right:after {\n  right: 12px !important;\n  left: auto !important;\n}\n\n.dropdown-with-icons > li > a {\n  padding-left: 0px;\n  line-height: 28px;\n}\n.dropdown-with-icons i {\n  text-align: center;\n  line-height: 28px;\n  float: left;\n}\n.dropdown-with-icons i[class^=pe-] {\n  font-size: 24px;\n  width: 46px;\n}\n.dropdown-with-icons i[class^=fa] {\n  font-size: 14px;\n  width: 38px;\n}\n\n.btn-group.select {\n  overflow: hidden;\n}\n\n.btn-group.select.show {\n  overflow: visible;\n}\n\n.card {\n  border-radius: 4px;\n  background-color: #FFFFFF;\n  margin-bottom: 30px;\n}\n.card .card-image {\n  width: 100%;\n  overflow: hidden;\n  height: 260px;\n  border-radius: 4px 4px 0 0;\n  position: relative;\n  -webkit-transform-style: preserve-3d;\n  transform-style: preserve-3d;\n}\n.card .card-image img {\n  width: 100%;\n}\n.card .filter {\n  position: absolute;\n  z-index: 2;\n  background-color: rgba(0, 0, 0, 0.68);\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  opacity: 0;\n  filter: alpha(opacity=0);\n}\n.card .filter .btn {\n  position: relative;\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n  transform: translateY(-50%);\n}\n.card:hover .filter {\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n.card .btn-hover {\n  opacity: 0;\n  filter: alpha(opacity=0);\n}\n.card:hover .btn-hover {\n  opacity: 1;\n  filter: alpha(opacity=100);\n}\n.card .card-body {\n  padding: 15px 15px 10px 15px;\n}\n.card .card-header {\n  padding: 15px 15px 0;\n  background-color: #FFFFFF;\n  border-bottom: none !important;\n}\n.card .card-category,\n.card label {\n  font-size: 14px;\n  font-weight: 400;\n  color: #9A9A9A;\n  margin-bottom: 0px;\n}\n.card .card-category i,\n.card label i {\n  font-size: 16px;\n}\n.card label {\n  font-size: 12px;\n  margin-bottom: 5px;\n  text-transform: uppercase;\n}\n.card .card-title {\n  margin: 0;\n  color: #333333;\n  font-weight: 300;\n}\n.card .avatar {\n  width: 30px;\n  height: 30px;\n  overflow: hidden;\n  border-radius: 50%;\n  margin-right: 5px;\n}\n.card .description {\n  font-size: 14px;\n  color: #333;\n}\n.card .card-footer {\n  padding-top: 0;\n  background-color: transparent;\n  line-height: 30px;\n  border-top: none !important;\n  font-size: 14px;\n}\n.card .card-footer .legend {\n  padding: 5px 0;\n}\n.card .card-footer hr {\n  margin-top: 5px;\n  margin-bottom: 5px;\n}\n.card .stats {\n  color: #a9a9a9;\n}\n.card .card-footer div {\n  display: inline-block;\n}\n.card .author {\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: uppercase;\n}\n.card .author i {\n  font-size: 14px;\n}\n.card h6 {\n  font-size: 12px;\n  margin: 0;\n}\n.card.card-separator:after {\n  height: 100%;\n  right: -15px;\n  top: 0;\n  width: 1px;\n  background-color: #DDDDDD;\n  card-body: \"\";\n  position: absolute;\n}\n.card .ct-chart {\n  margin: 30px 0 30px;\n  height: 245px;\n}\n.card .ct-label {\n  font-size: 1rem !important;\n}\n.card .table tbody td:first-child,\n.card .table thead th:first-child {\n  padding-left: 15px;\n}\n.card .table tbody td:last-child,\n.card .table thead th:last-child {\n  padding-right: 15px;\n  display: -webkit-inline-box;\n  display: inline-flex;\n}\n.card .alert {\n  border-radius: 4px;\n  position: relative;\n}\n.card .alert.alert-with-icon {\n  padding-left: 65px;\n}\n\n.card-stats .card-body {\n  padding: 15px 15px 0px;\n}\n.card-stats .card-body .numbers {\n  font-size: 1.8rem;\n  text-align: right;\n}\n.card-stats .card-body .numbers p {\n  margin-bottom: 0;\n}\n.card-stats .card-footer {\n  padding: 0px 15px 10px 15px;\n}\n.card-stats .icon-big {\n  font-size: 3em;\n  min-height: 64px;\n}\n.card-stats .icon-big i {\n  font-weight: 400;\n  line-height: 59px;\n}\n\n.card-user .card-image {\n  height: 110px;\n}\n.card-user .card-image-plain {\n  height: 0;\n  margin-top: 110px;\n}\n.card-user .author {\n  text-align: center;\n  text-transform: none;\n  margin-top: -70px;\n}\n.card-user .avatar {\n  width: 124px;\n  height: 124px;\n  border: 5px solid #FFFFFF;\n  position: relative;\n  margin-bottom: 15px;\n}\n.card-user .avatar.border-gray {\n  border-color: #EEEEEE;\n}\n.card-user .title {\n  line-height: 24px;\n}\n.card-user .card-body {\n  min-height: 240px;\n}\n\n.card-user .card-footer,\n.card-price .card-footer {\n  padding: 5px 15px 10px;\n}\n.card-user hr,\n.card-price hr {\n  margin: 5px 15px;\n}\n\n.card-plain {\n  background-color: transparent;\n  box-shadow: none;\n  border-radius: 0;\n}\n.card-plain .card-image {\n  border-radius: 4px;\n}\n\n.card.card-plain {\n  border: none !important;\n}\n.card.card-plain .card-header {\n  background-color: transparent !important;\n}\n\n.ct-label {\n  fill: rgba(0, 0, 0, 0.4);\n  color: rgba(0, 0, 0, 0.4);\n  font-size: 1.3rem;\n  line-height: 1;\n}\n\n.ct-chart-line .ct-label,\n.ct-chart-bar .ct-label {\n  display: block;\n  display: -webkit-box;\n  display: flex;\n}\n\n.ct-label.ct-horizontal.ct-start {\n  -webkit-box-align: flex-end;\n  align-items: flex-end;\n  -webkit-box-pack: flex-start;\n  justify-content: flex-start;\n  text-align: left;\n  text-anchor: start;\n}\n\n.ct-label.ct-horizontal.ct-end {\n  -webkit-box-align: flex-start;\n  align-items: flex-start;\n  -webkit-box-pack: flex-start;\n  justify-content: flex-start;\n  text-align: left;\n  text-anchor: start;\n}\n\n.ct-label.ct-vertical.ct-start {\n  -webkit-box-align: flex-end;\n  align-items: flex-end;\n  -webkit-box-pack: flex-end;\n  justify-content: flex-end;\n  text-align: right;\n  text-anchor: end;\n}\n\n.ct-label.ct-vertical.ct-end {\n  -webkit-box-align: flex-end;\n  align-items: flex-end;\n  -webkit-box-pack: flex-start;\n  justify-content: flex-start;\n  text-align: left;\n  text-anchor: start;\n}\n\n.ct-chart-bar .ct-label.ct-horizontal.ct-start {\n  -webkit-box-align: flex-end;\n  align-items: flex-end;\n  -webkit-box-pack: center;\n  justify-content: center;\n  text-align: center;\n  text-anchor: start;\n}\n\n.ct-chart-bar .ct-label.ct-horizontal.ct-end {\n  -webkit-box-align: flex-start;\n  align-items: flex-start;\n  -webkit-box-pack: center;\n  justify-content: center;\n  text-align: center;\n  text-anchor: start;\n}\n\n.ct-chart-bar.ct-horizontal-bars .ct-label.ct-horizontal.ct-start {\n  -webkit-box-align: flex-end;\n  align-items: flex-end;\n  -webkit-box-pack: flex-start;\n  justify-content: flex-start;\n  text-align: left;\n  text-anchor: start;\n}\n\n.ct-chart-bar.ct-horizontal-bars .ct-label.ct-horizontal.ct-end {\n  -webkit-box-align: flex-start;\n  align-items: flex-start;\n  -webkit-box-pack: flex-start;\n  justify-content: flex-start;\n  text-align: left;\n  text-anchor: start;\n}\n\n.ct-chart-bar.ct-horizontal-bars .ct-label.ct-vertical.ct-start {\n  -webkit-box-align: center;\n  align-items: center;\n  -webkit-box-pack: flex-end;\n  justify-content: flex-end;\n  text-align: right;\n  text-anchor: end;\n}\n\n.ct-chart-bar.ct-horizontal-bars .ct-label.ct-vertical.ct-end {\n  -webkit-box-align: center;\n  align-items: center;\n  -webkit-box-pack: flex-start;\n  justify-content: flex-start;\n  text-align: left;\n  text-anchor: end;\n}\n\n.ct-grid {\n  stroke: rgba(0, 0, 0, 0.2);\n  stroke-width: 1px;\n  stroke-dasharray: 2px;\n}\n\n.ct-point {\n  stroke-width: 8px;\n  stroke-linecap: round;\n}\n\n.ct-line {\n  fill: none;\n  stroke-width: 3px;\n}\n\n.ct-area {\n  stroke: none;\n  fill-opacity: 0.8;\n}\n\n.ct-bar {\n  fill: none;\n  stroke-width: 10px;\n}\n\n.ct-slice-donut {\n  fill: none;\n  stroke-width: 60px;\n}\n\n.ct-series-a .ct-point, .ct-series-a .ct-line, .ct-series-a .ct-bar, .ct-series-a .ct-slice-donut {\n  stroke: #1DC7EA;\n}\n.ct-series-a .ct-slice-pie, .ct-series-a .ct-area {\n  fill: #1DC7EA;\n}\n\n.ct-series-b .ct-point, .ct-series-b .ct-line, .ct-series-b .ct-bar, .ct-series-b .ct-slice-donut {\n  stroke: #FB404B;\n}\n.ct-series-b .ct-slice-pie, .ct-series-b .ct-area {\n  fill: #FB404B;\n}\n\n.ct-series-c .ct-point, .ct-series-c .ct-line, .ct-series-c .ct-bar, .ct-series-c .ct-slice-donut {\n  stroke: #FFA534;\n}\n.ct-series-c .ct-slice-pie, .ct-series-c .ct-area {\n  fill: #FFA534;\n}\n\n.ct-series-d .ct-point, .ct-series-d .ct-line, .ct-series-d .ct-bar, .ct-series-d .ct-slice-donut {\n  stroke: #9368E9;\n}\n.ct-series-d .ct-slice-pie, .ct-series-d .ct-area {\n  fill: #9368E9;\n}\n\n.ct-series-e .ct-point, .ct-series-e .ct-line, .ct-series-e .ct-bar, .ct-series-e .ct-slice-donut {\n  stroke: #87CB16;\n}\n.ct-series-e .ct-slice-pie, .ct-series-e .ct-area {\n  fill: #87CB16;\n}\n\n.ct-series-f .ct-point, .ct-series-f .ct-line, .ct-series-f .ct-bar, .ct-series-f .ct-slice-donut {\n  stroke: #1F77D0;\n}\n.ct-series-f .ct-slice-pie, .ct-series-f .ct-area {\n  fill: #1F77D0;\n}\n\n.ct-series-g .ct-point, .ct-series-g .ct-line, .ct-series-g .ct-bar, .ct-series-g .ct-slice-donut {\n  stroke: #5e5e5e;\n}\n.ct-series-g .ct-slice-pie, .ct-series-g .ct-area {\n  fill: #5e5e5e;\n}\n\n.ct-series-h .ct-point, .ct-series-h .ct-line, .ct-series-h .ct-bar, .ct-series-h .ct-slice-donut {\n  stroke: #dd4b39;\n}\n.ct-series-h .ct-slice-pie, .ct-series-h .ct-area {\n  fill: #dd4b39;\n}\n\n.ct-series-i .ct-point, .ct-series-i .ct-line, .ct-series-i .ct-bar, .ct-series-i .ct-slice-donut {\n  stroke: #35465c;\n}\n.ct-series-i .ct-slice-pie, .ct-series-i .ct-area {\n  fill: #35465c;\n}\n\n.ct-series-j .ct-point, .ct-series-j .ct-line, .ct-series-j .ct-bar, .ct-series-j .ct-slice-donut {\n  stroke: #e52d27;\n}\n.ct-series-j .ct-slice-pie, .ct-series-j .ct-area {\n  fill: #e52d27;\n}\n\n.ct-series-k .ct-point, .ct-series-k .ct-line, .ct-series-k .ct-bar, .ct-series-k .ct-slice-donut {\n  stroke: #55acee;\n}\n.ct-series-k .ct-slice-pie, .ct-series-k .ct-area {\n  fill: #55acee;\n}\n\n.ct-series-l .ct-point, .ct-series-l .ct-line, .ct-series-l .ct-bar, .ct-series-l .ct-slice-donut {\n  stroke: #cc2127;\n}\n.ct-series-l .ct-slice-pie, .ct-series-l .ct-area {\n  fill: #cc2127;\n}\n\n.ct-series-m .ct-point, .ct-series-m .ct-line, .ct-series-m .ct-bar, .ct-series-m .ct-slice-donut {\n  stroke: #1769ff;\n}\n.ct-series-m .ct-slice-pie, .ct-series-m .ct-area {\n  fill: #1769ff;\n}\n\n.ct-series-n .ct-point, .ct-series-n .ct-line, .ct-series-n .ct-bar, .ct-series-n .ct-slice-donut {\n  stroke: #6188e2;\n}\n.ct-series-n .ct-slice-pie, .ct-series-n .ct-area {\n  fill: #6188e2;\n}\n\n.ct-series-o .ct-point, .ct-series-o .ct-line, .ct-series-o .ct-bar, .ct-series-o .ct-slice-donut {\n  stroke: #a748ca;\n}\n.ct-series-o .ct-slice-pie, .ct-series-o .ct-area {\n  fill: #a748ca;\n}\n\n.ct-square {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-square:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 100%;\n}\n.ct-square:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-square > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-minor-second {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-minor-second:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 93.75%;\n}\n.ct-minor-second:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-minor-second > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-major-second {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-major-second:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 88.8888888889%;\n}\n.ct-major-second:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-major-second > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-minor-third {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-minor-third:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 83.3333333333%;\n}\n.ct-minor-third:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-minor-third > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-major-third {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-major-third:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 80%;\n}\n.ct-major-third:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-major-third > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-perfect-fourth {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-perfect-fourth:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 75%;\n}\n.ct-perfect-fourth:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-perfect-fourth > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-perfect-fifth {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-perfect-fifth:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 66.6666666667%;\n}\n.ct-perfect-fifth:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-perfect-fifth > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-minor-sixth {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-minor-sixth:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 62.5%;\n}\n.ct-minor-sixth:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-minor-sixth > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-golden-section {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-golden-section:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 61.804697157%;\n}\n.ct-golden-section:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-golden-section > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-major-sixth {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-major-sixth:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 60%;\n}\n.ct-major-sixth:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-major-sixth > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-minor-seventh {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-minor-seventh:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 56.25%;\n}\n.ct-minor-seventh:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-minor-seventh > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-major-seventh {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-major-seventh:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 53.3333333333%;\n}\n.ct-major-seventh:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-major-seventh > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-octave {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-octave:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 50%;\n}\n.ct-octave:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-octave > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-major-tenth {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-major-tenth:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 40%;\n}\n.ct-major-tenth:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-major-tenth > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-major-eleventh {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-major-eleventh:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 37.5%;\n}\n.ct-major-eleventh:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-major-eleventh > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-major-twelfth {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-major-twelfth:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 33.3333333333%;\n}\n.ct-major-twelfth:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-major-twelfth > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.ct-double-octave {\n  display: block;\n  position: relative;\n  width: 100%;\n}\n.ct-double-octave:before {\n  display: block;\n  float: left;\n  content: \"\";\n  width: 0;\n  height: 0;\n  padding-bottom: 25%;\n}\n.ct-double-octave:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.ct-double-octave > svg {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n@media (min-width: 992px) {\n  .navbar-form {\n    margin-top: 21px;\n    margin-bottom: 21px;\n    padding-left: 5px;\n    padding-right: 5px;\n  }\n\n  .navbar-nav .nav-item .dropdown-menu, .dropdown .dropdown-menu {\n    -webkit-transform: scale(0);\n    transform: scale(0);\n    -webkit-transition: all 370ms cubic-bezier(0.34, 1.61, 0.7, 1);\n    transition: all 370ms cubic-bezier(0.34, 1.61, 0.7, 1);\n  }\n\n  .navbar-nav .nav-item.show .dropdown-menu, .dropdown.show .dropdown-menu {\n    -webkit-transform: scale(1);\n    transform: scale(1);\n    -webkit-transform-origin: 29px -50px;\n    transform-origin: 29px -50px;\n  }\n\n  .close-layer,\n.nav-mobile-menu {\n    display: none !important;\n  }\n\n  .footer {\n    height: 60px;\n  }\n  .footer .footer-menu {\n    float: left;\n  }\n  .footer .copyright {\n    float: right;\n  }\n\n  .navbar-nav .nav-item .dropdown-menu:before {\n    border-bottom: 11px solid rgba(0, 0, 0, 0.2);\n    border-left: 11px solid rgba(0, 0, 0, 0);\n    border-right: 11px solid rgba(0, 0, 0, 0);\n    content: \"\";\n    display: inline-block;\n    position: absolute;\n    left: 12px;\n    top: -11px;\n  }\n\n  .navbar-nav .nav-item .dropdown-menu:after {\n    border-bottom: 11px solid #FFFFFF;\n    border-left: 11px solid rgba(0, 0, 0, 0);\n    border-right: 11px solid rgba(0, 0, 0, 0);\n    content: \"\";\n    display: inline-block;\n    position: absolute;\n    left: 12px;\n    top: -10px;\n  }\n\n  .navbar-nav.navbar-right .nav-item .dropdown-menu:before {\n    left: auto;\n    right: 12px;\n  }\n\n  .navbar-nav.navbar-right .nav-item .dropdown-menu:after {\n    left: auto;\n    right: 12px;\n  }\n\n  .footer:not(.footer-big) nav > ul li:first-child {\n    margin-left: 0;\n  }\n\n  .card form [class*=col-] {\n    padding: 6px;\n  }\n  .card form [class*=col-]:first-child {\n    padding-left: 15px;\n  }\n  .card form [class*=col-]:last-child {\n    padding-right: 15px;\n  }\n}\n/*          Changes for small display      */\n@media (max-width: 991px) {\n  .sidebar {\n    right: 0 !important;\n    left: auto;\n    position: fixed;\n    -webkit-transform: translate3d(262px, 0, 0);\n    transform: translate3d(262px, 0, 0) !important;\n    -webkit-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);\n    transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);\n  }\n\n  .nav-open .main-panel {\n    position: absolute;\n    left: 0;\n    -webkit-transform: translate3d(-250px, 0, 0);\n    transform: translate3d(-250px, 0, 0) !important;\n    -webkit-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);\n    transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);\n  }\n  .nav-open .sidebar {\n    -webkit-transform: translate3d(10px, 0, 0);\n    transform: translate3d(10px, 0, 0) !important;\n    -webkit-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);\n    transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);\n  }\n\n  .main-panel {\n    -webkit-transform: translate3d(0px, 0, 0);\n    transform: translate3d(0px, 0, 0) !important;\n    -webkit-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);\n    transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);\n  }\n\n  .nav-item.active-pro {\n    position: relative !important;\n  }\n\n  .nav-mobile-menu {\n    border-bottom: 1px solid rgba(255, 255, 255, 0.2);\n    margin-bottom: 15px;\n    padding-bottom: 15px;\n    padding-top: 5px;\n  }\n  .nav-mobile-menu .dropdown .dropdown-menu {\n    position: static !important;\n    float: none;\n    width: auto;\n    color: #FFFFFF;\n    margin-top: 0;\n    background-color: transparent;\n    border: 0;\n    box-shadow: none;\n    -webkit-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);\n    transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);\n  }\n  .nav-mobile-menu .dropdown .dropdown-menu .dropdown-item {\n    margin: 5px 15px 0px 40px;\n    border-radius: 4px;\n    color: #FFFFFF;\n    opacity: 0.86;\n    padding: 8px 50px;\n  }\n  .nav-mobile-menu .dropdown .dropdown-menu .dropdown-item:hover {\n    background-color: rgba(255, 255, 255, 0.23);\n  }\n  .nav-mobile-menu .nav-item .nav-link span {\n    display: inline-block !important;\n  }\n  .nav-mobile-menu .nav-item .nav-link .no-icon {\n    padding-left: 50px;\n  }\n\n  .main-panel {\n    width: 100%;\n  }\n\n  .navbar-transparent {\n    padding-top: 15px;\n    background-color: rgba(0, 0, 0, 0.45);\n  }\n\n  body {\n    position: relative;\n  }\n\n  .wrapper {\n    left: 0;\n    background-color: white;\n  }\n\n  .navbar {\n    padding-right: 30px;\n    padding-left: 30px;\n  }\n\n  .navbar-nav .nav-item {\n    float: none;\n    position: relative;\n    display: block;\n  }\n\n  body > .navbar-collapse {\n    position: fixed;\n    display: block;\n    top: 0;\n    height: 100%;\n    right: 0;\n    left: auto;\n    z-index: 1032;\n    visibility: visible;\n    background-color: #999;\n    overflow-y: visible;\n    border-top: none;\n    text-align: left;\n    padding: 0;\n    -webkit-transform: translate3d(260px, 0, 0);\n    transform: translate3d(260px, 0, 0);\n    -webkit-transition: all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1);\n    transition: all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1);\n  }\n  body > .navbar-collapse > ul {\n    position: relative;\n    z-index: 4;\n    overflow-y: scroll;\n    height: calc(100vh - 61px);\n    width: 100%;\n  }\n  body > .navbar-collapse::before {\n    top: 0;\n    left: 0;\n    height: 100%;\n    width: 100%;\n    position: absolute;\n    background-color: #282828;\n    display: block;\n    content: \"\";\n    z-index: 1;\n  }\n  body > .navbar-collapse .logo {\n    position: relative;\n    z-index: 4;\n  }\n  body > .navbar-collapse .nav li > a {\n    padding: 10px 15px;\n  }\n\n  .nav-show .navbar-collapse {\n    -webkit-transform: translate3d(0px, 0, 0);\n    transform: translate3d(0px, 0, 0);\n  }\n\n  .nav-show .navbar .container {\n    left: -250px;\n  }\n\n  .nav-show .wrapper {\n    left: 0;\n    -webkit-transform: translate3d(-260px, 0, 0);\n    transform: translate3d(-260px, 0, 0);\n  }\n\n  .navbar-toggle .icon-bar {\n    display: block;\n    position: relative;\n    background: #fff;\n    width: 24px;\n    height: 2px;\n    border-radius: 1px;\n    margin: 0 auto;\n  }\n\n  .navbar-header .navbar-toggle {\n    margin: 10px 15px 10px 0;\n    width: 40px;\n    height: 40px;\n  }\n\n  .bar1,\n.bar2,\n.bar3 {\n    outline: 1px solid transparent;\n  }\n\n  .bar1 {\n    top: 0px;\n    -webkit-animation: topbar-back 500ms linear 0s;\n    animation: topbar-back 500ms 0s;\n    -webkit-animation-fill-mode: forwards;\n    animation-fill-mode: forwards;\n  }\n\n  .bar2 {\n    opacity: 1;\n  }\n\n  .bar3 {\n    bottom: 0px;\n    -webkit-animation: bottombar-back 500ms linear 0s;\n    animation: bottombar-back 500ms 0s;\n    -webkit-animation-fill-mode: forwards;\n    animation-fill-mode: forwards;\n  }\n\n  .toggled .bar1 {\n    top: 6px;\n    -webkit-animation: topbar-x 500ms linear 0s;\n    animation: topbar-x 500ms 0s;\n    -webkit-animation-fill-mode: forwards;\n    animation-fill-mode: forwards;\n  }\n\n  .toggled .bar2 {\n    opacity: 0;\n  }\n\n  .toggled .bar3 {\n    bottom: 6px;\n    -webkit-animation: bottombar-x 500ms linear 0s;\n    animation: bottombar-x 500ms 0s;\n    -webkit-animation-fill-mode: forwards;\n    animation-fill-mode: forwards;\n  }\n\n  @keyframes topbar-x {\n    0% {\n      top: 0px;\n      -webkit-transform: rotate(0deg);\n              transform: rotate(0deg);\n    }\n    45% {\n      top: 6px;\n      -webkit-transform: rotate(145deg);\n              transform: rotate(145deg);\n    }\n    75% {\n      -webkit-transform: rotate(130deg);\n              transform: rotate(130deg);\n    }\n    100% {\n      -webkit-transform: rotate(135deg);\n              transform: rotate(135deg);\n    }\n  }\n  @-webkit-keyframes topbar-x {\n    0% {\n      top: 0px;\n      -webkit-transform: rotate(0deg);\n    }\n    45% {\n      top: 6px;\n      -webkit-transform: rotate(145deg);\n    }\n    75% {\n      -webkit-transform: rotate(130deg);\n    }\n    100% {\n      -webkit-transform: rotate(135deg);\n    }\n  }\n  @keyframes topbar-back {\n    0% {\n      top: 6px;\n      -webkit-transform: rotate(135deg);\n              transform: rotate(135deg);\n    }\n    45% {\n      -webkit-transform: rotate(-10deg);\n              transform: rotate(-10deg);\n    }\n    75% {\n      -webkit-transform: rotate(5deg);\n              transform: rotate(5deg);\n    }\n    100% {\n      top: 0px;\n      -webkit-transform: rotate(0);\n              transform: rotate(0);\n    }\n  }\n  @-webkit-keyframes topbar-back {\n    0% {\n      top: 6px;\n      -webkit-transform: rotate(135deg);\n    }\n    45% {\n      -webkit-transform: rotate(-10deg);\n    }\n    75% {\n      -webkit-transform: rotate(5deg);\n    }\n    100% {\n      top: 0px;\n      -webkit-transform: rotate(0);\n    }\n  }\n  @keyframes bottombar-x {\n    0% {\n      bottom: 0px;\n      -webkit-transform: rotate(0deg);\n              transform: rotate(0deg);\n    }\n    45% {\n      bottom: 6px;\n      -webkit-transform: rotate(-145deg);\n              transform: rotate(-145deg);\n    }\n    75% {\n      -webkit-transform: rotate(-130deg);\n              transform: rotate(-130deg);\n    }\n    100% {\n      -webkit-transform: rotate(-135deg);\n              transform: rotate(-135deg);\n    }\n  }\n  @-webkit-keyframes bottombar-x {\n    0% {\n      bottom: 0px;\n      -webkit-transform: rotate(0deg);\n    }\n    45% {\n      bottom: 6px;\n      -webkit-transform: rotate(-145deg);\n    }\n    75% {\n      -webkit-transform: rotate(-130deg);\n    }\n    100% {\n      -webkit-transform: rotate(-135deg);\n    }\n  }\n  @keyframes bottombar-back {\n    0% {\n      bottom: 6px;\n      -webkit-transform: rotate(-135deg);\n              transform: rotate(-135deg);\n    }\n    45% {\n      -webkit-transform: rotate(10deg);\n              transform: rotate(10deg);\n    }\n    75% {\n      -webkit-transform: rotate(-5deg);\n              transform: rotate(-5deg);\n    }\n    100% {\n      bottom: 0px;\n      -webkit-transform: rotate(0);\n              transform: rotate(0);\n    }\n  }\n  @-webkit-keyframes bottombar-back {\n    0% {\n      bottom: 6px;\n      -webkit-transform: rotate(-135deg);\n    }\n    45% {\n      -webkit-transform: rotate(10deg);\n    }\n    75% {\n      -webkit-transform: rotate(-5deg);\n    }\n    100% {\n      bottom: 0px;\n      -webkit-transform: rotate(0);\n    }\n  }\n  @-webkit-keyframes fadeIn {\n    0% {\n      opacity: 0;\n    }\n    100% {\n      opacity: 1;\n    }\n  }\n  @keyframes fadeIn {\n    0% {\n      opacity: 0;\n    }\n    100% {\n      opacity: 1;\n    }\n  }\n  .dropdown-menu .divider {\n    background-color: rgba(229, 229, 229, 0.15);\n  }\n\n  .navbar-nav {\n    margin: 1px 0;\n  }\n  .navbar-nav .show .dropdown-menu .nav-item .nav-link {\n    padding: 10px 15px 10px 60px;\n  }\n\n  [class*=navbar-] .navbar-nav > li > a,\n[class*=navbar-] .navbar-nav > li > a:hover,\n[class*=navbar-] .navbar-nav > li > a:focus,\n[class*=navbar-] .navbar-nav .active > a,\n[class*=navbar-] .navbar-nav .active > a:hover,\n[class*=navbar-] .navbar-nav .active > a:focus,\n[class*=navbar-] .navbar-nav .show .dropdown-menu > li > a,\n[class*=navbar-] .navbar-nav .show .dropdown-menu > li > a:hover,\n[class*=navbar-] .navbar-nav .show .dropdown-menu > li > a:focus,\n[class*=navbar-] .navbar-nav .show .dropdown-menu > li > a:active {\n    color: white;\n  }\n  [class*=navbar-] .navbar-nav > li > a,\n[class*=navbar-] .navbar-nav > li > a:hover,\n[class*=navbar-] .navbar-nav > li > a:focus {\n    opacity: 0.7;\n    background-color: transparent;\n    outline: none;\n  }\n  [class*=navbar-] .navbar-nav .show .dropdown-menu > li > a:hover,\n[class*=navbar-] .navbar-nav .show .dropdown-menu > li > a:focus {\n    background-color: rgba(255, 255, 255, 0.1);\n  }\n  [class*=navbar-] .navbar-nav.navbar-nav .show .dropdown-menu > li > a:active {\n    opacity: 1;\n  }\n  [class*=navbar-] .navbar-nav .dropdown > a:hover .caret {\n    border-bottom-color: #fff;\n    border-top-color: #fff;\n  }\n  [class*=navbar-] .navbar-nav .dropdown > a:active .caret {\n    border-bottom-color: white;\n    border-top-color: white;\n  }\n\n  .dropdown-menu {\n    display: none;\n  }\n\n  .navbar-fixed-top {\n    -webkit-backface-visibility: hidden;\n  }\n\n  #bodyClick {\n    height: 100%;\n    width: 100%;\n    position: fixed;\n    opacity: 0;\n    top: 0;\n    left: auto;\n    right: 250px;\n    content: \"\";\n    z-index: 9999;\n    overflow-x: hidden;\n  }\n\n  .social-line .btn {\n    margin: 0 0 10px 0;\n  }\n\n  .subscribe-line .form-control {\n    margin: 0 0 10px 0;\n  }\n\n  .social-line.pull-right {\n    float: none;\n  }\n\n  .social-area.pull-right {\n    float: none !important;\n  }\n\n  .form-control + .form-control-feedback {\n    margin-top: -8px;\n  }\n\n  .navbar-toggle:hover, .navbar-toggle:focus {\n    background-color: transparent !important;\n  }\n\n  .btn.dropdown-toggle {\n    margin-bottom: 0;\n  }\n\n  .media-post .author {\n    width: 20%;\n    float: none !important;\n    display: block;\n    margin: 0 auto 10px;\n  }\n\n  .media-post .media-body {\n    width: 100%;\n  }\n\n  .navbar-collapse.collapse {\n    height: 100% !important;\n  }\n\n  .navbar-collapse.collapse.in {\n    display: block;\n  }\n\n  .navbar-header .collapse, .navbar-toggle {\n    display: block !important;\n  }\n\n  .navbar-header {\n    float: none;\n  }\n\n  .navbar-nav .show .dropdown-menu {\n    position: static;\n    float: none;\n    width: auto;\n    margin-top: 0;\n    background-color: transparent;\n    border: 0;\n    box-shadow: none;\n  }\n\n  .navbar-collapse .navbar-nav p {\n    line-height: 40px !important;\n    margin: 0;\n  }\n  .navbar-collapse [class^=pe-7s-] {\n    float: left;\n    font-size: 20px;\n    margin-right: 10px;\n  }\n}\n@media (min-width: 992px) {\n  .table-full-width {\n    margin-left: -15px;\n    margin-right: -15px;\n  }\n\n  .table-responsive {\n    overflow: visible;\n  }\n}\n@media (max-width: 991px) {\n  .table-responsive {\n    width: 100%;\n    margin-bottom: 15px;\n    overflow-x: scroll;\n    overflow-y: hidden;\n    -ms-overflow-style: -ms-autohiding-scrollbar;\n    -webkit-overflow-scrolling: touch;\n  }\n}\n.bootstrap-switch {\n  display: inline-block;\n  direction: ltr;\n  cursor: pointer;\n  border-radius: 30px;\n  border: 0;\n  position: relative;\n  text-align: left;\n  overflow: hidden;\n  margin-bottom: 5px;\n  margin-left: 66px;\n  line-height: 8px;\n  width: 61px !important;\n  height: 26px;\n  outline: none;\n  z-index: 0;\n  margin-right: 1px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  vertical-align: middle;\n  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;\n  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;\n}\n\n.bootstrap-switch .bootstrap-switch-container {\n  display: -webkit-inline-box;\n  display: inline-flex;\n  top: 0;\n  height: 26px;\n  border-radius: 4px;\n  -webkit-transform: translate3d(0, 0, 0);\n  transform: translate3d(0, 0, 0);\n  width: 100px !important;\n}\n\n.bootstrap-switch .bootstrap-switch-handle-on,\n.bootstrap-switch .bootstrap-switch-handle-off,\n.bootstrap-switch .bootstrap-switch-label {\n  box-sizing: border-box;\n  cursor: pointer;\n  display: inline-block !important;\n  height: 100%;\n  color: #fff;\n  padding: 6px 10px;\n  font-size: 11px;\n  text-indent: -5px;\n  line-height: 15px;\n  -webkit-transition: 0.25s ease-out;\n  transition: 0.25s ease-out;\n}\n.bootstrap-switch .bootstrap-switch-handle-on i,\n.bootstrap-switch .bootstrap-switch-handle-off i,\n.bootstrap-switch .bootstrap-switch-label i {\n  font-size: 12px;\n  line-height: 14px;\n}\n\n.bootstrap-switch .bootstrap-switch-handle-on,\n.bootstrap-switch .bootstrap-switch-handle-off {\n  text-align: center;\n  z-index: 1;\n  float: left;\n  width: 50% !important;\n  background-color: #1DC7EA;\n}\n\n.bootstrap-switch .bootstrap-switch-label {\n  text-align: center;\n  z-index: 100;\n  color: #333333;\n  background: #ffffff;\n  width: 22px !important;\n  height: 22px;\n  margin: 2px -11px;\n  border-radius: 12px;\n  position: relative;\n  float: left;\n  padding: 0;\n  background-color: #FFFFFF;\n  box-shadow: 0 1px 1px #FFFFFF inset, 0 1px 1px rgba(0, 0, 0, 0.25);\n}\n\n.bootstrap-switch .bootstrap-switch-handle-on {\n  border-bottom-left-radius: 3px;\n  border-top-left-radius: 3px;\n}\n\n.bootstrap-switch .bootstrap-switch-handle-off {\n  text-indent: 6px;\n}\n\n.bootstrap-switch input[type=radio],\n.bootstrap-switch input[type=checkbox] {\n  position: absolute !important;\n  top: 0;\n  left: 0;\n  opacity: 0;\n  filter: alpha(opacity=0);\n  z-index: -1;\n}\n\n.bootstrap-switch.bootstrap-switch-animate .bootstrap-switch-container {\n  -webkit-transition: margin-left 0.5s;\n  transition: margin-left 0.5s;\n}\n\n.bootstrap-switch.bootstrap-switch-on .bootstrap-switch-container {\n  margin-left: -2px !important;\n}\n\n.bootstrap-switch.bootstrap-switch-off .bootstrap-switch-container {\n  margin-left: -37px !important;\n}\n\n.bootstrap-switch.bootstrap-switch-on:hover .bootstrap-switch-label {\n  width: 26px !important;\n  margin: 2px -15px;\n}\n\n.bootstrap-switch.bootstrap-switch-off:hover .bootstrap-switch-label {\n  width: 26px !important;\n  margin: 2px -15px -13px -11px;\n}\n\n/*--------------------------------\n\nnucleo-icons Web Font - built using nucleoapp.com\nLicense - nucleoapp.com/license/\n\n-------------------------------- */\n@font-face {\n  font-family: \"nucleo-icons\";\n  src: url(" + escape(__webpack_require__(/*! @/assets/fonts/nucleo-icons.eot */ "./resources/js/assets/fonts/nucleo-icons.eot")) + ");\n  src: url(" + escape(__webpack_require__(/*! @/assets/fonts/nucleo-icons.eot */ "./resources/js/assets/fonts/nucleo-icons.eot")) + ") format(\"embedded-opentype\"), url(" + escape(__webpack_require__(/*! @/assets/fonts/nucleo-icons.woff2 */ "./resources/js/assets/fonts/nucleo-icons.woff2")) + ") format(\"woff2\"), url(" + escape(__webpack_require__(/*! @/assets/fonts/nucleo-icons.ttf */ "./resources/js/assets/fonts/nucleo-icons.ttf")) + ") format(\"truetype\"), url(" + escape(__webpack_require__(/*! @/assets/fonts/nucleo-icons.svg */ "./resources/js/assets/fonts/nucleo-icons.svg")) + ") format(\"svg\");\n  font-weight: normal;\n  font-style: normal;\n}\n/*------------------------\n\tbase class definition\n-------------------------*/\n.nc-icon {\n  display: inline-block;\n  font: normal normal normal 14px/1 \"nucleo-icons\";\n  font-size: inherit;\n  speak: none;\n  text-transform: none;\n  /* Better Font Rendering */\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n/*------------------------\n  change icon size\n-------------------------*/\n.nc-icon.lg {\n  font-size: 1.33333333em;\n  vertical-align: -16%;\n}\n\n.nc-icon.x2 {\n  font-size: 2em;\n}\n\n.nc-icon.x3 {\n  font-size: 3em;\n}\n\n/*----------------------------------\n  add a square/circle background\n-----------------------------------*/\n.nc-icon.square,\n.nc-icon.circle {\n  padding: 0.33333333em;\n  vertical-align: -16%;\n  background-color: #eee;\n}\n\n.nc-icon.circle {\n  border-radius: 50%;\n}\n\n/*------------------------\n  list icons\n-------------------------*/\n.nc-icon-ul {\n  padding-left: 0;\n  margin-left: 2.14285714em;\n  list-style-type: none;\n}\n\n.nc-icon-ul > li {\n  position: relative;\n}\n\n.nc-icon-ul > li > .nc-icon {\n  position: absolute;\n  left: -1.57142857em;\n  top: 0.14285714em;\n  text-align: center;\n}\n\n.nc-icon-ul > li > .nc-icon.lg {\n  top: 0;\n  left: -1.35714286em;\n}\n\n.nc-icon-ul > li > .nc-icon.circle,\n.nc-icon-ul > li > .nc-icon.square {\n  top: -0.19047619em;\n  left: -1.9047619em;\n}\n\n.all-icons .font-icon-list .font-icon-detail i {\n  font-size: 32px;\n}\n\n/*------------------------\n  spinning icons\n-------------------------*/\n.nc-icon.spin {\n  -webkit-animation: nc-icon-spin 2s infinite linear;\n  animation: nc-icon-spin 2s infinite linear;\n}\n\n@-webkit-keyframes nc-icon-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n  }\n}\n@keyframes nc-icon-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n/*------------------------\n  rotated/flipped icons\n-------------------------*/\n.nc-icon.rotate-90 {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);\n  -webkit-transform: rotate(90deg);\n  transform: rotate(90deg);\n}\n\n.nc-icon.rotate-180 {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);\n  -webkit-transform: rotate(180deg);\n  transform: rotate(180deg);\n}\n\n.nc-icon.rotate-270 {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);\n  -webkit-transform: rotate(270deg);\n  transform: rotate(270deg);\n}\n\n.nc-icon.flip-y {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);\n  -webkit-transform: scale(-1, 1);\n  transform: scale(-1, 1);\n}\n\n.nc-icon.flip-x {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);\n  -webkit-transform: scale(1, -1);\n  transform: scale(1, -1);\n}\n\n/*------------------------\n\tfont icons\n-------------------------*/\n.nc-air-baloon::before {\n  content: \"\\EA01\";\n}\n\n.nc-album-2::before {\n  content: \"\\EA02\";\n}\n\n.nc-alien-33::before {\n  content: \"\\EA03\";\n}\n\n.nc-align-center::before {\n  content: \"\\EA04\";\n}\n\n.nc-align-left-2::before {\n  content: \"\\EA05\";\n}\n\n.nc-ambulance::before {\n  content: \"\\EA06\";\n}\n\n.nc-android::before {\n  content: \"\\EA07\";\n}\n\n.nc-app::before {\n  content: \"\\EA08\";\n}\n\n.nc-apple::before {\n  content: \"\\EA09\";\n}\n\n.nc-atom::before {\n  content: \"\\EA0A\";\n}\n\n.nc-attach-87::before {\n  content: \"\\EA0B\";\n}\n\n.nc-audio-92::before {\n  content: \"\\EA0C\";\n}\n\n.nc-backpack::before {\n  content: \"\\EA0D\";\n}\n\n.nc-badge::before {\n  content: \"\\EA0E\";\n}\n\n.nc-bag::before {\n  content: \"\\EA0F\";\n}\n\n.nc-bank::before {\n  content: \"\\EA10\";\n}\n\n.nc-battery-81::before {\n  content: \"\\EA11\";\n}\n\n.nc-bell-55::before {\n  content: \"\\EA12\";\n}\n\n.nc-bold::before {\n  content: \"\\EA13\";\n}\n\n.nc-bulb-63::before {\n  content: \"\\EA14\";\n}\n\n.nc-bullet-list-67::before {\n  content: \"\\EA15\";\n}\n\n.nc-bus-front-12::before {\n  content: \"\\EA16\";\n}\n\n.nc-button-pause::before {\n  content: \"\\EA17\";\n}\n\n.nc-button-play::before {\n  content: \"\\EA18\";\n}\n\n.nc-button-power::before {\n  content: \"\\EA19\";\n}\n\n.nc-camera-20::before {\n  content: \"\\EA1A\";\n}\n\n.nc-caps-small::before {\n  content: \"\\EA1B\";\n}\n\n.nc-cart-simple::before {\n  content: \"\\EA1C\";\n}\n\n.nc-cctv::before {\n  content: \"\\EA1D\";\n}\n\n.nc-chart-bar-32::before {\n  content: \"\\EA1E\";\n}\n\n.nc-chart-pie-35::before {\n  content: \"\\EA1F\";\n}\n\n.nc-chart-pie-36::before {\n  content: \"\\EA20\";\n}\n\n.nc-chart::before {\n  content: \"\\EA21\";\n}\n\n.nc-chat-round::before {\n  content: \"\\EA22\";\n}\n\n.nc-check-2::before {\n  content: \"\\EA23\";\n}\n\n.nc-circle-09::before {\n  content: \"\\EA24\";\n}\n\n.nc-circle::before {\n  content: \"\\EA25\";\n}\n\n.nc-cloud-download-93::before {\n  content: \"\\EA26\";\n}\n\n.nc-cloud-upload-94::before {\n  content: \"\\EA27\";\n}\n\n.nc-compass-05::before {\n  content: \"\\EA28\";\n}\n\n.nc-controller-modern::before {\n  content: \"\\EA29\";\n}\n\n.nc-credit-card::before {\n  content: \"\\EA2A\";\n}\n\n.nc-delivery-fast::before {\n  content: \"\\EA2B\";\n}\n\n.nc-email-83::before {\n  content: \"\\EA2C\";\n}\n\n.nc-email-85::before {\n  content: \"\\EA2D\";\n}\n\n.nc-explore-2::before {\n  content: \"\\EA2E\";\n}\n\n.nc-fav-remove::before {\n  content: \"\\EA2F\";\n}\n\n.nc-favourite-28::before {\n  content: \"\\EA30\";\n}\n\n.nc-globe-2::before {\n  content: \"\\EA31\";\n}\n\n.nc-grid-45::before {\n  content: \"\\EA32\";\n}\n\n.nc-headphones-2::before {\n  content: \"\\EA33\";\n}\n\n.nc-html5::before {\n  content: \"\\EA34\";\n}\n\n.nc-istanbul::before {\n  content: \"\\EA35\";\n}\n\n.nc-key-25::before {\n  content: \"\\EA36\";\n}\n\n.nc-layers-3::before {\n  content: \"\\EA37\";\n}\n\n.nc-light-3::before {\n  content: \"\\EA38\";\n}\n\n.nc-lock-circle-open::before {\n  content: \"\\EA39\";\n}\n\n.nc-map-big::before {\n  content: \"\\EA3A\";\n}\n\n.nc-mobile::before {\n  content: \"\\EA3C\";\n}\n\n.nc-money-coins::before {\n  content: \"\\EA3B\";\n}\n\n.nc-note-03::before {\n  content: \"\\EA3D\";\n}\n\n.nc-notes::before {\n  content: \"\\EA3E\";\n}\n\n.nc-notification-70::before {\n  content: \"\\EA3F\";\n}\n\n.nc-palette::before {\n  content: \"\\EA40\";\n}\n\n.nc-paper-2::before {\n  content: \"\\EA41\";\n}\n\n.nc-pin-3::before {\n  content: \"\\EA42\";\n}\n\n.nc-planet::before {\n  content: \"\\EA43\";\n}\n\n.nc-preferences-circle-rotate::before {\n  content: \"\\EA44\";\n}\n\n.nc-puzzle-10::before {\n  content: \"\\EA45\";\n}\n\n.nc-quote::before {\n  content: \"\\EA46\";\n}\n\n.nc-refresh-02::before {\n  content: \"\\EA47\";\n}\n\n.nc-ruler-pencil::before {\n  content: \"\\EA48\";\n}\n\n.nc-satisfied::before {\n  content: \"\\EA49\";\n}\n\n.nc-scissors::before {\n  content: \"\\EA4A\";\n}\n\n.nc-send::before {\n  content: \"\\EA4B\";\n}\n\n.nc-settings-90::before {\n  content: \"\\EA4C\";\n}\n\n.nc-settings-gear-64::before {\n  content: \"\\EA4D\";\n}\n\n.nc-settings-tool-66::before {\n  content: \"\\EA4E\";\n}\n\n.nc-simple-add::before {\n  content: \"\\EA4F\";\n}\n\n.nc-simple-delete::before {\n  content: \"\\EA50\";\n}\n\n.nc-simple-remove::before {\n  content: \"\\EA51\";\n}\n\n.nc-single-02::before {\n  content: \"\\EA52\";\n}\n\n.nc-single-copy-04::before {\n  content: \"\\EA53\";\n}\n\n.nc-spaceship::before {\n  content: \"\\EA54\";\n}\n\n.nc-square-pin::before {\n  content: \"\\EA55\";\n}\n\n.nc-stre-down::before {\n  content: \"\\EA56\";\n}\n\n.nc-stre-left::before {\n  content: \"\\EA57\";\n}\n\n.nc-stre-right::before {\n  content: \"\\EA58\";\n}\n\n.nc-stre-up::before {\n  content: \"\\EA59\";\n}\n\n.nc-sun-fog-29::before {\n  content: \"\\EA5A\";\n}\n\n.nc-support-17::before {\n  content: \"\\EA5B\";\n}\n\n.nc-tablet-2::before {\n  content: \"\\EA5C\";\n}\n\n.nc-tag-content::before {\n  content: \"\\EA5D\";\n}\n\n.nc-tap-01::before {\n  content: \"\\EA5E\";\n}\n\n.nc-time-alarm::before {\n  content: \"\\EA5F\";\n}\n\n.nc-tv-2::before {\n  content: \"\\EA60\";\n}\n\n.nc-umbrella-13::before {\n  content: \"\\EA61\";\n}\n\n.nc-vector::before {\n  content: \"\\EA62\";\n}\n\n.nc-watch-time::before {\n  content: \"\\EA63\";\n}\n\n.nc-zoom-split::before {\n  content: \"\\EA64\";\n}\n\n/* all icon font classes list here */\n/*--------------------------------\n\nnucleo-icons Web Font - built using nucleoapp.com\nLicense - nucleoapp.com/license/\n\n-------------------------------- */\n@font-face {\n  font-family: \"nucleo-icons\";\n  src: url(" + escape(__webpack_require__(/*! @/assets/fonts/nucleo-icons.eot */ "./resources/js/assets/fonts/nucleo-icons.eot")) + ");\n  src: url(" + escape(__webpack_require__(/*! @/assets/fonts/nucleo-icons.eot */ "./resources/js/assets/fonts/nucleo-icons.eot")) + ") format(\"embedded-opentype\"), url(" + escape(__webpack_require__(/*! @/assets/fonts/nucleo-icons.woff2 */ "./resources/js/assets/fonts/nucleo-icons.woff2")) + ") format(\"woff2\"), url(" + escape(__webpack_require__(/*! @/assets/fonts/nucleo-icons.ttf */ "./resources/js/assets/fonts/nucleo-icons.ttf")) + ") format(\"truetype\"), url(" + escape(__webpack_require__(/*! @/assets/fonts/nucleo-icons.svg */ "./resources/js/assets/fonts/nucleo-icons.svg")) + ") format(\"svg\");\n  font-weight: normal;\n  font-style: normal;\n}\n/*------------------------\n\tbase class definition\n-------------------------*/\n.nc-icon {\n  display: inline-block;\n  font: normal normal normal 14px/1 \"nucleo-icons\";\n  font-size: inherit;\n  speak: none;\n  text-transform: none;\n  /* Better Font Rendering */\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n/*------------------------\n  change icon size\n-------------------------*/\n.nc-icon.lg {\n  font-size: 1.33333333em;\n  vertical-align: -16%;\n}\n\n.nc-icon.x2 {\n  font-size: 2em;\n}\n\n.nc-icon.x3 {\n  font-size: 3em;\n}\n\n/*----------------------------------\n  add a square/circle background\n-----------------------------------*/\n.nc-icon.square,\n.nc-icon.circle {\n  padding: 0.33333333em;\n  vertical-align: -16%;\n  background-color: #eee;\n}\n\n.nc-icon.circle {\n  border-radius: 50%;\n}\n\n/*------------------------\n  list icons\n-------------------------*/\n.nc-icon-ul {\n  padding-left: 0;\n  margin-left: 2.14285714em;\n  list-style-type: none;\n}\n\n.nc-icon-ul > li {\n  position: relative;\n}\n\n.nc-icon-ul > li > .nc-icon {\n  position: absolute;\n  left: -1.57142857em;\n  top: 0.14285714em;\n  text-align: center;\n}\n\n.nc-icon-ul > li > .nc-icon.lg {\n  top: 0;\n  left: -1.35714286em;\n}\n\n.nc-icon-ul > li > .nc-icon.circle,\n.nc-icon-ul > li > .nc-icon.square {\n  top: -0.19047619em;\n  left: -1.9047619em;\n}\n\n.all-icons .font-icon-list .font-icon-detail i {\n  font-size: 32px;\n}\n\n/*------------------------\n  spinning icons\n-------------------------*/\n.nc-icon.spin {\n  -webkit-animation: nc-icon-spin 2s infinite linear;\n  animation: nc-icon-spin 2s infinite linear;\n}\n\n@-webkit-keyframes nc-icon-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n  }\n}\n@keyframes nc-icon-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n/*------------------------\n  rotated/flipped icons\n-------------------------*/\n.nc-icon.rotate-90 {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);\n  -webkit-transform: rotate(90deg);\n  transform: rotate(90deg);\n}\n\n.nc-icon.rotate-180 {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);\n  -webkit-transform: rotate(180deg);\n  transform: rotate(180deg);\n}\n\n.nc-icon.rotate-270 {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);\n  -webkit-transform: rotate(270deg);\n  transform: rotate(270deg);\n}\n\n.nc-icon.flip-y {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);\n  -webkit-transform: scale(-1, 1);\n  transform: scale(-1, 1);\n}\n\n.nc-icon.flip-x {\n  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);\n  -webkit-transform: scale(1, -1);\n  transform: scale(1, -1);\n}\n\n/*------------------------\n\tfont icons\n-------------------------*/\n.nc-air-baloon::before {\n  content: \"\\EA01\";\n}\n\n.nc-album-2::before {\n  content: \"\\EA02\";\n}\n\n.nc-alien-33::before {\n  content: \"\\EA03\";\n}\n\n.nc-align-center::before {\n  content: \"\\EA04\";\n}\n\n.nc-align-left-2::before {\n  content: \"\\EA05\";\n}\n\n.nc-ambulance::before {\n  content: \"\\EA06\";\n}\n\n.nc-android::before {\n  content: \"\\EA07\";\n}\n\n.nc-app::before {\n  content: \"\\EA08\";\n}\n\n.nc-apple::before {\n  content: \"\\EA09\";\n}\n\n.nc-atom::before {\n  content: \"\\EA0A\";\n}\n\n.nc-attach-87::before {\n  content: \"\\EA0B\";\n}\n\n.nc-audio-92::before {\n  content: \"\\EA0C\";\n}\n\n.nc-backpack::before {\n  content: \"\\EA0D\";\n}\n\n.nc-badge::before {\n  content: \"\\EA0E\";\n}\n\n.nc-bag::before {\n  content: \"\\EA0F\";\n}\n\n.nc-bank::before {\n  content: \"\\EA10\";\n}\n\n.nc-battery-81::before {\n  content: \"\\EA11\";\n}\n\n.nc-bell-55::before {\n  content: \"\\EA12\";\n}\n\n.nc-bold::before {\n  content: \"\\EA13\";\n}\n\n.nc-bulb-63::before {\n  content: \"\\EA14\";\n}\n\n.nc-bullet-list-67::before {\n  content: \"\\EA15\";\n}\n\n.nc-bus-front-12::before {\n  content: \"\\EA16\";\n}\n\n.nc-button-pause::before {\n  content: \"\\EA17\";\n}\n\n.nc-button-play::before {\n  content: \"\\EA18\";\n}\n\n.nc-button-power::before {\n  content: \"\\EA19\";\n}\n\n.nc-camera-20::before {\n  content: \"\\EA1A\";\n}\n\n.nc-caps-small::before {\n  content: \"\\EA1B\";\n}\n\n.nc-cart-simple::before {\n  content: \"\\EA1C\";\n}\n\n.nc-cctv::before {\n  content: \"\\EA1D\";\n}\n\n.nc-chart-bar-32::before {\n  content: \"\\EA1E\";\n}\n\n.nc-chart-pie-35::before {\n  content: \"\\EA1F\";\n}\n\n.nc-chart-pie-36::before {\n  content: \"\\EA20\";\n}\n\n.nc-chart::before {\n  content: \"\\EA21\";\n}\n\n.nc-chat-round::before {\n  content: \"\\EA22\";\n}\n\n.nc-check-2::before {\n  content: \"\\EA23\";\n}\n\n.nc-circle-09::before {\n  content: \"\\EA24\";\n}\n\n.nc-circle::before {\n  content: \"\\EA25\";\n}\n\n.nc-cloud-download-93::before {\n  content: \"\\EA26\";\n}\n\n.nc-cloud-upload-94::before {\n  content: \"\\EA27\";\n}\n\n.nc-compass-05::before {\n  content: \"\\EA28\";\n}\n\n.nc-controller-modern::before {\n  content: \"\\EA29\";\n}\n\n.nc-credit-card::before {\n  content: \"\\EA2A\";\n}\n\n.nc-delivery-fast::before {\n  content: \"\\EA2B\";\n}\n\n.nc-email-83::before {\n  content: \"\\EA2C\";\n}\n\n.nc-email-85::before {\n  content: \"\\EA2D\";\n}\n\n.nc-explore-2::before {\n  content: \"\\EA2E\";\n}\n\n.nc-fav-remove::before {\n  content: \"\\EA2F\";\n}\n\n.nc-favourite-28::before {\n  content: \"\\EA30\";\n}\n\n.nc-globe-2::before {\n  content: \"\\EA31\";\n}\n\n.nc-grid-45::before {\n  content: \"\\EA32\";\n}\n\n.nc-headphones-2::before {\n  content: \"\\EA33\";\n}\n\n.nc-html5::before {\n  content: \"\\EA34\";\n}\n\n.nc-istanbul::before {\n  content: \"\\EA35\";\n}\n\n.nc-key-25::before {\n  content: \"\\EA36\";\n}\n\n.nc-layers-3::before {\n  content: \"\\EA37\";\n}\n\n.nc-light-3::before {\n  content: \"\\EA38\";\n}\n\n.nc-lock-circle-open::before {\n  content: \"\\EA39\";\n}\n\n.nc-map-big::before {\n  content: \"\\EA3A\";\n}\n\n.nc-mobile::before {\n  content: \"\\EA3C\";\n}\n\n.nc-money-coins::before {\n  content: \"\\EA3B\";\n}\n\n.nc-note-03::before {\n  content: \"\\EA3D\";\n}\n\n.nc-notes::before {\n  content: \"\\EA3E\";\n}\n\n.nc-notification-70::before {\n  content: \"\\EA3F\";\n}\n\n.nc-palette::before {\n  content: \"\\EA40\";\n}\n\n.nc-paper-2::before {\n  content: \"\\EA41\";\n}\n\n.nc-pin-3::before {\n  content: \"\\EA42\";\n}\n\n.nc-planet::before {\n  content: \"\\EA43\";\n}\n\n.nc-preferences-circle-rotate::before {\n  content: \"\\EA44\";\n}\n\n.nc-puzzle-10::before {\n  content: \"\\EA45\";\n}\n\n.nc-quote::before {\n  content: \"\\EA46\";\n}\n\n.nc-refresh-02::before {\n  content: \"\\EA47\";\n}\n\n.nc-ruler-pencil::before {\n  content: \"\\EA48\";\n}\n\n.nc-satisfied::before {\n  content: \"\\EA49\";\n}\n\n.nc-scissors::before {\n  content: \"\\EA4A\";\n}\n\n.nc-send::before {\n  content: \"\\EA4B\";\n}\n\n.nc-settings-90::before {\n  content: \"\\EA4C\";\n}\n\n.nc-settings-gear-64::before {\n  content: \"\\EA4D\";\n}\n\n.nc-settings-tool-66::before {\n  content: \"\\EA4E\";\n}\n\n.nc-simple-add::before {\n  content: \"\\EA4F\";\n}\n\n.nc-simple-delete::before {\n  content: \"\\EA50\";\n}\n\n.nc-simple-remove::before {\n  content: \"\\EA51\";\n}\n\n.nc-single-02::before {\n  content: \"\\EA52\";\n}\n\n.nc-single-copy-04::before {\n  content: \"\\EA53\";\n}\n\n.nc-spaceship::before {\n  content: \"\\EA54\";\n}\n\n.nc-square-pin::before {\n  content: \"\\EA55\";\n}\n\n.nc-stre-down::before {\n  content: \"\\EA56\";\n}\n\n.nc-stre-left::before {\n  content: \"\\EA57\";\n}\n\n.nc-stre-right::before {\n  content: \"\\EA58\";\n}\n\n.nc-stre-up::before {\n  content: \"\\EA59\";\n}\n\n.nc-sun-fog-29::before {\n  content: \"\\EA5A\";\n}\n\n.nc-support-17::before {\n  content: \"\\EA5B\";\n}\n\n.nc-tablet-2::before {\n  content: \"\\EA5C\";\n}\n\n.nc-tag-content::before {\n  content: \"\\EA5D\";\n}\n\n.nc-tap-01::before {\n  content: \"\\EA5E\";\n}\n\n.nc-time-alarm::before {\n  content: \"\\EA5F\";\n}\n\n.nc-tv-2::before {\n  content: \"\\EA60\";\n}\n\n.nc-umbrella-13::before {\n  content: \"\\EA61\";\n}\n\n.nc-vector::before {\n  content: \"\\EA62\";\n}\n\n.nc-watch-time::before {\n  content: \"\\EA63\";\n}\n\n.nc-zoom-split::before {\n  content: \"\\EA64\";\n}\n\n/* all icon font classes list here */", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/less-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=style&index=0&id=825f0274&lang=less&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/less-loader/dist/cjs.js!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=style&index=0&id=825f0274&lang=less&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".infinite-loading-container[data-v-825f0274] {\n  clear: both;\n  text-align: center;\n}\n.infinite-loading-container[data-v-825f0274] *[class^=loading-] {\n  display: inline-block;\n  margin: 5px 0;\n  width: 28px;\n  height: 28px;\n  font-size: 28px;\n  line-height: 28px;\n  border-radius: 50%;\n}\n.btn-try-infinite[data-v-825f0274] {\n  margin-top: 5px;\n  padding: 5px 10px;\n  color: #999;\n  font-size: 14px;\n  line-height: 1;\n  background: transparent;\n  border: 1px solid #ccc;\n  border-radius: 3px;\n  outline: none;\n  cursor: pointer;\n}\n.btn-try-infinite[data-v-825f0274]:not(:active):hover {\n  opacity: 0.8;\n}\n", ""]);
 
 // exports
 
@@ -40939,6 +41463,36 @@ function t(t,n,r){return void 0===(t=(n.split?n.split("."):n).reduce(function(t,
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/less-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=style&index=0&id=825f0274&lang=less&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/less-loader/dist/cjs.js!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=style&index=0&id=825f0274&lang=less&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--9-2!../../../../node_modules/less-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib??vue-loader-options!./InfiniteLoading.vue?vue&type=style&index=0&id=825f0274&lang=less&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/less-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=style&index=0&id=825f0274&lang=less&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BaseDropdown.vue?vue&type=style&index=0&id=4e0e1e26&scoped=true&lang=css&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BaseDropdown.vue?vue&type=style&index=0&id=4e0e1e26&scoped=true&lang=css& ***!
@@ -46205,22 +46759,6 @@ styleInject("vue-advanced-cropper", ".vue-advanced-cropper {  text-align: center
 
 /***/ }),
 
-/***/ "./node_modules/vue-infinite-loading/dist/vue-infinite-loading.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/vue-infinite-loading/dist/vue-infinite-loading.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*!
- * vue-infinite-loading v2.4.4
- * (c) 2016-2019 PeachScript
- * MIT License
- */
-!function(t,e){ true?module.exports=e():undefined}(this,function(){return function(t){var e={};function n(i){if(e[i])return e[i].exports;var r=e[i]={i:i,l:!1,exports:{}};return t[i].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=t,n.c=e,n.d=function(t,e,i){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:i})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var i=Object.create(null);if(n.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)n.d(i,r,function(e){return t[e]}.bind(null,r));return i},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=9)}([function(t,e,n){var i=n(6);"string"==typeof i&&(i=[[t.i,i,""]]),i.locals&&(t.exports=i.locals);(0,n(3).default)("09280948",i,!0,{})},function(t,e,n){var i=n(8);"string"==typeof i&&(i=[[t.i,i,""]]),i.locals&&(t.exports=i.locals);(0,n(3).default)("51e4c3f9",i,!0,{})},function(t,e){t.exports=function(t){var e=[];return e.toString=function(){return this.map(function(e){var n=function(t,e){var n=t[1]||"",i=t[3];if(!i)return n;if(e&&"function"==typeof btoa){var r=(o=i,"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(o))))+" */"),a=i.sources.map(function(t){return"/*# sourceURL="+i.sourceRoot+t+" */"});return[n].concat(a).concat([r]).join("\n")}var o;return[n].join("\n")}(e,t);return e[2]?"@media "+e[2]+"{"+n+"}":n}).join("")},e.i=function(t,n){"string"==typeof t&&(t=[[null,t,""]]);for(var i={},r=0;r<this.length;r++){var a=this[r][0];"number"==typeof a&&(i[a]=!0)}for(r=0;r<t.length;r++){var o=t[r];"number"==typeof o[0]&&i[o[0]]||(n&&!o[2]?o[2]=n:n&&(o[2]="("+o[2]+") and ("+n+")"),e.push(o))}},e}},function(t,e,n){"use strict";function i(t,e){for(var n=[],i={},r=0;r<e.length;r++){var a=e[r],o=a[0],s={id:t+":"+r,css:a[1],media:a[2],sourceMap:a[3]};i[o]?i[o].parts.push(s):n.push(i[o]={id:o,parts:[s]})}return n}n.r(e),n.d(e,"default",function(){return b});var r="undefined"!=typeof document;if("undefined"!=typeof DEBUG&&DEBUG&&!r)throw new Error("vue-style-loader cannot be used in a non-browser environment. Use { target: 'node' } in your Webpack config to indicate a server-rendering environment.");var a={},o=r&&(document.head||document.getElementsByTagName("head")[0]),s=null,l=0,d=!1,c=function(){},u=null,p="data-vue-ssr-id",f="undefined"!=typeof navigator&&/msie [6-9]\b/.test(navigator.userAgent.toLowerCase());function b(t,e,n,r){d=n,u=r||{};var o=i(t,e);return h(o),function(e){for(var n=[],r=0;r<o.length;r++){var s=o[r];(l=a[s.id]).refs--,n.push(l)}e?h(o=i(t,e)):o=[];for(r=0;r<n.length;r++){var l;if(0===(l=n[r]).refs){for(var d=0;d<l.parts.length;d++)l.parts[d]();delete a[l.id]}}}}function h(t){for(var e=0;e<t.length;e++){var n=t[e],i=a[n.id];if(i){i.refs++;for(var r=0;r<i.parts.length;r++)i.parts[r](n.parts[r]);for(;r<n.parts.length;r++)i.parts.push(g(n.parts[r]));i.parts.length>n.parts.length&&(i.parts.length=n.parts.length)}else{var o=[];for(r=0;r<n.parts.length;r++)o.push(g(n.parts[r]));a[n.id]={id:n.id,refs:1,parts:o}}}}function m(){var t=document.createElement("style");return t.type="text/css",o.appendChild(t),t}function g(t){var e,n,i=document.querySelector("style["+p+'~="'+t.id+'"]');if(i){if(d)return c;i.parentNode.removeChild(i)}if(f){var r=l++;i=s||(s=m()),e=w.bind(null,i,r,!1),n=w.bind(null,i,r,!0)}else i=m(),e=function(t,e){var n=e.css,i=e.media,r=e.sourceMap;i&&t.setAttribute("media",i);u.ssrId&&t.setAttribute(p,e.id);r&&(n+="\n/*# sourceURL="+r.sources[0]+" */",n+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(r))))+" */");if(t.styleSheet)t.styleSheet.cssText=n;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(n))}}.bind(null,i),n=function(){i.parentNode.removeChild(i)};return e(t),function(i){if(i){if(i.css===t.css&&i.media===t.media&&i.sourceMap===t.sourceMap)return;e(t=i)}else n()}}var v,y=(v=[],function(t,e){return v[t]=e,v.filter(Boolean).join("\n")});function w(t,e,n,i){var r=n?"":i.css;if(t.styleSheet)t.styleSheet.cssText=y(e,r);else{var a=document.createTextNode(r),o=t.childNodes;o[e]&&t.removeChild(o[e]),o.length?t.insertBefore(a,o[e]):t.appendChild(a)}}},function(t,e){function n(t){return(n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function i(e){return"function"==typeof Symbol&&"symbol"===n(Symbol.iterator)?t.exports=i=function(t){return n(t)}:t.exports=i=function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":n(t)},i(e)}t.exports=i},function(t,e,n){"use strict";n.r(e);var i=n(0),r=n.n(i);for(var a in i)"default"!==a&&function(t){n.d(e,t,function(){return i[t]})}(a);e.default=r.a},function(t,e,n){(t.exports=n(2)(!1)).push([t.i,'.loading-wave-dots[data-v-46b20d22]{position:relative}.loading-wave-dots[data-v-46b20d22] .wave-item{position:absolute;top:50%;left:50%;display:inline-block;margin-top:-4px;width:8px;height:8px;border-radius:50%;-webkit-animation:loading-wave-dots-data-v-46b20d22 linear 2.8s infinite;animation:loading-wave-dots-data-v-46b20d22 linear 2.8s infinite}.loading-wave-dots[data-v-46b20d22] .wave-item:first-child{margin-left:-36px}.loading-wave-dots[data-v-46b20d22] .wave-item:nth-child(2){margin-left:-20px;-webkit-animation-delay:.14s;animation-delay:.14s}.loading-wave-dots[data-v-46b20d22] .wave-item:nth-child(3){margin-left:-4px;-webkit-animation-delay:.28s;animation-delay:.28s}.loading-wave-dots[data-v-46b20d22] .wave-item:nth-child(4){margin-left:12px;-webkit-animation-delay:.42s;animation-delay:.42s}.loading-wave-dots[data-v-46b20d22] .wave-item:last-child{margin-left:28px;-webkit-animation-delay:.56s;animation-delay:.56s}@-webkit-keyframes loading-wave-dots-data-v-46b20d22{0%{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}10%{-webkit-transform:translateY(-6px);transform:translateY(-6px);background:#999}20%{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}to{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}}@keyframes loading-wave-dots-data-v-46b20d22{0%{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}10%{-webkit-transform:translateY(-6px);transform:translateY(-6px);background:#999}20%{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}to{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}}.loading-circles[data-v-46b20d22] .circle-item{width:5px;height:5px;-webkit-animation:loading-circles-data-v-46b20d22 linear .75s infinite;animation:loading-circles-data-v-46b20d22 linear .75s infinite}.loading-circles[data-v-46b20d22] .circle-item:first-child{margin-top:-14.5px;margin-left:-2.5px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(2){margin-top:-11.26px;margin-left:6.26px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(3){margin-top:-2.5px;margin-left:9.5px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(4){margin-top:6.26px;margin-left:6.26px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(5){margin-top:9.5px;margin-left:-2.5px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(6){margin-top:6.26px;margin-left:-11.26px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(7){margin-top:-2.5px;margin-left:-14.5px}.loading-circles[data-v-46b20d22] .circle-item:last-child{margin-top:-11.26px;margin-left:-11.26px}@-webkit-keyframes loading-circles-data-v-46b20d22{0%{background:#dfdfdf}90%{background:#505050}to{background:#dfdfdf}}@keyframes loading-circles-data-v-46b20d22{0%{background:#dfdfdf}90%{background:#505050}to{background:#dfdfdf}}.loading-bubbles[data-v-46b20d22] .bubble-item{background:#666;-webkit-animation:loading-bubbles-data-v-46b20d22 linear .75s infinite;animation:loading-bubbles-data-v-46b20d22 linear .75s infinite}.loading-bubbles[data-v-46b20d22] .bubble-item:first-child{margin-top:-12.5px;margin-left:-.5px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(2){margin-top:-9.26px;margin-left:8.26px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(3){margin-top:-.5px;margin-left:11.5px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(4){margin-top:8.26px;margin-left:8.26px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(5){margin-top:11.5px;margin-left:-.5px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(6){margin-top:8.26px;margin-left:-9.26px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(7){margin-top:-.5px;margin-left:-12.5px}.loading-bubbles[data-v-46b20d22] .bubble-item:last-child{margin-top:-9.26px;margin-left:-9.26px}@-webkit-keyframes loading-bubbles-data-v-46b20d22{0%{width:1px;height:1px;box-shadow:0 0 0 3px #666}90%{width:1px;height:1px;box-shadow:0 0 0 0 #666}to{width:1px;height:1px;box-shadow:0 0 0 3px #666}}@keyframes loading-bubbles-data-v-46b20d22{0%{width:1px;height:1px;box-shadow:0 0 0 3px #666}90%{width:1px;height:1px;box-shadow:0 0 0 0 #666}to{width:1px;height:1px;box-shadow:0 0 0 3px #666}}.loading-default[data-v-46b20d22]{position:relative;border:1px solid #999;-webkit-animation:loading-rotating-data-v-46b20d22 ease 1.5s infinite;animation:loading-rotating-data-v-46b20d22 ease 1.5s infinite}.loading-default[data-v-46b20d22]:before{content:"";position:absolute;display:block;top:0;left:50%;margin-top:-3px;margin-left:-3px;width:6px;height:6px;background-color:#999;border-radius:50%}.loading-spiral[data-v-46b20d22]{border:2px solid #777;border-right-color:transparent;-webkit-animation:loading-rotating-data-v-46b20d22 linear .85s infinite;animation:loading-rotating-data-v-46b20d22 linear .85s infinite}@-webkit-keyframes loading-rotating-data-v-46b20d22{0%{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}@keyframes loading-rotating-data-v-46b20d22{0%{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}.loading-bubbles[data-v-46b20d22],.loading-circles[data-v-46b20d22]{position:relative}.loading-bubbles[data-v-46b20d22] .bubble-item,.loading-circles[data-v-46b20d22] .circle-item{position:absolute;top:50%;left:50%;display:inline-block;border-radius:50%}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(2),.loading-circles[data-v-46b20d22] .circle-item:nth-child(2){-webkit-animation-delay:93ms;animation-delay:93ms}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(3),.loading-circles[data-v-46b20d22] .circle-item:nth-child(3){-webkit-animation-delay:.186s;animation-delay:.186s}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(4),.loading-circles[data-v-46b20d22] .circle-item:nth-child(4){-webkit-animation-delay:.279s;animation-delay:.279s}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(5),.loading-circles[data-v-46b20d22] .circle-item:nth-child(5){-webkit-animation-delay:.372s;animation-delay:.372s}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(6),.loading-circles[data-v-46b20d22] .circle-item:nth-child(6){-webkit-animation-delay:.465s;animation-delay:.465s}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(7),.loading-circles[data-v-46b20d22] .circle-item:nth-child(7){-webkit-animation-delay:.558s;animation-delay:.558s}.loading-bubbles[data-v-46b20d22] .bubble-item:last-child,.loading-circles[data-v-46b20d22] .circle-item:last-child{-webkit-animation-delay:.651s;animation-delay:.651s}',""])},function(t,e,n){"use strict";n.r(e);var i=n(1),r=n.n(i);for(var a in i)"default"!==a&&function(t){n.d(e,t,function(){return i[t]})}(a);e.default=r.a},function(t,e,n){(t.exports=n(2)(!1)).push([t.i,".infinite-loading-container[data-v-46b21138]{clear:both;text-align:center}.infinite-loading-container[data-v-46b21138] [class^=loading-]{display:inline-block;margin:5px 0;width:28px;height:28px;font-size:28px;line-height:28px;border-radius:50%}.btn-try-infinite[data-v-46b21138]{margin-top:5px;padding:5px 10px;color:#999;font-size:14px;line-height:1;background:transparent;border:1px solid #ccc;border-radius:3px;outline:none;cursor:pointer}.btn-try-infinite[data-v-46b21138]:not(:active):hover{opacity:.8}",""])},function(t,e,n){"use strict";n.r(e);var i={throttleLimit:50,loopCheckTimeout:1e3,loopCheckMaxCalls:10},r=function(){var t=!1;try{var e=Object.defineProperty({},"passive",{get:function(){return t={passive:!0},!0}});window.addEventListener("testpassive",e,e),window.remove("testpassive",e,e)}catch(t){}return t}(),a={STATE_CHANGER:["emit `loaded` and `complete` event through component instance of `$refs` may cause error, so it will be deprecated soon, please use the `$state` argument instead (`$state` just the special `$event` variable):","\ntemplate:",'<infinite-loading @infinite="infiniteHandler"></infinite-loading>',"\nscript:\n...\ninfiniteHandler($state) {\n  ajax('https://www.example.com/api/news')\n    .then((res) => {\n      if (res.data.length) {\n        $state.loaded();\n      } else {\n        $state.complete();\n      }\n    });\n}\n...","","more details: https://github.com/PeachScript/vue-infinite-loading/issues/57#issuecomment-324370549"].join("\n"),INFINITE_EVENT:"`:on-infinite` property will be deprecated soon, please use `@infinite` event instead.",IDENTIFIER:"the `reset` event will be deprecated soon, please reset this component by change the `identifier` property."},o={INFINITE_LOOP:["executed the callback function more than ".concat(i.loopCheckMaxCalls," times for a short time, it looks like searched a wrong scroll wrapper that doest not has fixed height or maximum height, please check it. If you want to force to set a element as scroll wrapper ranther than automatic searching, you can do this:"),'\n\x3c!-- add a special attribute for the real scroll wrapper --\x3e\n<div infinite-wrapper>\n  ...\n  \x3c!-- set force-use-infinite-wrapper --\x3e\n  <infinite-loading force-use-infinite-wrapper></infinite-loading>\n</div>\nor\n<div class="infinite-wrapper">\n  ...\n  \x3c!-- set force-use-infinite-wrapper as css selector of the real scroll wrapper --\x3e\n  <infinite-loading force-use-infinite-wrapper=".infinite-wrapper"></infinite-loading>\n</div>\n    ',"more details: https://github.com/PeachScript/vue-infinite-loading/issues/55#issuecomment-316934169"].join("\n")},s={READY:0,LOADING:1,COMPLETE:2,ERROR:3},l={color:"#666",fontSize:"14px",padding:"10px 0"},d={mode:"development",props:{spinner:"default",distance:100,forceUseInfiniteWrapper:!1},system:i,slots:{noResults:"No results :(",noMore:"No more data :)",error:"Opps, something went wrong :(",errorBtnText:"Retry",spinner:""},WARNINGS:a,ERRORS:o,STATUS:s},c=n(4),u=n.n(c),p={BUBBLES:{render:function(t){return t("span",{attrs:{class:"loading-bubbles"}},Array.apply(Array,Array(8)).map(function(){return t("span",{attrs:{class:"bubble-item"}})}))}},CIRCLES:{render:function(t){return t("span",{attrs:{class:"loading-circles"}},Array.apply(Array,Array(8)).map(function(){return t("span",{attrs:{class:"circle-item"}})}))}},DEFAULT:{render:function(t){return t("i",{attrs:{class:"loading-default"}})}},SPIRAL:{render:function(t){return t("i",{attrs:{class:"loading-spiral"}})}},WAVEDOTS:{render:function(t){return t("span",{attrs:{class:"loading-wave-dots"}},Array.apply(Array,Array(5)).map(function(){return t("span",{attrs:{class:"wave-item"}})}))}}};function f(t,e,n,i,r,a,o,s){var l,d="function"==typeof t?t.options:t;if(e&&(d.render=e,d.staticRenderFns=n,d._compiled=!0),i&&(d.functional=!0),a&&(d._scopeId="data-v-"+a),o?(l=function(t){(t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),r&&r.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(o)},d._ssrRegister=l):r&&(l=s?function(){r.call(this,this.$root.$options.shadowRoot)}:r),l)if(d.functional){d._injectStyles=l;var c=d.render;d.render=function(t,e){return l.call(e),c(t,e)}}else{var u=d.beforeCreate;d.beforeCreate=u?[].concat(u,l):[l]}return{exports:t,options:d}}var b=f({name:"Spinner",computed:{spinnerView:function(){return p[(this.$attrs.spinner||"").toUpperCase()]||this.spinnerInConfig},spinnerInConfig:function(){return d.slots.spinner&&"string"==typeof d.slots.spinner?{render:function(){return this._v(d.slots.spinner)}}:"object"===u()(d.slots.spinner)?d.slots.spinner:p[d.props.spinner.toUpperCase()]||p.DEFAULT}}},function(){var t=this.$createElement;return(this._self._c||t)(this.spinnerView,{tag:"component"})},[],!1,function(t){var e=n(5);e.__inject__&&e.__inject__(t)},"46b20d22",null);b.options.__file="Spinner.vue";var h=b.exports;function m(t){"production"!==d.mode&&console.warn("[Vue-infinite-loading warn]: ".concat(t))}function g(t){console.error("[Vue-infinite-loading error]: ".concat(t))}var v={timers:[],caches:[],throttle:function(t){var e=this;-1===this.caches.indexOf(t)&&(this.caches.push(t),this.timers.push(setTimeout(function(){t(),e.caches.splice(e.caches.indexOf(t),1),e.timers.shift()},d.system.throttleLimit)))},reset:function(){this.timers.forEach(function(t){clearTimeout(t)}),this.timers.length=0,this.caches=[]}},y={isChecked:!1,timer:null,times:0,track:function(){var t=this;this.times+=1,clearTimeout(this.timer),this.timer=setTimeout(function(){t.isChecked=!0},d.system.loopCheckTimeout),this.times>d.system.loopCheckMaxCalls&&(g(o.INFINITE_LOOP),this.isChecked=!0)}},w={key:"_infiniteScrollHeight",getScrollElm:function(t){return t===window?document.documentElement:t},save:function(t){var e=this.getScrollElm(t);e[this.key]=e.scrollHeight},restore:function(t){var e=this.getScrollElm(t);"number"==typeof e[this.key]&&(e.scrollTop=e.scrollHeight-e[this.key]+e.scrollTop),this.remove(e)},remove:function(t){void 0!==t[this.key]&&delete t[this.key]}};function x(t){return t.replace(/[A-Z]/g,function(t){return"-".concat(t.toLowerCase())})}function k(t){return t.offsetWidth+t.offsetHeight>0}var S=f({name:"InfiniteLoading",data:function(){return{scrollParent:null,scrollHandler:null,isFirstLoad:!0,status:s.READY,slots:d.slots}},components:{Spinner:h},computed:{isShowSpinner:function(){return this.status===s.LOADING},isShowError:function(){return this.status===s.ERROR},isShowNoResults:function(){return this.status===s.COMPLETE&&this.isFirstLoad},isShowNoMore:function(){return this.status===s.COMPLETE&&!this.isFirstLoad},slotStyles:function(){var t=this,e={};return Object.keys(d.slots).forEach(function(n){var i=x(n);(!t.$slots[i]&&!d.slots[n].render||t.$slots[i]&&!t.$slots[i][0].tag)&&(e[n]=l)}),e}},props:{distance:{type:Number,default:d.props.distance},spinner:String,direction:{type:String,default:"bottom"},forceUseInfiniteWrapper:{type:[Boolean,String],default:d.props.forceUseInfiniteWrapper},identifier:{default:+new Date},onInfinite:Function},watch:{identifier:function(){this.stateChanger.reset()}},mounted:function(){var t=this;this.$watch("forceUseInfiniteWrapper",function(){t.scrollParent=t.getScrollParent()},{immediate:!0}),this.scrollHandler=function(e){t.status===s.READY&&(e&&e.constructor===Event&&k(t.$el)?v.throttle(t.attemptLoad):t.attemptLoad())},setTimeout(function(){t.scrollHandler(),t.scrollParent.addEventListener("scroll",t.scrollHandler,r)},1),this.$on("$InfiniteLoading:loaded",function(e){t.isFirstLoad=!1,"top"===t.direction&&t.$nextTick(function(){w.restore(t.scrollParent)}),t.status===s.LOADING&&t.$nextTick(t.attemptLoad.bind(null,!0)),e&&e.target===t||m(a.STATE_CHANGER)}),this.$on("$InfiniteLoading:complete",function(e){t.status=s.COMPLETE,t.$nextTick(function(){t.$forceUpdate()}),t.scrollParent.removeEventListener("scroll",t.scrollHandler,r),e&&e.target===t||m(a.STATE_CHANGER)}),this.$on("$InfiniteLoading:reset",function(e){t.status=s.READY,t.isFirstLoad=!0,w.remove(t.scrollParent),t.scrollParent.addEventListener("scroll",t.scrollHandler,r),setTimeout(function(){v.reset(),t.scrollHandler()},1),e&&e.target===t||m(a.IDENTIFIER)}),this.stateChanger={loaded:function(){t.$emit("$InfiniteLoading:loaded",{target:t})},complete:function(){t.$emit("$InfiniteLoading:complete",{target:t})},reset:function(){t.$emit("$InfiniteLoading:reset",{target:t})},error:function(){t.status=s.ERROR,v.reset()}},this.onInfinite&&m(a.INFINITE_EVENT)},deactivated:function(){this.status===s.LOADING&&(this.status=s.READY),this.scrollParent.removeEventListener("scroll",this.scrollHandler,r)},activated:function(){this.scrollParent.addEventListener("scroll",this.scrollHandler,r)},methods:{attemptLoad:function(t){var e=this;this.status!==s.COMPLETE&&k(this.$el)&&this.getCurrentDistance()<=this.distance?(this.status=s.LOADING,"top"===this.direction&&this.$nextTick(function(){w.save(e.scrollParent)}),"function"==typeof this.onInfinite?this.onInfinite.call(null,this.stateChanger):this.$emit("infinite",this.stateChanger),!t||this.forceUseInfiniteWrapper||y.isChecked||y.track()):this.status===s.LOADING&&(this.status=s.READY)},getCurrentDistance:function(){var t;"top"===this.direction?t="number"==typeof this.scrollParent.scrollTop?this.scrollParent.scrollTop:this.scrollParent.pageYOffset:t=this.$el.getBoundingClientRect().top-(this.scrollParent===window?window.innerHeight:this.scrollParent.getBoundingClientRect().bottom);return t},getScrollParent:function(){var t,e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:this.$el;return"string"==typeof this.forceUseInfiniteWrapper&&(t=e.querySelector(this.forceUseInfiniteWrapper)),t||("BODY"===e.tagName?t=window:!this.forceUseInfiniteWrapper&&["scroll","auto"].indexOf(getComputedStyle(e).overflowY)>-1?t=e:(e.hasAttribute("infinite-wrapper")||e.hasAttribute("data-infinite-wrapper"))&&(t=e)),t||this.getScrollParent(e.parentNode)}},destroyed:function(){!this.status!==s.COMPLETE&&(v.reset(),w.remove(this.scrollParent),this.scrollParent.removeEventListener("scroll",this.scrollHandler,r))}},function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"infinite-loading-container"},[n("div",{directives:[{name:"show",rawName:"v-show",value:t.isShowSpinner,expression:"isShowSpinner"}],staticClass:"infinite-status-prompt",style:t.slotStyles.spinner},[t._t("spinner",[n("spinner",{attrs:{spinner:t.spinner}})])],2),t._v(" "),n("div",{directives:[{name:"show",rawName:"v-show",value:t.isShowNoResults,expression:"isShowNoResults"}],staticClass:"infinite-status-prompt",style:t.slotStyles.noResults},[t._t("no-results",[t.slots.noResults.render?n(t.slots.noResults,{tag:"component"}):[t._v(t._s(t.slots.noResults))]])],2),t._v(" "),n("div",{directives:[{name:"show",rawName:"v-show",value:t.isShowNoMore,expression:"isShowNoMore"}],staticClass:"infinite-status-prompt",style:t.slotStyles.noMore},[t._t("no-more",[t.slots.noMore.render?n(t.slots.noMore,{tag:"component"}):[t._v(t._s(t.slots.noMore))]])],2),t._v(" "),n("div",{directives:[{name:"show",rawName:"v-show",value:t.isShowError,expression:"isShowError"}],staticClass:"infinite-status-prompt",style:t.slotStyles.error},[t._t("error",[t.slots.error.render?n(t.slots.error,{tag:"component",attrs:{trigger:t.attemptLoad}}):[t._v("\n        "+t._s(t.slots.error)+"\n        "),n("br"),t._v(" "),n("button",{staticClass:"btn-try-infinite",domProps:{textContent:t._s(t.slots.errorBtnText)},on:{click:t.attemptLoad}})]],{trigger:t.attemptLoad})],2)])},[],!1,function(t){var e=n(7);e.__inject__&&e.__inject__(t)},"46b21138",null);S.options.__file="InfiniteLoading.vue";var E=S.exports;function _(t){d.mode=t.config.productionTip?"development":"production"}Object.defineProperty(E,"install",{configurable:!1,enumerable:!1,value:function(t,e){Object.assign(d.props,e&&e.props),Object.assign(d.slots,e&&e.slots),Object.assign(d.system,e&&e.system),t.component("infinite-loading",E),_(t)}}),"undefined"!=typeof window&&window.Vue&&(window.Vue.component("infinite-loading",E),_(window.Vue));e.default=E}])});
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/App.vue?vue&type=template&id=f348271a&":
 /*!*******************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a& ***!
@@ -46393,6 +46931,160 @@ var render = function() {
     ],
     2
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=template&id=825f0274&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=template&id=825f0274&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "infinite-loading-container" }, [
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.isShowSpinner,
+            expression: "isShowSpinner"
+          }
+        ],
+        staticClass: "infinite-status-prompt",
+        style: _vm.slotStyles.spinner
+      },
+      [_vm._t("spinner", [_c("spinner", { attrs: { spinner: _vm.spinner } })])],
+      2
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.isShowNoResults,
+            expression: "isShowNoResults"
+          }
+        ],
+        staticClass: "infinite-status-prompt",
+        style: _vm.slotStyles.noResults
+      },
+      [
+        _vm._t("no-results", [
+          _vm.slots.noResults.render
+            ? _c(_vm.slots.noResults, { tag: "component" })
+            : [_vm._v(_vm._s(_vm.slots.noResults))]
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.isShowNoMore,
+            expression: "isShowNoMore"
+          }
+        ],
+        staticClass: "infinite-status-prompt",
+        style: _vm.slotStyles.noMore
+      },
+      [
+        _vm._t("no-more", [
+          _vm.slots.noMore.render
+            ? _c(_vm.slots.noMore, { tag: "component" })
+            : [_vm._v(_vm._s(_vm.slots.noMore))]
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.isShowError,
+            expression: "isShowError"
+          }
+        ],
+        staticClass: "infinite-status-prompt",
+        style: _vm.slotStyles.error
+      },
+      [
+        _vm._t(
+          "error",
+          [
+            _vm.slots.error.render
+              ? _c(_vm.slots.error, {
+                  tag: "component",
+                  attrs: { trigger: _vm.attemptLoad }
+                })
+              : [
+                  _vm._v("\n        " + _vm._s(_vm.slots.error) + "\n        "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "btn-try-infinite",
+                    domProps: { textContent: _vm._s(_vm.slots.errorBtnText) },
+                    on: { click: _vm.attemptLoad }
+                  })
+                ]
+          ],
+          { trigger: _vm.attemptLoad }
+        )
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfiniteLoading/Spinner.vue?vue&type=template&id=bb689452&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InfiniteLoading/Spinner.vue?vue&type=template&id=bb689452& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(_vm.spinnerView, { tag: "component" })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -48233,7 +48925,7 @@ var render = function() {
               key: "tasks-no-empty",
               ref: "tasksList",
               staticClass: "my-custom-scrollbar table-wrapper-scroll-y",
-              attrs: { id: "tasks-list" }
+              attrs: { id: "tasks-list", "infinite-wrapper": "" }
             },
             [
               _c("table", { staticClass: "table" }, [
@@ -48243,14 +48935,9 @@ var render = function() {
                     _c(
                       "infinite-loading",
                       {
-                        attrs: { slot: "append", direction: "top" },
-                        on: {
-                          infinite: _vm.infiniteHandler,
-                          distance: function($event) {
-                            1
-                          }
-                        },
-                        slot: "append"
+                        ref: "infiniteLoading",
+                        attrs: { distance: 20, direction: "top" },
+                        on: { infinite: _vm.infiniteHandler }
                       },
                       [
                         _c("div", {
@@ -65766,17 +66453,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_bootstrap__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _assets_css_my_login_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./assets/css/my-login.css */ "./resources/js/assets/css/my-login.css");
 /* harmony import */ var _assets_css_my_login_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_assets_css_my_login_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vuejs_noty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuejs-noty */ "./node_modules/vuejs-noty/dist/vuejs-noty.js");
-/* harmony import */ var vuejs_noty__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuejs_noty__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vue_localstorage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-localstorage */ "./node_modules/vue-localstorage/dist/vue-local-storage.js");
-/* harmony import */ var vue_localstorage__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_localstorage__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var v_tooltip__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! v-tooltip */ "./node_modules/v-tooltip/dist/v-tooltip.esm.js");
-/* harmony import */ var _light_bootstrap_main__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./light-bootstrap-main */ "./resources/js/light-bootstrap-main.js");
-/* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/routes.js */ "./resources/js/routes.js");
-/* harmony import */ var _modules_index_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @modules/index.js */ "./resources/js/store/index.js");
-/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/App.vue */ "./resources/js/App.vue");
+/* harmony import */ var _assets_infinite_loading_spinner_less__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./assets/infinite-loading/spinner.less */ "./resources/js/assets/infinite-loading/spinner.less");
+/* harmony import */ var _assets_infinite_loading_spinner_less__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_assets_infinite_loading_spinner_less__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuejs_noty__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuejs-noty */ "./node_modules/vuejs-noty/dist/vuejs-noty.js");
+/* harmony import */ var vuejs_noty__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vuejs_noty__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue_localstorage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-localstorage */ "./node_modules/vue-localstorage/dist/vue-local-storage.js");
+/* harmony import */ var vue_localstorage__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_localstorage__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var v_tooltip__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! v-tooltip */ "./node_modules/v-tooltip/dist/v-tooltip.esm.js");
+/* harmony import */ var _light_bootstrap_main__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/light-bootstrap-main */ "./resources/js/light-bootstrap-main.js");
+/* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/routes.js */ "./resources/js/routes.js");
+/* harmony import */ var _modules_index_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @modules/index.js */ "./resources/js/store/index.js");
+/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/App.vue */ "./resources/js/App.vue");
+
 
 
 
@@ -65788,21 +66478,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuejs_noty__WEBPACK_IMPORTED_MODULE_3___default.a, {
+vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(vuejs_noty__WEBPACK_IMPORTED_MODULE_4___default.a, {
   layout: 'bottomLeft'
 });
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_localstorage__WEBPACK_IMPORTED_MODULE_4___default.a);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(_light_bootstrap_main__WEBPACK_IMPORTED_MODULE_6__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(v_tooltip__WEBPACK_IMPORTED_MODULE_5__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(vue_localstorage__WEBPACK_IMPORTED_MODULE_5___default.a);
+vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(_light_bootstrap_main__WEBPACK_IMPORTED_MODULE_7__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_3___default.a.use(v_tooltip__WEBPACK_IMPORTED_MODULE_6__["default"]);
 
 window.onload = function () {
-  _modules_index_js__WEBPACK_IMPORTED_MODULE_8__["default"].dispatch('init');
-  window.Vue = new vue__WEBPACK_IMPORTED_MODULE_2___default.a({
-    router: _routes_js__WEBPACK_IMPORTED_MODULE_7__["default"],
-    store: _modules_index_js__WEBPACK_IMPORTED_MODULE_8__["default"],
+  _modules_index_js__WEBPACK_IMPORTED_MODULE_9__["default"].dispatch('init');
+  window.Vue = new vue__WEBPACK_IMPORTED_MODULE_3___default.a({
+    router: _routes_js__WEBPACK_IMPORTED_MODULE_8__["default"],
+    store: _modules_index_js__WEBPACK_IMPORTED_MODULE_9__["default"],
     el: '#app',
     render: function render(h) {
-      return h(_App_vue__WEBPACK_IMPORTED_MODULE_9__["default"]);
+      return h(_App_vue__WEBPACK_IMPORTED_MODULE_10__["default"]);
     }
   });
 };
@@ -65910,6 +66600,36 @@ module.exports = "/fonts/nucleo-icons.ttf?b0dc05d015e91e7d28d79cd0056fe555";
 /***/ (function(module, exports) {
 
 module.exports = "/fonts/nucleo-icons.woff2?ff208b8d733e61a630992ee2b72c9c1c";
+
+/***/ }),
+
+/***/ "./resources/js/assets/infinite-loading/spinner.less":
+/*!***********************************************************!*\
+  !*** ./resources/js/assets/infinite-loading/spinner.less ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/postcss-loader/src??ref--9-2!../../../../node_modules/less-loader/dist/cjs.js!./spinner.less */ "./node_modules/css-loader/index.js!./node_modules/postcss-loader/src/index.js?!./node_modules/less-loader/dist/cjs.js!./resources/js/assets/infinite-loading/spinner.less");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
 
 /***/ }),
 
@@ -66154,6 +66874,429 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Card_vue_vue_type_template_id_592ec5f2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/InfiniteLoading/InfiniteLoading.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/InfiniteLoading/InfiniteLoading.vue ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _InfiniteLoading_vue_vue_type_template_id_825f0274_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InfiniteLoading.vue?vue&type=template&id=825f0274&scoped=true& */ "./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=template&id=825f0274&scoped=true&");
+/* harmony import */ var _InfiniteLoading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InfiniteLoading.vue?vue&type=script&lang=js& */ "./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _InfiniteLoading_vue_vue_type_style_index_0_id_825f0274_lang_less_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InfiniteLoading.vue?vue&type=style&index=0&id=825f0274&lang=less&scoped=true& */ "./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=style&index=0&id=825f0274&lang=less&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _InfiniteLoading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InfiniteLoading_vue_vue_type_template_id_825f0274_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InfiniteLoading_vue_vue_type_template_id_825f0274_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "825f0274",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/InfiniteLoading/InfiniteLoading.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteLoading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./InfiniteLoading.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteLoading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=style&index=0&id=825f0274&lang=less&scoped=true&":
+/*!*******************************************************************************************************************************!*\
+  !*** ./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=style&index=0&id=825f0274&lang=less&scoped=true& ***!
+  \*******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_less_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteLoading_vue_vue_type_style_index_0_id_825f0274_lang_less_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--9-2!../../../../node_modules/less-loader/dist/cjs.js!../../../../node_modules/vue-loader/lib??vue-loader-options!./InfiniteLoading.vue?vue&type=style&index=0&id=825f0274&lang=less&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/less-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=style&index=0&id=825f0274&lang=less&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_less_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteLoading_vue_vue_type_style_index_0_id_825f0274_lang_less_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_less_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteLoading_vue_vue_type_style_index_0_id_825f0274_lang_less_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_less_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteLoading_vue_vue_type_style_index_0_id_825f0274_lang_less_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_less_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteLoading_vue_vue_type_style_index_0_id_825f0274_lang_less_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_less_loader_dist_cjs_js_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteLoading_vue_vue_type_style_index_0_id_825f0274_lang_less_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=template&id=825f0274&scoped=true&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=template&id=825f0274&scoped=true& ***!
+  \****************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteLoading_vue_vue_type_template_id_825f0274_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./InfiniteLoading.vue?vue&type=template&id=825f0274&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfiniteLoading/InfiniteLoading.vue?vue&type=template&id=825f0274&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteLoading_vue_vue_type_template_id_825f0274_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InfiniteLoading_vue_vue_type_template_id_825f0274_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/InfiniteLoading/Spinner.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/InfiniteLoading/Spinner.vue ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Spinner_vue_vue_type_template_id_bb689452___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Spinner.vue?vue&type=template&id=bb689452& */ "./resources/js/components/InfiniteLoading/Spinner.vue?vue&type=template&id=bb689452&");
+/* harmony import */ var _Spinner_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Spinner.vue?vue&type=script&lang=js& */ "./resources/js/components/InfiniteLoading/Spinner.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Spinner_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Spinner_vue_vue_type_template_id_bb689452___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Spinner_vue_vue_type_template_id_bb689452___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/InfiniteLoading/Spinner.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/InfiniteLoading/Spinner.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/InfiniteLoading/Spinner.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Spinner_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Spinner.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfiniteLoading/Spinner.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Spinner_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/InfiniteLoading/Spinner.vue?vue&type=template&id=bb689452&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/InfiniteLoading/Spinner.vue?vue&type=template&id=bb689452& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Spinner_vue_vue_type_template_id_bb689452___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Spinner.vue?vue&type=template&id=bb689452& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InfiniteLoading/Spinner.vue?vue&type=template&id=bb689452&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Spinner_vue_vue_type_template_id_bb689452___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Spinner_vue_vue_type_template_id_bb689452___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/InfiniteLoading/config.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/InfiniteLoading/config.js ***!
+  \***********************************************************/
+/*! exports provided: evt3rdArg, WARNINGS, ERRORS, STATUS, SLOT_STYLES, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "evt3rdArg", function() { return evt3rdArg; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WARNINGS", function() { return WARNINGS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ERRORS", function() { return ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STATUS", function() { return STATUS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SLOT_STYLES", function() { return SLOT_STYLES; });
+/*
+ * default property values
+ */
+var props = {
+  // the default spinner type
+  spinner: 'default',
+  // the default critical distance
+  distance: 100,
+  // the default force use infinite wrapper flag
+  forceUseInfiniteWrapper: false
+};
+/**
+ * default system settings
+ */
+
+var system = {
+  // the default throttle space of time
+  throttleLimit: 50,
+  // the timeout for check infinite loop, unit: ms
+  loopCheckTimeout: 1000,
+  // the max allowed number of continuous calls, unit: ms
+  loopCheckMaxCalls: 10
+};
+/**
+ * default slot messages
+ */
+
+var slots = {
+  noResults: 'No results :(',
+  noMore: 'No more data :)',
+  error: 'Opps, something went wrong :(',
+  errorBtnText: 'Retry',
+  spinner: ''
+};
+/**
+ * the 3rd argument for event bundler
+ * @see https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
+ */
+
+var evt3rdArg = function () {
+  var result = false;
+
+  try {
+    var arg = Object.defineProperty({}, 'passive', {
+      get: function get() {
+        result = {
+          passive: true
+        };
+        return true;
+      }
+    });
+    window.addEventListener('testpassive', arg, arg);
+    window.remove('testpassive', arg, arg);
+  } catch (e) {
+    /* */
+  }
+
+  return result;
+}();
+/**
+ * warning messages
+ */
+
+var WARNINGS = {
+  STATE_CHANGER: ['emit `loaded` and `complete` event through component instance of `$refs` may cause error, so it will be deprecated soon, please use the `$state` argument instead (`$state` just the special `$event` variable):', '\ntemplate:', '<infinite-loading @infinite="infiniteHandler"></infinite-loading>', "\nscript:\n...\ninfiniteHandler($state) {\n  ajax('https://www.example.com/api/news')\n    .then((res) => {\n      if (res.data.length) {\n        $state.loaded();\n      } else {\n        $state.complete();\n      }\n    });\n}\n...", '', 'more details: https://github.com/PeachScript/vue-infinite-loading/issues/57#issuecomment-324370549'].join('\n'),
+  INFINITE_EVENT: '`:on-infinite` property will be deprecated soon, please use `@infinite` event instead.',
+  IDENTIFIER: 'the `reset` event will be deprecated soon, please reset this component by change the `identifier` property.'
+};
+/**
+ * error messages
+ */
+
+var ERRORS = {
+  INFINITE_LOOP: ["executed the callback function more than ".concat(system.loopCheckMaxCalls, " times for a short time, it looks like searched a wrong scroll wrapper that doest not has fixed height or maximum height, please check it. If you want to force to set a element as scroll wrapper ranther than automatic searching, you can do this:"), "<!-- add a special attribute for the real scroll wrapper -->\n     <div infinite-wrapper>\n     ...\n     <!-- set force-use-infinite-wrapper -->\n     <infinite-loading force-use-infinite-wrapper></infinite-loading>\n     </div>\n     or\n     <div class=\"infinite-wrapper\">\n       ...\n       <!-- set force-use-infinite-wrapper as css selector of the real scroll wrapper -->\n       <infinite-loading force-use-infinite-wrapper=\".infinite-wrapper\"></infinite-loading>\n     </div>", 'more details: https://github.com/PeachScript/vue-infinite-loading/issues/55#issuecomment-316934169'].join('\n')
+};
+/**
+ * plugin status constants
+ */
+
+var STATUS = {
+  READY: 0,
+  LOADING: 1,
+  COMPLETE: 2,
+  ERROR: 3
+};
+/**
+ * default slot styles
+ */
+
+var SLOT_STYLES = {
+  color: '#666',
+  fontSize: '14px',
+  padding: '10px 0'
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mode: 'development',
+  props: props,
+  system: system,
+  slots: slots,
+  WARNINGS: WARNINGS,
+  ERRORS: ERRORS,
+  STATUS: STATUS
+});
+
+/***/ }),
+
+/***/ "./resources/js/components/InfiniteLoading/utils.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/InfiniteLoading/utils.js ***!
+  \**********************************************************/
+/*! exports provided: warn, error, throttleer, loopTracker, scrollBarStorage, kebabCase, isVisible, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "warn", function() { return warn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "error", function() { return error; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "throttleer", function() { return throttleer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loopTracker", function() { return loopTracker; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scrollBarStorage", function() { return scrollBarStorage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "kebabCase", function() { return kebabCase; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isVisible", function() { return isVisible; });
+/* harmony import */ var _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/InfiniteLoading/config */ "./resources/js/components/InfiniteLoading/config.js");
+/* eslint-disable no-console */
+
+/**
+ * console warning in production
+ * @param {String} msg console content
+ */
+
+function warn(msg) {
+  /* istanbul ignore else */
+  if (_components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_0__["default"].mode !== 'production') {
+    console.warn("[Vue-infinite-loading warn]: ".concat(msg));
+  }
+}
+/**
+ * console error
+ * @param {String} msg console content
+ */
+
+function error(msg) {
+  console.error("[Vue-infinite-loading error]: ".concat(msg));
+}
+var throttleer = {
+  timers: [],
+  caches: [],
+  throttle: function throttle(fn) {
+    var _this = this;
+
+    if (this.caches.indexOf(fn) === -1) {
+      // cache current handler
+      this.caches.push(fn); // save timer for current handler
+
+      this.timers.push(setTimeout(function () {
+        fn(); // empty cache and timer
+
+        _this.caches.splice(_this.caches.indexOf(fn), 1);
+
+        _this.timers.shift();
+      }, _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_0__["default"].system.throttleLimit));
+    }
+  },
+  reset: function reset() {
+    // reset all timers
+    this.timers.forEach(function (timer) {
+      clearTimeout(timer);
+    });
+    this.timers.length = 0; // empty caches
+
+    this.caches = [];
+  }
+};
+var loopTracker = {
+  isChecked: false,
+  timer: null,
+  times: 0,
+  track: function track() {
+    var _this2 = this;
+
+    // record track times
+    this.times += 1; // try to mark check status
+
+    clearTimeout(this.timer);
+    this.timer = setTimeout(function () {
+      _this2.isChecked = true;
+    }, _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_0__["default"].system.loopCheckTimeout); // throw warning if the times of continuous calls large than the maximum times
+
+    if (this.times > _components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_0__["default"].system.loopCheckMaxCalls) {
+      error(_components_InfiniteLoading_config__WEBPACK_IMPORTED_MODULE_0__["ERRORS"].INFINITE_LOOP);
+      this.isChecked = true;
+    }
+  }
+};
+var scrollBarStorage = {
+  key: '_infiniteScrollHeight',
+  getScrollElm: function getScrollElm(elm) {
+    return elm === window ? document.documentElement : elm;
+  },
+  save: function save(elm) {
+    var target = this.getScrollElm(elm); // save scroll height on the scroll parent
+
+    target[this.key] = target.scrollHeight;
+  },
+  restore: function restore(elm) {
+    var target = this.getScrollElm(elm);
+    /* istanbul ignore else */
+
+    if (typeof target[this.key] === 'number') {
+      target.scrollTop = target.scrollHeight - target[this.key]; // target.scrollHeight - target[this.key] + target.scrollTop
+    }
+
+    this.remove(target);
+  },
+  remove: function remove(elm) {
+    if (elm[this.key] !== undefined) {
+      // remove scroll height
+      delete elm[this.key]; // eslint-disable-line no-param-reassign
+    }
+  }
+};
+/**
+ * kebab-case a camel-case string
+ * @param   {String}    str  source string
+ * @return  {String}
+ */
+
+function kebabCase(str) {
+  return str.replace(/[A-Z]/g, function (s) {
+    return "-".concat(s.toLowerCase());
+  });
+}
+/**
+ * get visibility for element
+ * @param   {DOM}     elm
+ * @return  {Boolean}
+ */
+
+function isVisible(elm) {
+  return elm.offsetWidth + elm.offsetHeight > 0;
+}
+/* harmony default export */ __webpack_exports__["default"] = ({
+  warn: warn,
+  error: error,
+  throttleer: throttleer,
+  loopTracker: loopTracker,
+  kebabCase: kebabCase,
+  scrollBarStorage: scrollBarStorage,
+  isVisible: isVisible
+});
 
 /***/ }),
 
@@ -66529,8 +67672,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _SideBar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SideBar.vue */ "./resources/js/components/SidebarPlugin/SideBar.vue");
-/* harmony import */ var _SidebarLink_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SidebarLink.vue */ "./resources/js/components/SidebarPlugin/SidebarLink.vue");
+/* harmony import */ var _components_SidebarPlugin_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/SidebarPlugin/SideBar.vue */ "./resources/js/components/SidebarPlugin/SideBar.vue");
+/* harmony import */ var _components_SidebarPlugin_SidebarLink_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/SidebarPlugin/SidebarLink.vue */ "./resources/js/components/SidebarPlugin/SidebarLink.vue");
 
 
 var SidebarStore = {
@@ -66558,8 +67701,8 @@ var SidebarPlugin = {
         return this.$root.sidebarStore;
       }
     });
-    Vue.component('side-bar', _SideBar_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
-    Vue.component('sidebar-link', _SidebarLink_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
+    Vue.component('side-bar', _components_SidebarPlugin_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
+    Vue.component('sidebar-link', _components_SidebarPlugin_SidebarLink_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (SidebarPlugin);
@@ -66576,22 +67719,9 @@ var SidebarPlugin = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "APP_CONFIG", function() { return APP_CONFIG; });
-var apiUrl = '';
 var folderAvatars = '/img/avatars/';
 var defaultAvatar = folderAvatars + 'default.png';
-
-switch ("development") {
-  case 'development':
-    apiUrl = 'http://todo-vue/api/v1';
-    break;
-
-  case 'production':
-    apiUrl = 'http://todo-vue.com/api/v1';
-    break;
-}
-
 var APP_CONFIG = {
-  API_URL: apiUrl,
   FOLDER_AVATARS: folderAvatars,
   DEFAULT_AVATAR: defaultAvatar
 };
@@ -66751,11 +67881,11 @@ function keyToSnakeClase(object) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_Inputs_BaseInput_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Inputs/BaseInput.vue */ "./resources/js/components/Inputs/BaseInput.vue");
-/* harmony import */ var _components_Inputs_BaseCheckbox_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Inputs/BaseCheckbox.vue */ "./resources/js/components/Inputs/BaseCheckbox.vue");
-/* harmony import */ var _components_Inputs_BaseRadio_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Inputs/BaseRadio.vue */ "./resources/js/components/Inputs/BaseRadio.vue");
-/* harmony import */ var _components_BaseDropdown_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/BaseDropdown.vue */ "./resources/js/components/BaseDropdown.vue");
-/* harmony import */ var _components_Cards_Card_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Cards/Card.vue */ "./resources/js/components/Cards/Card.vue");
+/* harmony import */ var _components_Inputs_BaseInput_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @components/Inputs/BaseInput.vue */ "./resources/js/components/Inputs/BaseInput.vue");
+/* harmony import */ var _components_Inputs_BaseCheckbox_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @components/Inputs/BaseCheckbox.vue */ "./resources/js/components/Inputs/BaseCheckbox.vue");
+/* harmony import */ var _components_Inputs_BaseRadio_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @components/Inputs/BaseRadio.vue */ "./resources/js/components/Inputs/BaseRadio.vue");
+/* harmony import */ var _components_BaseDropdown_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @components/BaseDropdown.vue */ "./resources/js/components/BaseDropdown.vue");
+/* harmony import */ var _components_Cards_Card_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @components/Cards/Card.vue */ "./resources/js/components/Cards/Card.vue");
 
 
 
@@ -66787,7 +67917,7 @@ var GlobalComponents = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _directives_click_ouside_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./directives/click-ouside.js */ "./resources/js/directives/click-ouside.js");
+/* harmony import */ var _directives_click_ouside_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/directives/click-ouside.js */ "./resources/js/directives/click-ouside.js");
 
 /**
  * You can register global directives here and use them as a plugin in your main Vue instance
@@ -67175,12 +68305,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var v_tooltip__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-tooltip */ "./node_modules/v-tooltip/dist/v-tooltip.esm.js");
-/* harmony import */ var _globalComponents__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./globalComponents */ "./resources/js/globalComponents.js");
-/* harmony import */ var _globalDirectives__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./globalDirectives */ "./resources/js/globalDirectives.js");
-/* harmony import */ var _components_SidebarPlugin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/SidebarPlugin */ "./resources/js/components/SidebarPlugin/index.js");
-/* harmony import */ var _assets_sass_light_bootstrap_dashboard_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./assets/sass/light-bootstrap-dashboard.scss */ "./resources/js/assets/sass/light-bootstrap-dashboard.scss");
+/* harmony import */ var _globalComponents__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/globalComponents */ "./resources/js/globalComponents.js");
+/* harmony import */ var _globalDirectives__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/globalDirectives */ "./resources/js/globalDirectives.js");
+/* harmony import */ var _components_SidebarPlugin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @components/SidebarPlugin */ "./resources/js/components/SidebarPlugin/index.js");
+/* harmony import */ var _assets_sass_light_bootstrap_dashboard_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/assets/sass/light-bootstrap-dashboard.scss */ "./resources/js/assets/sass/light-bootstrap-dashboard.scss");
 /* harmony import */ var _assets_sass_light_bootstrap_dashboard_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_assets_sass_light_bootstrap_dashboard_scss__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _assets_css_demo_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./assets/css/demo.css */ "./resources/js/assets/css/demo.css");
+/* harmony import */ var _assets_css_demo_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/assets/css/demo.css */ "./resources/js/assets/css/demo.css");
 /* harmony import */ var _assets_css_demo_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_assets_css_demo_css__WEBPACK_IMPORTED_MODULE_5__);
  // A plugin file where you could register global components used across the app
 
@@ -67193,7 +68323,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * This is the main Light Bootstrap Dashboard Vue plugin where dashboard related plugins are registerd.
+ * This is the main Light Bootstrap Dashboard Vue plugin where dashboard related mixins are registerd.
  */
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -68223,7 +69353,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
 /* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _layout_DashboardLayout_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./layout/DashboardLayout.vue */ "./resources/js/layout/DashboardLayout.vue");
+/* harmony import */ var _layout_DashboardLayout_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/layout/DashboardLayout.vue */ "./resources/js/layout/DashboardLayout.vue");
 /* harmony import */ var _pages_MainPage_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @pages/MainPage.vue */ "./resources/js/pages/MainPage.vue");
 /* harmony import */ var _pages_NotFoundPage_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @pages/NotFoundPage.vue */ "./resources/js/pages/NotFoundPage.vue");
 /* harmony import */ var _pages_UserProfile_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @pages/UserProfile.vue */ "./resources/js/pages/UserProfile.vue");
@@ -68439,6 +69569,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex_shared_mutations__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuex_shared_mutations__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _modules_tasks_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @modules/tasks.js */ "./resources/js/store/tasks.js");
 /* harmony import */ var _modules_user_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @modules/user.js */ "./resources/js/store/user.js");
+/* harmony import */ var _modules_message_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @modules/message.js */ "./resources/js/store/message.js");
+
 
 
 
@@ -68449,7 +69581,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
     tasks: _modules_tasks_js__WEBPACK_IMPORTED_MODULE_4__["default"],
-    user: _modules_user_js__WEBPACK_IMPORTED_MODULE_5__["default"]
+    user: _modules_user_js__WEBPACK_IMPORTED_MODULE_5__["default"],
+    message: _modules_message_js__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   plugins: [Object(vuex_persistedstate__WEBPACK_IMPORTED_MODULE_2__["default"])({
     paths: ['user', 'tasks.getNewTaskText']
@@ -68458,6 +69591,65 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   })]
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
+
+/***/ }),
+
+/***/ "./resources/js/store/message.js":
+/*!***************************************!*\
+  !*** ./resources/js/store/message.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+var ModuleMessage = {
+  mutations: {
+    setNotySuccess: function setNotySuccess(state, response) {
+      var statusCode = response.status;
+
+      if (statusCode === 201 || statusCode === 200) {
+        vue__WEBPACK_IMPORTED_MODULE_0___default.a.noty.success(response.data.message);
+      }
+    },
+    setNotyError: function setNotyError(state, error) {
+      var statusCode = error.response.status;
+
+      if (statusCode === 401) {
+        vue__WEBPACK_IMPORTED_MODULE_0___default.a.noty.error(error.response.data.message);
+        return;
+      }
+
+      if (statusCode === 403) {
+        vue__WEBPACK_IMPORTED_MODULE_0___default.a.noty.error(error.response.data.message);
+        return;
+      }
+
+      if (statusCode === 404) {
+        vue__WEBPACK_IMPORTED_MODULE_0___default.a.noty.error(error.response.data.message);
+        return;
+      }
+
+      if (statusCode === 422) {
+        var validationErrors = error.response.data.errors;
+
+        if (validationErrors) {
+          for (var prop in validationErrors) {
+            vue__WEBPACK_IMPORTED_MODULE_0___default.a.noty.error(validationErrors[prop]);
+          }
+        }
+
+        return;
+      }
+
+      console.error(error);
+    }
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (ModuleMessage);
 
 /***/ }),
 
@@ -68504,27 +69696,31 @@ var ModuleTask = {
     },
     pageTasks: function pageTasks(state) {
       return state.pageTasks;
-    },
-    doneTasks: function doneTasks(state) {
-      return state.tasks.filter(function (t) {
-        return !t.done;
-      });
     }
   },
   mutations: {
     setTasks: function setTasks(state, payload) {
       var _state$tasks;
 
-      (_state$tasks = state.tasks).push.apply(_state$tasks, _toConsumableArray(payload.tasks.data));
+      var tasks = payload.tasks;
+
+      (_state$tasks = state.tasks).push.apply(_state$tasks, _toConsumableArray(tasks.data));
     },
     clearTasks: function clearTasks(state) {
       state.tasks = [];
+      state.pageTasks = [];
     },
     setPageTasks: function setPageTasks(state, payload) {
-      state.pageTasks = payload.tasks.data;
+      var _state$tasks2;
+
+      var tasks = payload.tasks;
+      state.pageTasks = tasks.data;
+
+      (_state$tasks2 = state.tasks).push.apply(_state$tasks2, _toConsumableArray(tasks.data));
     },
     addTask: function addTask(state, payload) {
-      state.tasks.push(payload.task);
+      var task = payload.task;
+      state.tasks.push(task);
     },
     updateTask: function updateTask(state, payload) {
       var task = payload.task;
@@ -68553,12 +69749,16 @@ var ModuleTask = {
   actions: {
     setTasks: function setTasks(context) {
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/v1/tasks").then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/v1/tasks", {
+          params: {
+            page: 1
+          }
+        }).then(function (response) {
           context.commit('clearTasks');
           context.commit('setTasks', response.data);
           resolve(response);
         })["catch"](function (error) {
-          console.error(error);
+          context.commit('setNotyError', error);
           reject(error);
         });
       });
@@ -68577,11 +69777,10 @@ var ModuleTask = {
                       page: page
                     }
                   }).then(function (response) {
-                    context.commit('setTasks', response.data);
                     context.commit('setPageTasks', response.data);
                     resolve(response);
                   })["catch"](function (error) {
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -68611,9 +69810,10 @@ var ModuleTask = {
                 return _context2.abrupt("return", new Promise(function (resolve, reject) {
                   axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/v1/tasks", payload).then(function (response) {
                     context.commit('addTask', response.data);
+                    context.commit('setNotySuccess', response);
                     resolve(response);
                   })["catch"](function (error) {
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -68643,9 +69843,10 @@ var ModuleTask = {
                 return _context3.abrupt("return", new Promise(function (resolve, reject) {
                   axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch("/api/v1/tasks/".concat(payload.id), payload).then(function (response) {
                     context.commit('updateTask', response.data);
+                    context.commit('setNotySuccess', response);
                     resolve(response);
                   })["catch"](function (error) {
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -68675,9 +69876,10 @@ var ModuleTask = {
                 return _context4.abrupt("return", new Promise(function (resolve, reject) {
                   axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/v1/tasks/".concat(payload.id)).then(function (response) {
                     context.commit('deleteTask', response.data);
+                    context.commit('setNotySuccess', response);
                     resolve(response);
                   })["catch"](function (error) {
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -68708,11 +69910,12 @@ var ModuleTask = {
                   axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/v1/tasks/destroy/completed/").then(function (response) {
                     if (response.data.tasks > 0) {
                       context.dispatch('setTasks');
+                      context.commit('setNotySuccess', response);
                     }
 
                     resolve(response);
                   })["catch"](function (error) {
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -68742,9 +69945,10 @@ var ModuleTask = {
                 return _context6.abrupt("return", new Promise(function (resolve, reject) {
                   axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch("/api/v1/tasks/".concat(payload.id, "/check/"), payload).then(function (response) {
                     context.commit('updateTask', response.data);
+                    context.commit('setNotySuccess', response);
                     resolve(response);
                   })["catch"](function (error) {
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -68784,13 +69988,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _extensions_Object_KeyToCamelClase__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/extensions/Object+KeyToCamelClase */ "./resources/js/extensions/Object+KeyToCamelClase.js");
-/* harmony import */ var _extensions_Object_KeyToSnakeClase__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/extensions/Object+KeyToSnakeClase */ "./resources/js/extensions/Object+KeyToSnakeClase.js");
+/* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/routes.js */ "./resources/js/routes.js");
+/* harmony import */ var _extensions_Object_KeyToCamelClase__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/extensions/Object+KeyToCamelClase */ "./resources/js/extensions/Object+KeyToCamelClase.js");
+/* harmony import */ var _extensions_Object_KeyToSnakeClase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/extensions/Object+KeyToSnakeClase */ "./resources/js/extensions/Object+KeyToSnakeClase.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -68831,10 +70037,36 @@ var ModuleUser = {
       state.messageAuth = payload;
     },
     setUser: function setUser(state, payload) {
-      state.user = Object(_extensions_Object_KeyToCamelClase__WEBPACK_IMPORTED_MODULE_3__["keyToCamelClase"])(payload.user);
+      state.user = Object(_extensions_Object_KeyToCamelClase__WEBPACK_IMPORTED_MODULE_4__["keyToCamelClase"])(payload.user);
     }
   },
   actions: {
+    init: function init(context) {
+      context.commit('addTokenToAxios');
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.interceptors.response.use(function (response) {
+        return response;
+      }, function (error) {
+        var statusCode = error.response.status;
+
+        if (statusCode === 401 || statusCode === 400) {
+          context.commit('deleteToken');
+          _routes_js__WEBPACK_IMPORTED_MODULE_3__["default"].go('signin');
+        }
+
+        return Promise.reject(error);
+      });
+    },
+    loadUser: function loadUser(context) {
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/api/v1/user").then(function (response) {
+          context.commit('setUser', response.data);
+          resolve(response);
+        })["catch"](function (error) {
+          context.commit('setNotyError', error);
+          reject(error);
+        });
+      });
+    },
     signup: function () {
       var _signup = _asyncToGenerator(
       /*#__PURE__*/
@@ -68847,9 +70079,10 @@ var ModuleUser = {
                   axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/signup", payload).then(function (response) {
                     vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.set('signupEmail', payload.email);
                     vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.set('signupPassword', payload.password);
+                    context.commit('setNotySuccess', response);
                     resolve(response);
                   })["catch"](function (error) {
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -68886,7 +70119,7 @@ var ModuleUser = {
                     context.dispatch('loadUser');
                     resolve(response);
                   })["catch"](function (error) {
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -68922,10 +70155,11 @@ var ModuleUser = {
 
                     if (statusCode === 401 || statusCode === 400) {
                       context.commit('deleteToken');
+                      _routes_js__WEBPACK_IMPORTED_MODULE_3__["default"].go('signin');
                       return;
                     }
 
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -68956,7 +70190,7 @@ var ModuleUser = {
                   axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/password/reset", payload).then(function (response) {
                     resolve(response);
                   })["catch"](function (error) {
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -68985,9 +70219,10 @@ var ModuleUser = {
               case 0:
                 return _context5.abrupt("return", new Promise(function (resolve, reject) {
                   axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/password/create", payload).then(function (response) {
+                    context.commit('setNotySuccess', response);
                     resolve(response);
                   })["catch"](function (error) {
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -69015,11 +70250,12 @@ var ModuleUser = {
             switch (_context6.prev = _context6.next) {
               case 0:
                 return _context6.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch("/api/v1/user/update", Object(_extensions_Object_KeyToSnakeClase__WEBPACK_IMPORTED_MODULE_4__["keyToSnakeClase"])(payload)).then(function (response) {
+                  axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch("/api/v1/user/update", Object(_extensions_Object_KeyToSnakeClase__WEBPACK_IMPORTED_MODULE_5__["keyToSnakeClase"])(payload)).then(function (response) {
                     context.commit('setUser', response.data);
+                    context.commit('setNotySuccess', response);
                     resolve(response);
                   })["catch"](function (error) {
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -69057,9 +70293,10 @@ var ModuleUser = {
                 return _context7.abrupt("return", new Promise(function (resolve, reject) {
                   axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/user/update/avatar", formData, config).then(function (response) {
                     context.commit('setUser', response.data);
+                    context.commit('setNotySuccess', response);
                     resolve(response);
                   })["catch"](function (error) {
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -69087,11 +70324,12 @@ var ModuleUser = {
             switch (_context8.prev = _context8.next) {
               case 0:
                 return _context8.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch("/api/v1/user/update/password", Object(_extensions_Object_KeyToSnakeClase__WEBPACK_IMPORTED_MODULE_4__["keyToSnakeClase"])(payload)).then(function (response) {
+                  axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch("/api/v1/user/update/password", Object(_extensions_Object_KeyToSnakeClase__WEBPACK_IMPORTED_MODULE_5__["keyToSnakeClase"])(payload)).then(function (response) {
                     context.commit('setUser', response.data);
+                    context.commit('setNotySuccess', response);
                     resolve(response);
                   })["catch"](function (error) {
-                    console.error(error);
+                    context.commit('setNotyError', error);
                     reject(error);
                   });
                 }));
@@ -69109,32 +70347,7 @@ var ModuleUser = {
       }
 
       return updatePassword;
-    }(),
-    init: function init(context) {
-      context.commit('addTokenToAxios');
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.interceptors.response.use(function (response) {
-        return response;
-      }, function (error) {
-        var statusCode = error.response.status;
-
-        if (statusCode === 401 || statusCode === 400) {
-          context.commit('deleteToken');
-        }
-
-        return Promise.reject(error);
-      });
-    },
-    loadUser: function loadUser(context) {
-      return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/api/v1/user").then(function (response) {
-          context.commit('setUser', response.data);
-          resolve(response);
-        })["catch"](function (error) {
-          console.error(error);
-          reject(error);
-        });
-      });
-    }
+    }()
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (ModuleUser);

@@ -44,6 +44,7 @@ class PasswordResetController extends Controller
             'message' => 'We have e-mailed your password reset link!'
         ]);
     }
+
     /**
      * Find token password reset
      *
@@ -68,6 +69,7 @@ class PasswordResetController extends Controller
 
         return response()->redirectTo("password/new/".$passwordReset['token']."?email=".$passwordReset['email']);
     }
+
     /**
      * Create password
      *
@@ -76,7 +78,6 @@ class PasswordResetController extends Controller
      * @param  [string] password_confirmation
      * @param  [string] token
      * @return [string] message
-     * @return [json] user object
      */
     public function create(Request $request)
     {

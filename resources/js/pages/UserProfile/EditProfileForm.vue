@@ -71,6 +71,7 @@
     </form>
   </card>
 </template>
+
 <script>
 import { difference } from '@/extensions/Object+Difference'
 import Card from '@components/Cards/Card.vue'

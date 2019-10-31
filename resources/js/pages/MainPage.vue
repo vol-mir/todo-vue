@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import TasksList from './TasksList/TasksList.vue'
+import TasksList from '@pages/TasksList/TasksList.vue'
 
 export default {
   name: 'MainPage',

@@ -19,7 +19,8 @@
 </template>
 
 <script>
-import Card from './Card.vue'
+import Card from '@components/Cards/Card.vue'
+
 export default {
   name: 'CardStats',
 

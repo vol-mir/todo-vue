@@ -7,6 +7,7 @@
     </li>
   </ul>
 </template>
+
 <script>
 export default {
   name: 'mobile-menu',
@@ -25,8 +26,5 @@ export default {
         })
     }
   }
-
 }
 </script>
-<style>
-</style>

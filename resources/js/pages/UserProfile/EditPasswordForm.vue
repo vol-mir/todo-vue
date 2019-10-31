@@ -36,6 +36,7 @@
     </form>
   </card>
 </template>
+
 <script>
 import Card from '@components/Cards/Card.vue'
 

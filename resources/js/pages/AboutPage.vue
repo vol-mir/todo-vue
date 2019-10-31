@@ -75,6 +75,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import Card from '@components/Cards/Card.vue'
 
@@ -86,6 +87,3 @@ export default {
   }
 }
 </script>
-<style>
-
-</style>

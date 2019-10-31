@@ -92,6 +92,14 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        $checkExistTask = Auth::user()->tasks()->where('id', '=', $task->id)->first();
+        if(!$checkExistTask) {
+            info('opps');
+            return response()->json([
+                'message' => 'No find task in storage'
+            ], 404);
+        }
+
         if(!$task->isAuthor(Auth::user())) {
             return response()->json([
                 'message' => 'No access rights to content'

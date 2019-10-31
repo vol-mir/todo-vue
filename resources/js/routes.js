@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NProgress from 'nprogress'
 
-import DashboardLayout from './layout/DashboardLayout.vue'
+import DashboardLayout from '@/layout/DashboardLayout.vue'
 
 import MainPage from '@pages/MainPage.vue'
 import NotFound from '@pages/NotFoundPage.vue'
@@ -14,6 +14,7 @@ import Signup from '@pages/Auth/Signup.vue'
 import MessageAuth from '@pages/Auth/MessageAuth.vue'
 import ResetPassword from '@pages/Auth/ResetPassword.vue'
 import NewPass from '@pages/Auth/NewPass.vue'
+
 import store from '@modules/index.js'
 
 Vue.use(VueRouter)

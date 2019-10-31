@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Notifications\SignupActivate;
 use Carbon\Carbon;
 use App\Models\User;
-use File;
-use Image;
 use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
@@ -51,9 +49,7 @@ class AuthController extends Controller
      *
      * @param  [string] email
      * @param  [string] password
-     * @param  [boolean] remember_me
      * @return [string] access_token
-     * @return [string] token_type
      * @return [string] expires_at
      */
     public function signin(Request $request)
@@ -69,7 +65,7 @@ class AuthController extends Controller
 
         if (!Auth::attempt($credentials)) {
             return response()->json([
-                'message' => 'Unauthorized'
+                'message' => 'User unauthorized'
             ], 401);
         }
 
@@ -86,8 +82,6 @@ class AuthController extends Controller
             'access_token' => $tokenResult->accessToken,
             'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
         ]);
-        //'token_type' => 'Bearer',
-        //
     }
 
     /**
@@ -142,7 +136,12 @@ class AuthController extends Controller
     /**
      * Update the user in storage.
      *
-     * @param  [object] request
+     * @param  [string] name
+     * @param  [string] first_name
+     * @param  [string] last_name
+     * @param  [string] city
+     * @param  [string] country
+     * @param  [string] about_me
      * @return [string] message
      * @return [object] user
      */
@@ -173,7 +172,7 @@ class AuthController extends Controller
     /**
      * Update the avatar user in storage.
      *
-     * @param  [object] request
+     * @param  [image base64 encoded] avatars
      * @return [string] message
      * @return [object] avatar
      */
@@ -189,11 +188,11 @@ class AuthController extends Controller
         $imageName = null;
 
         if ($request->has('avatar') && $request->input('avatar')) {
-            $image = $request->input('avatar'); // image base64 encoded
+            $image = $request->input('avatar');
             preg_match("/data:image\/(.*?);/",$image,$image_extension); // extract the image extension
             $image = preg_replace('/data:image\/(.*?);base64,/','',$image); // remove the type part
             $image = str_replace(' ', '+', $image);
-            $imageName = 'avatar_' . time() . '.' . $image_extension[1]; //generating unique file name;
+            $imageName = 'avatar_' . time() . '.' . $image_extension[1];
             Storage::disk('avatars')->put($imageName,base64_decode($image));
         }
 
@@ -209,7 +208,7 @@ class AuthController extends Controller
     /**
      * Update the user password in storage.
      *
-     * @param  [object] request
+     * @param  [string] password
      * @return [string] message
      * @return [object] user
      */

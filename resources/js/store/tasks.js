@@ -19,28 +19,29 @@ const ModuleTask = {
 
     pageTasks: state => {
       return state.pageTasks
-    },
-
-    doneTasks: state => {
-      return state.tasks.filter(t => !t.done)
     }
   },
 
   mutations: {
     setTasks: (state, payload) => {
-      state.tasks.push(...payload.tasks.data)
+      const tasks = payload.tasks
+      state.tasks.push(...tasks.data)
     },
 
     clearTasks: (state) => {
       state.tasks = []
+      state.pageTasks = []
     },
 
     setPageTasks: (state, payload) => {
-      state.pageTasks = payload.tasks.data
+      const tasks = payload.tasks
+      state.pageTasks = tasks.data
+      state.tasks.push(...tasks.data)
     },
 
     addTask: (state, payload) => {
-      state.tasks.push(payload.task)
+      const task = payload.task
+      state.tasks.push(task)
     },
 
     updateTask: (state, payload) => {
@@ -67,13 +68,17 @@ const ModuleTask = {
   actions: {
     setTasks (context) {
       return new Promise((resolve, reject) => {
-        Axios.get(`/api/v1/tasks`)
+        Axios.get(`/api/v1/tasks`, {
+          params: {
+            page: 1
+          }
+        })
           .then(response => {
             context.commit('clearTasks')
             context.commit('setTasks', response.data)
             resolve(response)
           }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
@@ -87,11 +92,10 @@ const ModuleTask = {
           }
         })
           .then(response => {
-            context.commit('setTasks', response.data)
             context.commit('setPageTasks', response.data)
             resolve(response)
           }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
@@ -102,9 +106,10 @@ const ModuleTask = {
         Axios.post(`/api/v1/tasks`, payload)
           .then(response => {
             context.commit('addTask', response.data)
+            context.commit('setNotySuccess', response)
             resolve(response)
           }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
@@ -115,9 +120,10 @@ const ModuleTask = {
         Axios.patch(`/api/v1/tasks/${payload.id}`, payload)
           .then(response => {
             context.commit('updateTask', response.data)
+            context.commit('setNotySuccess', response)
             resolve(response)
           }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
@@ -128,9 +134,10 @@ const ModuleTask = {
         Axios.delete(`/api/v1/tasks/${payload.id}`)
           .then(response => {
             context.commit('deleteTask', response.data)
+            context.commit('setNotySuccess', response)
             resolve(response)
           }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
@@ -142,10 +149,11 @@ const ModuleTask = {
           .then(response => {
             if (response.data.tasks > 0) {
               context.dispatch('setTasks')
+              context.commit('setNotySuccess', response)
             }
             resolve(response)
           }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
@@ -156,15 +164,15 @@ const ModuleTask = {
         Axios.patch(`/api/v1/tasks/${payload.id}/check/`, payload)
           .then(response => {
             context.commit('updateTask', response.data)
+            context.commit('setNotySuccess', response)
             resolve(response)
           }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
     }
   }
-
 }
 
 export default ModuleTask

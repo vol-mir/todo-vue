@@ -25,14 +25,13 @@
     </div>
   </div>
 </template>
-<style lang="scss">
 
-</style>
 <script>
-import TopNavbar from './TopNavbar.vue'
-import ContentFooter from './ContentFooter.vue'
-import DashboardContent from './Content.vue'
-import MobileMenu from './MobileMenu.vue'
+import TopNavbar from '@layout/TopNavbar.vue'
+import ContentFooter from '@layout/ContentFooter.vue'
+import DashboardContent from '@layout/Content.vue'
+import MobileMenu from '@layout/MobileMenu.vue'
+
 export default {
   components: {
     TopNavbar,
@@ -48,5 +47,4 @@ export default {
     }
   }
 }
-
 </script>

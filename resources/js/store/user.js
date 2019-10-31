@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Axios from 'axios'
 
+import router from '@/routes.js'
+
 import { keyToCamelClase } from '@/extensions/Object+KeyToCamelClase'
 import { keyToSnakeClase } from '@/extensions/Object+KeyToSnakeClase'
 
@@ -54,15 +56,44 @@ const ModuleUser = {
   },
 
   actions: {
+    init (context) {
+      context.commit('addTokenToAxios')
+
+      Axios.interceptors.response.use((response) => {
+        return response
+      }, (error) => {
+        const statusCode = error.response.status
+        if (statusCode === 401 || statusCode === 400) {
+          context.commit('deleteToken')
+          router.go('signin')
+        }
+        return Promise.reject(error)
+      })
+    },
+
+    loadUser (context) {
+      return new Promise((resolve, reject) => {
+        Axios.get(`/api/v1/user`)
+          .then(response => {
+            context.commit('setUser', response.data)
+            resolve(response)
+          }).catch(error => {
+            context.commit('setNotyError', error)
+            reject(error)
+          })
+      })
+    },
+
     async signup (context, payload) {
       return new Promise((resolve, reject) => {
         Axios.post(`/api/v1/signup`, payload)
           .then(response => {
             Vue.localStorage.set('signupEmail', payload.email)
             Vue.localStorage.set('signupPassword', payload.password)
+            context.commit('setNotySuccess', response)
             resolve(response)
           }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
@@ -80,7 +111,7 @@ const ModuleUser = {
             context.dispatch('loadUser')
             resolve(response)
           }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
@@ -96,9 +127,10 @@ const ModuleUser = {
             const statusCode = error.response.status
             if (statusCode === 401 || statusCode === 400) {
               context.commit('deleteToken')
+              router.go('signin')
               return
             }
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
@@ -110,7 +142,7 @@ const ModuleUser = {
           .then(response => {
             resolve(response)
           }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
@@ -120,9 +152,10 @@ const ModuleUser = {
       return new Promise((resolve, reject) => {
         Axios.post(`/api/v1/password/create`, payload)
           .then(response => {
+            context.commit('setNotySuccess', response)
             resolve(response)
           }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
@@ -133,9 +166,10 @@ const ModuleUser = {
         Axios.patch(`/api/v1/user/update`, keyToSnakeClase(payload))
           .then(response => {
             context.commit('setUser', response.data)
+            context.commit('setNotySuccess', response)
             resolve(response)
           }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
@@ -152,9 +186,10 @@ const ModuleUser = {
         Axios.post(`/api/v1/user/update/avatar`, formData, config)
           .then(response => {
             context.commit('setUser', response.data)
+            context.commit('setNotySuccess', response)
             resolve(response)
           }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
@@ -165,42 +200,15 @@ const ModuleUser = {
         Axios.patch(`/api/v1/user/update/password`, keyToSnakeClase(payload))
           .then(response => {
             context.commit('setUser', response.data)
+            context.commit('setNotySuccess', response)
             resolve(response)
           }).catch(error => {
-            console.error(error)
-            reject(error)
-          })
-      })
-    },
-
-    init (context) {
-      context.commit('addTokenToAxios')
-
-      Axios.interceptors.response.use((response) => {
-        return response
-      }, (error) => {
-        const statusCode = error.response.status
-        if (statusCode === 401 || statusCode === 400) {
-          context.commit('deleteToken')
-        }
-        return Promise.reject(error)
-      })
-    },
-
-    loadUser (context) {
-      return new Promise((resolve, reject) => {
-        Axios.get(`/api/v1/user`)
-          .then(response => {
-            context.commit('setUser', response.data)
-            resolve(response)
-          }).catch(error => {
-            console.error(error)
+            context.commit('setNotyError', error)
             reject(error)
           })
       })
     }
   }
-
 }
 
 export default ModuleUser

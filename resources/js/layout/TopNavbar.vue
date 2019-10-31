@@ -25,6 +25,7 @@
     </div>
   </nav>
 </template>
+
 <script>
 export default {
   computed: {
@@ -71,6 +72,3 @@ export default {
 }
 
 </script>
-<style>
-
-</style>

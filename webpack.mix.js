@@ -50,6 +50,10 @@ mix.js('resources/js/app.js', 'public/js')
           __dirname,
           'resources/js/pages'
         ),
+        '@layout': path.resolve(
+          __dirname,
+          'resources/js/layout'
+        ),
 
       }
     }

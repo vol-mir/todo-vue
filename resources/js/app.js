@@ -1,5 +1,6 @@
 import './bootstrap'
 import './assets/css/my-login.css'
+import './assets/infinite-loading/spinner.less'
 
 import Vue from 'vue'
 import VueNoty from 'vuejs-noty'
@@ -7,7 +8,7 @@ import VueLocalStorage from 'vue-localstorage'
 import VTooltip from 'v-tooltip'
 
 // LightBootstrap plugin
-import LightBootstrap from './light-bootstrap-main'
+import LightBootstrap from '@/light-bootstrap-main'
 
 import router from '@/routes.js'
 import store from '@modules/index.js'

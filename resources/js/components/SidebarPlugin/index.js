@@ -1,5 +1,5 @@
-import Sidebar from './SideBar.vue'
-import SidebarLink from './SidebarLink.vue'
+import Sidebar from '@components/SidebarPlugin/SideBar.vue'
+import SidebarLink from '@components/SidebarPlugin/SidebarLink.vue'
 
 const SidebarStore = {
   showSidebar: false,

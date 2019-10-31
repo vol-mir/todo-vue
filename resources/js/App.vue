@@ -6,13 +6,6 @@
 
 <script>
 export default {
-  name: 'App',
-
-  mounted () {
-    // this.$store.dispatch('init')
-  }
+  name: 'App'
 }
 </script>
-
-<style lang="scss">
-</style>

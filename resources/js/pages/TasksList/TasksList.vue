@@ -15,17 +15,18 @@
     <div
       v-else
       key="tasks-no-empty"
-      class="my-custom-scrollbar table-wrapper-scroll-y"
       id="tasks-list"
+      class="my-custom-scrollbar table-wrapper-scroll-y"
       ref="tasksList"
+      infinite-wrapper
     >
       <table class="table">
         <tbody>
         <infinite-loading
-          slot="append"
           @infinite="infiniteHandler"
+          :distance="20"
           direction="top"
-          @distance="1">
+          ref="infiniteLoading">
           <div slot="no-more"></div>
           <div slot="no-results"></div>
         </infinite-loading>
@@ -155,7 +156,7 @@
 </template>
 
 <script>
-import InfiniteLoading from 'vue-infinite-loading'
+import InfiniteLoading from '@components/InfiniteLoading/InfiniteLoading.vue'
 
 export default {
   name: 'TasksList',
@@ -172,7 +173,8 @@ export default {
       editTaskOri: {},
       editTooltip: 'Edit Task',
       deleteTooltip: 'Remove',
-      page: 2
+      page: 2,
+      height: 0
     }
   },
 
@@ -186,7 +188,7 @@ export default {
     },
 
     doneTasks () {
-      return this.$store.getters.doneTasks
+      return this.allTasks.filter(t => !t.done)
     },
 
     filteredTasks () {
@@ -224,6 +226,10 @@ export default {
     },
 
     addNewTask () {
+      if (this.newTaskText.length === 0) {
+        return
+      }
+
       this.$store.dispatch('addTask', {
         'name': this.newTaskText
       })
@@ -237,6 +243,9 @@ export default {
 
     hideComlTask () {
       this.hideCompleted = !this.hideCompleted
+      this.$nextTick(function () {
+        this.$refs.tasksList.scrollTop = this.$refs.tasksList.scrollHeight
+      })
     },
 
     cancelAddingTask () {
@@ -245,6 +254,16 @@ export default {
 
     deleteCompletedTasks () {
       this.$store.dispatch('deleteCompletedTasks')
+        .then(() => {
+          this.$nextTick(function () {
+            if (this.$refs.tasksList) {
+              this.page = 2
+              const stateChanger = this.$refs.infiniteLoading.stateChanger
+              stateChanger.reset()
+              this.$refs.tasksList.scrollTop = this.$refs.tasksList.scrollHeight
+            }
+          })
+        })
     },
 
     deleteTask (task) {
@@ -262,6 +281,9 @@ export default {
     },
 
     updateTask () {
+      if (this.editTask.name.length === 0) {
+        return
+      }
       this.$store.dispatch('updateTask', this.editTask)
       this.editOffset = -1
       this.editTaskOri = {}
@@ -290,12 +312,9 @@ export default {
             this.page += 1
             setTimeout(() => {
               $state.loaded()
-            }, 1000)
+            }, 2000)
           } else {
             $state.complete()
-            if (this.$refs.tasksList) {
-              this.$refs.tasksList.scrollTop = this.$refs.tasksList.scrollHeight
-            }
           }
         })
     }
