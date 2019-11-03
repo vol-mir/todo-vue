@@ -61,8 +61,16 @@ class TaskController extends Controller
      * @return [string] message
      * @return [object] task
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, $id)
     {
+        $task = Auth::user()->tasks()->where('id', '=', $id)->first();
+
+        if(!$task) {
+            return response()->json([
+                'message' => 'No find task in storage'
+            ], 404);
+        }
+
         $request->validate([
             'name' => 'required|string|max:255'
         ]);
@@ -90,11 +98,11 @@ class TaskController extends Controller
      * @return [string] message
      * @return [object] task
      */
-    public function destroy(Task $task)
+    public function destroy($id)
     {
-        $checkExistTask = Auth::user()->tasks()->where('id', '=', $task->id)->first();
-        if(!$checkExistTask) {
-            info('opps');
+        $task = Auth::user()->tasks()->where('id', '=', $id)->first();
+
+        if(!$task) {
             return response()->json([
                 'message' => 'No find task in storage'
             ], 404);
@@ -137,17 +145,18 @@ class TaskController extends Controller
      * @return [string] message
      * @return [object] task
      */
-    public function check(Request $request, Task $task)
+    public function check(Request $request, $id)
     {
+        $task = Auth::user()->tasks()->where('id', '=', $id)->first();
+        if(!$task) {
+            return response()->json([
+                'message' => 'No find task in storage'
+            ], 404);
+        }
+
         $request->validate([
             'done' => 'required|boolean',
         ]);
-
-        if(!$task->isAuthor(Auth::user())) {
-            return response()->json([
-                'message' => 'No access rights to content'
-            ], 403);
-        }
 
         $task->done = $request->get('done', false);
         $task->save();

@@ -13,8 +13,10 @@ Route::prefix('v1')->group(function () {
 
     Route::group(['middleware' => ['auth:api']], function() {
         Route::delete('/tasks/destroy/completed', [TaskController::class, 'destroyCompleted'])->name('tasks.destroy.completed');
-        Route::patch('/tasks/{task}/check', [TaskController::class, 'check'])->name('tasks.check');
-        Route::apiResource('/tasks', 'API\TaskController')->except('show');
+        Route::patch('/tasks/{id}/check', [TaskController::class, 'check'])->name('tasks.check');
+        Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+        Route::patch('/tasks/{id}', [TaskController::class, 'update'])->name('tasks.update');
+        Route::apiResource('/tasks', 'API\TaskController')->except('show','destroy','update');
 
         Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
         Route::get('/user', [AuthController::class, 'user'])->name('auth.user');

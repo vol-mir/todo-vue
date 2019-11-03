@@ -57,91 +57,10 @@ class TaskTest extends TestCase
         //test: user unauthorized -> 401
         $this
             ->get(route('tasks.index'), $this->makeHeaders('GET', false))
-            ->assertStatus(401);
-    }
-
-    /** @test */
-    public function it_can_delete_task_existent_being_authed(): void
-    {
-        //test: given = 1 random task for admin
-        $task = factory(Task::class)->create();
-
-        //test: given = 1 users
-        User::create([
-            'name' => 'Bob',
-            'email' => 'bob@gmail.com',
-            'password' => bcrypt('eeeeee'),
-            'active' => true,
-            'activation_token' => '',
-            'deleted_at' => null
-        ]);
-
-        //test: given = 1 random tasks for second user
-        $taskBob = factory(Task::class)->create([
-            'user_id' => User::select('id')->where('name', 'Bob')->first()
-        ]);
-
-        //test: user tries to delete exist their task -> 200
-        $this
-            ->delete(route('tasks.destroy', [$task->id]), [], $this->makeHeaders('DELETE'))
-            ->assertStatus(200)
+            ->assertStatus(401)
             ->assertJsonFragment([
-                'message' => 'Successfully delete task'
+                'message' => 'Unauthenticated.'
             ]);
-
-        //test: user tries to delete exist not mine task -> 403
-        $this
-            ->delete(route('tasks.destroy', [$taskBob->id]), [], $this->makeHeaders('DELETE'))
-            ->assertStatus(403)
-            ->assertJsonFragment([
-                'message' => 'No access rights to content'
-            ]);
-    }
-
-    /** @test */
-    public function it_can_delete_task_unexistent_being_authed(): void
-    {
-        //test: user tries to delete unexistent task -> 404
-        $this
-            ->delete(route('tasks.destroy', [1161]), [], $this->makeHeaders('DELETE'))
-            ->assertStatus(404);
-    }
-
-    /** @test */
-    public function it_can_delete_task_existent_being_unauthed(): void
-    {
-        //test: given = 1 random task
-        $task = factory(Task::class)->create();
-
-        //test: user unauthed tries to delete existent task -> 401
-        $this
-            ->delete(route('tasks.destroy', [$task->id]), [], $this->makeHeaders('DELETE', false))
-            ->assertStatus(401);
-    }
-
-    /** @test */
-    public function it_can_delete_tasks_completed_being_authed(): void
-    {
-        //test: given = 50 random tasks default with done to false
-        factory(Task::class, 50)->create();
-
-        //test: given = 20 random tasks default with done to true
-        factory(Task::class, 20)->create([
-            'done' => true,
-        ]);
-
-        //test: user tries to delete completed tasks -> 200
-        $response = $this
-            ->delete(route('tasks.destroy.completed'), [], $this->makeHeaders('DELETE'))
-            ->assertStatus(200)
-            ->assertJsonFragment([
-                'message' => 'Successfully remove completed tasks'
-            ]);
-
-        $content = $response->getOriginalContent();
-
-        //test: get count delete completed tasks
-        $this->assertEquals($content['tasks'], 20);
     }
 
     /** @test */
@@ -186,7 +105,10 @@ class TaskTest extends TestCase
         //test: user tries to store task empty name -> 401
         $this
             ->post(route('tasks.store'),  $fakeInfo->toArray(), $this->makeHeaders('POST', false))
-            ->assertStatus(401);
+            ->assertStatus(401)
+            ->assertJsonFragment([
+                'message' => 'Unauthenticated.'
+            ]);
     }
 
     /** @test */
@@ -214,7 +136,7 @@ class TaskTest extends TestCase
 
         //test: user tries to update their task existent data -> 200
         $this
-            ->put(route('tasks.update', $task->id), ['name' => $fakeInfo], $this->makeHeaders('PUT'))
+            ->patch(route('tasks.update', $task->id), ['name' => $fakeInfo], $this->makeHeaders('PATCH'))
             ->assertStatus(200)
             ->assertJsonFragment([
                 'message' => 'Successfully update task'
@@ -223,12 +145,12 @@ class TaskTest extends TestCase
         $task = $task->fresh();
         $this->assertEquals($task->name, $fakeInfo);
 
-        //test: user tries to update not mine task -> 403
+        //test: user tries to update not mine task -> 404
         $this
-            ->put(route('tasks.update', [$taskBob->id]), ['name' => $fakeInfo], $this->makeHeaders('PUT'))
-            ->assertStatus(403)
+            ->patch(route('tasks.update', [$taskBob->id]), ['name' => $fakeInfo], $this->makeHeaders('PATCH'))
+            ->assertStatus(404)
             ->assertJsonFragment([
-                'message' => 'No access rights to content'
+                'message' => 'No find task in storage'
             ]);
     }
 
@@ -240,7 +162,7 @@ class TaskTest extends TestCase
 
         //test: user tries to update task empty data -> 422
         $this
-            ->put(route('tasks.update', $task->id), [], $this->makeHeaders('PUT') )
+            ->patch(route('tasks.update', $task->id), [], $this->makeHeaders('PATCH') )
             ->assertStatus(422);
     }
 
@@ -254,8 +176,114 @@ class TaskTest extends TestCase
 
         //test: unauthed user tries to update task existent data -> 401
         $this
-            ->put(route('tasks.update', $task->id), ['name' => $fakeInfo], $this->makeHeaders('PUT', false))
-            ->assertStatus(401);
+            ->patch(route('tasks.update', $task->id), ['name' => $fakeInfo], $this->makeHeaders('PUT', false))
+            ->assertStatus(401)
+            ->assertJsonFragment([
+                'message' => 'Unauthenticated.'
+            ]);
+    }
+
+    /** @test */
+    public function it_can_update_task_unexistent_being_authed(): void
+    {
+        //test: user tries to update unexistent task -> 404
+        $this
+            ->patch(route('tasks.update', [1161]), ['name' => 'fakeInfo'], $this->makeHeaders('PATCH'))
+            ->assertStatus(404)
+            ->assertJsonFragment([
+                'message' => 'No find task in storage'
+            ]);
+    }
+
+    /** @test */
+    public function it_can_delete_task_existent_being_authed(): void
+    {
+        //test: given = 1 random task for admin
+        $task = factory(Task::class)->create();
+
+        //test: given = 1 users
+        User::create([
+            'name' => 'Bob',
+            'email' => 'bob@gmail.com',
+            'password' => bcrypt('eeeeee'),
+            'active' => true,
+            'activation_token' => '',
+            'deleted_at' => null
+        ]);
+
+        //test: given = 1 random tasks for second user
+        $taskBob = factory(Task::class)->create([
+            'user_id' => User::select('id')->where('name', 'Bob')->first()
+        ]);
+
+        //test: user tries to delete exist their task -> 200
+        $this
+            ->delete(route('tasks.destroy', [$task->id]), [], $this->makeHeaders('DELETE'))
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                'message' => 'Successfully delete task'
+            ]);
+
+        //test: user tries to delete exist not mine task -> 404
+        $this
+            ->delete(route('tasks.destroy', [$taskBob->id]), [], $this->makeHeaders('DELETE'))
+            ->assertStatus(404)
+            ->assertJsonFragment([
+                'message' => 'No find task in storage'
+            ]);
+    }
+
+    /** @test */
+    public function it_can_delete_task_unexistent_being_authed(): void
+    {
+        //test: user tries to delete unexistent task -> 404
+        $this
+            ->delete(route('tasks.destroy', [1161]), [], $this->makeHeaders('DELETE'))
+            ->assertStatus(404)
+            ->assertJsonFragment([
+                'message' => 'No find task in storage'
+            ]);
+    }
+
+    /** @test */
+    public function it_can_delete_task_existent_being_unauthed(): void
+    {
+        //test: given = 1 random task
+        $task = factory(Task::class)->create();
+
+        //test: user unauthed tries to delete existent task -> 401
+        $this
+            ->delete(route('tasks.destroy', [$task->id]), [], $this->makeHeaders('DELETE', false))
+            ->assertStatus(401)
+            ->assertJsonFragment([
+                'message' => 'Unauthenticated.'
+            ]);
+
+    }
+
+    /** @test */
+    public function it_can_delete_tasks_completed_being_authed(): void
+    {
+        //test: given = 50 random tasks default with done to false
+        factory(Task::class, 50)->create();
+
+        //test: given = 20 random tasks default with done to true
+        factory(Task::class, 20)->create([
+            'done' => true,
+        ]);
+
+        //test: user tries to delete completed tasks -> 200
+        $response = $this
+            ->delete(route('tasks.destroy.completed'), [], $this->makeHeaders('DELETE'))
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                'message' => 'Successfully remove completed tasks'
+            ]);
+
+        $content = $response->getOriginalContent();
+
+        //test: get count delete completed tasks
+        $this->assertEquals($content['tasks'], 20);
     }
 
     /** @test */
@@ -309,12 +337,12 @@ class TaskTest extends TestCase
         $this->patch(route('tasks.check', $task->id), ['done' => 'text'], $this->makeHeaders('PATCH'))
             ->assertStatus(422);
 
-        //test: user tries to check done not mine task -> 403
+        //test: user tries to check done not mine task -> 404
         $this
             ->patch(route('tasks.check', [$taskBob->id]), ['done' => true], $this->makeHeaders('PATCH'))
-            ->assertStatus(403)
+            ->assertStatus(404)
             ->assertJsonFragment([
-                'message' => 'No access rights to content'
+                'message' => 'No find task in storage'
             ]);
 
     }
@@ -331,6 +359,22 @@ class TaskTest extends TestCase
         //test: unauthed user tries to check task -> 401
         $this
             ->patch(route('tasks.check', $task->id), ['done' => true], $this->makeHeaders('PATCH', false))
-            ->assertStatus(401);
+            ->assertStatus(401)
+            ->assertJsonFragment([
+                'message' => 'Unauthenticated.'
+            ]);
     }
+
+    /** @test */
+    public function it_can_check_task_unexistent_being_authed(): void
+    {
+        //test: user tries to update unexistent task -> 404
+        $this
+            ->patch(route('tasks.check', [1161]), ['done' => true], $this->makeHeaders('PATCH'))
+            ->assertStatus(404)
+            ->assertJsonFragment([
+                'message' => 'No find task in storage'
+            ]);
+    }
+
 }
