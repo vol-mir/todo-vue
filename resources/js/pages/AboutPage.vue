@@ -4,70 +4,42 @@
       <div class="row">
         <div class="col-md-12">
           <card>
-            <h4 slot="header" class="card-title">About Project</h4>
+            <h4 slot="header" class="card-title">About Project "To-do list"</h4>
+            <div class="typo-line">
+              <div class="title-about">Stack:</div>
+              <div class="stack">
+                — PHP 7.1.3 - Hypertext Preprocessor (or simply PHP) is a general-purpose programming language originally designed for web development.<br>
+                — Laravel 5.8 - Laravel is a web application framework with expressive, elegant syntax.<br>
+                — Vue 2.5.17 - Vue.js is an open-source Model–view–viewmodel JavaScript framework for building user interfaces and single-page applications.<br>
+              </div>
 
-            <div class="typo-line">
-              <h3>Проект "To-do list" - список дел</h3>
-            </div>
+              <div class="title-about">Quick Start:</div>
+              <div class="console">
+                $ git clone https://github.com/vol-mir/todo-vue.git<br>
+                $ cd todo-vue<br>
+                $ composer install<br>
+                $ cp .env.example .env<br>
+                $ php artisan key:generate<br>
+                $ php artisan migrate:fresh --seed<br>
+                $ php artisan passport:install<br>
+                $ npm install <br>
+              </div>
 
-            <div class="typo-line">
-              <h3>Цель проекта: <br>
-                <small class="grey-text">
-                  Создание Веб-приложения для ведения списка дел, чтобы помочь придерживаться
-                  планов, достигать целей и ничего не забывать.
-                </small>
-              </h3>
-            </div>
-            <div class="typo-line">
-              <h3>Суть проекта: <br>
-                <small class="grey-text">
-                  Порой дел накапливается так много! И все они нужны, важны и абсолютно разноплановы.
-                  В такой ситуации у человека может возникнуть ощущение бессилия, неспособности со всем этим справится.
-                  Что делать в таких ситуациях?<br>
-                </small>
-                <small class="grey-text">
-                  "Горящие в первую очередь"<br>
-                  Составляем список задач. Если среди них есть самая срочная, например, подготовка к переговорам,
-                  которые состоятся завтра утром - занимаемся ею в первую очередь.<br>
-                </small>
-                <small class="grey-text">
-                  "От малого к большему"<br>
-                  По списку выбираем дела, которые можно решить прямо сейчас. Например, записаться на приём к доктору,
-                  согласовать встречу с друзьями, упаковать вещи которые хотим отдать и т.д. Это может существенно
-                  уменьшить количество пунктов в вашем списке. А, согласитесь, 13 задач легче воспринимать как
-                  выполнимые, чем 33)).<br>
-                </small>
-                <small class="grey-text">
-                  "Планирование"<br>
-                  Оставшиеся нужные дела вносим в планировщик, выделяя под них конкретное время.
-                  И, кстати, никто не отменял старые добрые бумажные ежедневники, которые при богатстве выбора
-                  могут принести эстетам и любителям тактильных ощущений дополнительное удовольствие.<br>
-                </small>
-                <small class="grey-text">
-                  "Отсечение лишнего"<br>
-                  Возможно, после проделанных этапов вы вдруг обнаружите, что запланированный поход на выставку кошек,
-                  не является действительно желанным, нужным делом. Вычеркиваем.
-                  Важно то, что на первый взгляд необъятный, список задач уменьшится и станет выполнимым.<br>
-                </small>
-                <small class="grey-text">
-                  Разработанный проект предоставляет возможность вести список дел.<br>
-                </small>
-              </h3>
-            </div>
+              <div class="title-about">Test:</div>
+              <div class="console">
+                $ cp .env.testing .env<br>
+                $ php vendor/phpunit/phpunit/phpunit<br>
+              </div>
 
-            <div class="typo-line">
-              <h3>Инструменты реализации проекта: <br>
-                <small class="grey-text">
-                  — PHP: Hypertext Preprocessor (изначально Personal Home Page Tools, "Инструменты для создания
-                  персональных веб-страниц") - один из лидирующих языков современной веб-разработки.<br>
-                  — Laravel - бесплатный веб-фреймворк с открытым кодом, предназначенный для разработки с
-                  использованием архитектурной модели MVC (англ. Model View Controller - модель-представление-контроллер).
-                  Laravel выпущен под лицензией MIT.<br>
-                  — Vue.js - JavaScript-фреймворк с открытым исходным кодом для создания пользовательских интерфейсов.
-                  Легко интегрируется в проекты с использованием других JavaScript-библиотек. Может функционировать как
-                  веб-фреймворк для разработки одностраничных приложений в реактивном стиле.<br>
-                </small>
-              </h3>
+              <div class="title-about">
+                <div class="container-fluid">
+                  <div class="row">
+                    <img class="icon-git" src="/img/fluidicon.png" alt="GitHub">
+                    <a href="https://github.com/vol-mir/todo-vue">GitHub</a>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </card>
         </div>

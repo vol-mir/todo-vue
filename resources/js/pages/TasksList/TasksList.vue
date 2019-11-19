@@ -114,7 +114,7 @@
     <hr>
 
     <div class="row py-2 mt-2 ml-2 mr-2">
-      <div class="col-12 input-group">
+      <div class="col-12 mb-3 input-group" v-if="this.windowWidth  > 768">
         <input
           type="text"
           v-model="newTaskText"
@@ -151,6 +151,46 @@
           </button>
         </div>
       </div>
+      <div class="col-12 mb-3" v-else>
+        <div class="col-12 mb-3 input-group">
+          <input
+            type="text"
+            v-model="newTaskText"
+            class="form-control input-new-task"
+            @keydown.enter="addNewTask"
+            placeholder="New tasks..."
+            @keydown.esc="cancelAddingTask"
+            aria-label="New tasks..."
+          >
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary btn-fill height-add-button"
+              type="button"
+              @click="addNewTask"
+              v-tooltip.top-center="'Add new task'"
+            >
+              <i class="nc-icon nc-simple-add"></i>
+            </button>
+          </div>
+        </div>
+        <div class="col-12 mb-3">
+          <a
+            class="text-success"
+            target="_blank"
+            href="#" @click.prevent='hideComlTask'
+          >
+            {{ this.hideCompleted?'Show completed tasks':'Hide completed tasks' }}
+          </a>
+          <a
+            class="text-danger"
+            target="_blank"
+            href="#" @click.prevent='deleteCompletedTasks'
+          >
+            Delete completed task
+          </a>
+        </div>
+      </div>
+
     </div>
   </card>
 </template>
@@ -174,7 +214,8 @@ export default {
       editTooltip: 'Edit Task',
       deleteTooltip: 'Remove',
       page: 2,
-      height: 0
+      height: 0,
+      windowWidth: window.innerWidth
     }
   },
 
@@ -210,10 +251,16 @@ export default {
   },
 
   mounted () {
+    window.addEventListener('resize', this.setWindowWidth)
+
     this.fetchTasks()
   },
 
   methods: {
+    setWindowWidth () {
+      this.windowWidth = window.innerWidth
+    },
+
     fetchTasks () {
       this.$store.dispatch('setTasks')
         .then(() => {

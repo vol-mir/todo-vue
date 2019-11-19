@@ -121,6 +121,8 @@ export default {
   mounted () {
     let signupEmail = Vue.localStorage.get('signupEmail', '')
     let signupPassword = Vue.localStorage.get('signupPassword', '')
+    Vue.localStorage.remove('signupEmail')
+    Vue.localStorage.remove('signupPassword')
 
     if (signupEmail.length === 0 || signupPassword === 0) {
       return
@@ -137,11 +139,6 @@ export default {
         this.$noty.error('Error: ' + error)
       }
     })
-  },
-
-  destroyed () {
-    Vue.localStorage.remove('signupEmail')
-    Vue.localStorage.remove('signupPassword')
   },
 
   methods: {

@@ -855,6 +855,31 @@
   width: 100%;
 }
 
-.grey-text {
-  color: grey;
+.stack {
+  color: #333333;
+  font-size: 16px;
+  padding-left: 16px;
+  margin-bottom: 10px;
+}
+
+.console {
+  color: #FFFFFF;
+  background-color: #333333;
+  font-size: 14px;
+  padding-left: 16px;
+  margin-bottom: 10px;
+}
+
+.title-about {
+  color: #333333;
+  font-size: 18px;
+}
+
+.height-add-button {
+  margin: 0;
+}
+
+.icon-git {
+  height: 25px;
+  margin-right: 10px;
 }

@@ -3,6 +3,8 @@ import Vue from 'vue'
 const ModuleMessage = {
   mutations: {
     setNotySuccess: (state, response) => {
+      if (window.innerWidth <= 768) return
+
       const statusCode = response.status
       if (statusCode === 201 || statusCode === 200) {
         Vue.noty.success(response.data.message)

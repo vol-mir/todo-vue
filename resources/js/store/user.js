@@ -103,6 +103,7 @@ const ModuleUser = {
       return new Promise((resolve, reject) => {
         Axios.post(`/api/v1/signin`, payload)
           .then(response => {
+            console.log('good')
             const token = {
               token: response.data.access_token
             }

@@ -9,14 +9,12 @@
 
 ## About Project
 
-This project To-Do с Laravel 5.8 и Vue.
+This project To-Do с Laravel 5.8 and Vue.
 
 ## Stack
-
-- IDE - JetBrains
-- Laragon Wamp 4.0.4
+- Vue 2.5.17
 - Laravel 5.8
-- Bootstrap 4
+- Bootstrap 4.1.0
 
 ## Quick Start
 ```shell

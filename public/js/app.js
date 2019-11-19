@@ -2997,34 +2997,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AboutPage',
@@ -3455,6 +3427,8 @@ __webpack_require__.r(__webpack_exports__);
 
     var signupEmail = vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.get('signupEmail', '');
     var signupPassword = vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.get('signupPassword', '');
+    vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.remove('signupEmail');
+    vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.remove('signupPassword');
 
     if (signupEmail.length === 0 || signupPassword === 0) {
       return;
@@ -3473,10 +3447,6 @@ __webpack_require__.r(__webpack_exports__);
         _this.$noty.error('Error: ' + error);
       }
     });
-  },
-  destroyed: function destroyed() {
-    vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.remove('signupEmail');
-    vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.remove('signupPassword');
   },
   methods: {
     signin: function signin() {
@@ -3906,6 +3876,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'TasksList',
@@ -3921,7 +3931,8 @@ __webpack_require__.r(__webpack_exports__);
       editTooltip: 'Edit Task',
       deleteTooltip: 'Remove',
       page: 2,
-      height: 0
+      height: 0,
+      windowWidth: window.innerWidth
     };
   },
   computed: {
@@ -3952,9 +3963,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    window.addEventListener('resize', this.setWindowWidth);
     this.fetchTasks();
   },
   methods: {
+    setWindowWidth: function setWindowWidth() {
+      this.windowWidth = window.innerWidth;
+    },
     fetchTasks: function fetchTasks() {
       var _this = this;
 
@@ -9114,7 +9129,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".tim-row {\r\n    margin-bottom: 20px;\r\n}\r\n\r\n.tim-white-buttons {\r\n    background-color: #777777;\r\n}\r\n\r\n.typography-line {\r\n    padding-left: 15%;\r\n    margin-bottom: 35px;\r\n    position: relative;\r\n    display: block;\r\n    width: 100%;\r\n}\r\n\r\n.typography-line span {\r\n    bottom: 10px;\r\n    color: #9A9A9A;\r\n    display: block;\r\n    font-weight: 400;\r\n    font-size: 14px;\r\n    line-height: 13px;\r\n    left: 5px;\r\n    position: absolute;\r\n    width: 260px;\r\n    text-transform: none;\r\n}\r\n\r\n.tim-row {\r\n    padding-top: 60px;\r\n}\r\n\r\n.tim-row h3 {\r\n    margin-top: 0;\r\n}\r\n\r\n#navbar-full .navbar {\r\n    border-radius: 0 !important;\r\n    margin-bottom: 15px;\r\n    z-index: 2;\r\n}\r\n\r\n#map {\r\n    position: relative;\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n\r\n.fixed-plugin li>a,\r\n.fixed-plugin .badge {\r\n    transition: all .34s;\r\n    -webkit-transition: all .34s;\r\n    -moz-transition: all .34s;\r\n}\r\n\r\n.fixed-plugin {\r\n    position: fixed;\r\n    top: 200px;\r\n    right: 0;\r\n    width: 64px;\r\n    background: rgba(0, 0, 0, .3);\r\n    z-index: 1031;\r\n    border-radius: 8px 0 0 8px;\r\n    text-align: center;\r\n}\r\n\r\n.fixed-plugin .fa-cog {\r\n    color: #FFFFFF;\r\n    padding: 10px;\r\n    border-radius: 0 0 6px 6px;\r\n    width: auto;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu {\r\n    right: 80px;\r\n    left: auto;\r\n    width: 290px;\r\n    border-radius: 0.1875rem;\r\n    padding: 0 10px;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu:after,\r\n.fixed-plugin .dropdown-menu:before {\r\n    right: 10px;\r\n    margin-left: auto;\r\n    left: auto;\r\n}\r\n\r\n.fixed-plugin .fa-circle-thin {\r\n    color: #FFFFFF;\r\n}\r\n\r\n.fixed-plugin .active .fa-circle-thin {\r\n    color: #00bbff;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>.active>a,\r\n.fixed-plugin .dropdown-menu>.active>a:hover,\r\n.fixed-plugin .dropdown-menu>.active>a:focus {\r\n    color: #777777;\r\n    text-align: center;\r\n}\r\n\r\n.fixed-plugin img {\r\n    border-radius: 0;\r\n    width: 100%;\r\n    height: 100px;\r\n    margin: 0 auto;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu li>a:hover,\r\n.fixed-plugin .dropdown-menu li>a:focus {\r\n    box-shadow: none;\r\n}\r\n\r\n.fixed-plugin .badge {\r\n    border: 3px solid #FFFFFF;\r\n    border-radius: 50%;\r\n    cursor: pointer;\r\n    display: inline-block;\r\n    height: 23px;\r\n    margin-right: 5px;\r\n    position: relative;\r\n    width: 23px;\r\n}\r\n\r\n.fixed-plugin .badge.active,\r\n.fixed-plugin .badge:hover {\r\n    border-color: #00bbff;\r\n}\r\n\r\n.fixed-plugin .badge-black {\r\n    background-color: #777;\r\n}\r\n\r\n.fixed-plugin .badge-azure {\r\n    background-color: #2CA8FF;\r\n}\r\n\r\n.fixed-plugin .badge-green {\r\n    background-color: #18ce0f;\r\n}\r\n\r\n.fixed-plugin .badge-orange {\r\n    background-color: #f96332;\r\n}\r\n\r\n.fixed-plugin .badge-yellow {\r\n    background-color: #FFB236;\r\n}\r\n\r\n.fixed-plugin .badge-red {\r\n    background-color: #FF3636;\r\n}\r\n\r\n.fixed-plugin .badge-purple {\r\n    background-color: #9368E9;\r\n}\r\n\r\n.fixed-plugin h5 {\r\n    font-size: 14px;\r\n    margin: 10px;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu li {\r\n    display: block;\r\n    padding: 18px 2px;\r\n    width: 25%;\r\n    float: left;\r\n}\r\n\r\n.fixed-plugin li.adjustments-line,\r\n.fixed-plugin li.header-title,\r\n.fixed-plugin li.button-container {\r\n    width: 100%;\r\n    height: 50px;\r\n    min-height: inherit;\r\n}\r\n\r\n.fixed-plugin li.button-container {\r\n    height: auto;\r\n}\r\n\r\n.fixed-plugin li.button-container div {\r\n    margin-bottom: 5px;\r\n}\r\n\r\n.fixed-plugin #sharrreTitle {\r\n    text-align: center;\r\n    padding: 10px 0;\r\n    height: 50px;\r\n}\r\n\r\n.fixed-plugin li.header-title {\r\n    height: 30px;\r\n    line-height: 25px;\r\n    font-size: 12px;\r\n    font-weight: 600;\r\n    text-transform: uppercase;\r\n}\r\n\r\n.fixed-plugin .adjustments-line p {\r\n    float: left;\r\n    display: inline-block;\r\n    margin-bottom: 0;\r\n    font-size: 1em;\r\n    color: #3C4858;\r\n}\r\n\r\n.fixed-plugin .adjustments-line a .badge-colors {\r\n    position: relative;\r\n    top: -2px;\r\n}\r\n\r\n.fixed-plugin .adjustments-line .togglebutton {\r\n    float: right;\r\n}\r\n\r\n.fixed-plugin .adjustments-line .togglebutton .toggle {\r\n    margin-right: 0;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>li.adjustments-line>a {\r\n    padding-right: 0;\r\n    padding-left: 0;\r\n    /*border-bottom: 1px solid #ddd;*/\r\n    border-radius: 0;\r\n    margin: 0;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>li>a.img-holder {\r\n    font-size: 16px;\r\n    text-align: center;\r\n    border-radius: 10px;\r\n    background-color: #FFF;\r\n    border: 3px solid #FFF;\r\n    padding-left: 0;\r\n    padding-right: 0;\r\n    opacity: 1;\r\n    cursor: pointer;\r\n    display: block;\r\n    max-height: 100px;\r\n    overflow: hidden;\r\n    padding: 0;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>li>a.switch-trigger:hover,\r\n.fixed-plugin .dropdown-menu>li>a.switch-trigger:focus {\r\n    background-color: transparent;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>li:hover>a.img-holder,\r\n.fixed-plugin .dropdown-menu>li:focus>a.img-holder {\r\n    border-color: rgba(0, 187, 255, 0.53);\r\n    ;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>.active>a.img-holder,\r\n.fixed-plugin .dropdown-menu>.active>a.img-holder {\r\n    border-color: #00bbff;\r\n    background-color: #FFFFFF;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu>li>a img {\r\n    margin-top: auto;\r\n}\r\n\r\n.fixed-plugin .btn-social {\r\n    width: 50%;\r\n    display: block;\r\n    width: 48%;\r\n    float: left;\r\n    font-weight: 600;\r\n}\r\n\r\n.fixed-plugin .btn-social i {\r\n    margin-right: 5px;\r\n}\r\n\r\n.fixed-plugin .btn-social:first-child {\r\n    margin-right: 2%;\r\n}\r\n\r\n.fixed-plugin .adjustments-line a:hover,\r\n.fixed-plugin .adjustments-line a:focus,\r\n.fixed-plugin .adjustments-line a {\r\n    color: transparent;\r\n}\r\n\r\n.fixed-plugin .dropdown .dropdown-menu {\r\n    -webkit-transform: translateY(-15%);\r\n    transform: translateY(-15%);\r\n    top: 27px;\r\n    opacity: 0;\r\n    -webkit-transform-origin: 0 0;\r\n            transform-origin: 0 0;\r\n}\r\n\r\n.fixed-plugin .dropdown.show .dropdown-menu {\r\n    opacity: 1;\r\n    -webkit-transform: translateY(-13%);\r\n    transform: translateY(-13%);\r\n    -webkit-transform-origin: 0 0;\r\n            transform-origin: 0 0;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu:before,\r\n.fixed-plugin .dropdown-menu:after {\r\n    content: \"\";\r\n    display: inline-block;\r\n    position: absolute;\r\n    top: 65px;\r\n    width: 16px;\r\n    transform: translateY(-50%);\r\n    -webkit-transform: translateY(-50%);\r\n    -moz-transform: translateY(-50%);\r\n}\r\n\r\n.fixed-plugin .dropdown-menu:before {\r\n    border-bottom: 16px solid rgba(0, 0, 0, 0);\r\n    border-left: 16px solid rgba(0, 0, 0, 0.2);\r\n    border-top: 16px solid rgba(0, 0, 0, 0);\r\n    right: -16px;\r\n}\r\n\r\n.fixed-plugin .dropdown-menu:after {\r\n    border-bottom: 16px solid rgba(0, 0, 0, 0);\r\n    border-left: 16px solid #fff;\r\n    border-top: 16px solid rgba(0, 0, 0, 0);\r\n    right: -15px;\r\n}\r\n\r\n.wrapper-full-page~.fixed-plugin .dropdown.open .dropdown-menu {\r\n    -webkit-transform: translateY(-17%);\r\n    transform: translateY(-17%);\r\n}\r\n\r\n.wrapper-full-page~.fixed-plugin .dropdown .dropdown-menu {\r\n    -webkit-transform: translateY(-19%);\r\n    transform: translateY(-19%);\r\n}\r\n\r\n.places-buttons .btn {\r\n    margin-bottom: 30px;\r\n}\r\n\r\n.map-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n    max-height: 100vh;\r\n}\r\n\r\n#menu-dropdown .navbar {\r\n    border-radius: 3px;\r\n}\r\n\r\n#pagination-row .pagination-container {\r\n    height: 100%;\r\n    max-height: 100%;\r\n    display: -webkit-box;\r\n    display: flex;\r\n    -webkit-box-align: center;\r\n            align-items: center;\r\n}\r\n\r\n.all-icons .font-icon-detail {\r\n    text-align: center;\r\n    padding: 45px 0px 30px;\r\n    border: 1px solid #e5e5e5;\r\n    border-radius: 0.1875rem;\r\n    margin: 15px 0;\r\n    min-height: 168px;\r\n}\r\n\r\n.all-icons [class*=\"now-ui-icons\"] {\r\n    font-size: 32px;\r\n}\r\n\r\n.all-icons .font-icon-detail p {\r\n    margin: 25px auto 0;\r\n    width: 100%;\r\n    text-align: center;\r\n    display: block;\r\n    color: #B8B8B8;\r\n    padding: 0 10px;\r\n    font-size: 0.7142em;\r\n}\r\n\r\n#icons-row i.now-ui-icons {\r\n    font-size: 30px;\r\n}\r\n\r\n.space {\r\n    height: 130px;\r\n    display: block;\r\n}\r\n\r\n.space-110 {\r\n    height: 110px;\r\n    display: block;\r\n}\r\n\r\n.space-50 {\r\n    height: 50px;\r\n    display: block;\r\n}\r\n\r\n.space-70 {\r\n    height: 70px;\r\n    display: block;\r\n}\r\n\r\n.navigation-example .img-src {\r\n    background-attachment: scroll;\r\n}\r\n\r\n.navigation-example {\r\n    background-position: center center;\r\n    background-size: cover;\r\n    margin-top: 0;\r\n    min-height: 740px;\r\n}\r\n\r\n#notifications {\r\n    background-color: #FFFFFF;\r\n    display: block;\r\n    width: 100%;\r\n    position: relative;\r\n}\r\n\r\n.tim-note {\r\n    text-transform: capitalize;\r\n}\r\n\r\n#buttons .btn,\r\n#javascriptComponents .btn {\r\n    margin: 0 0px 10px;\r\n}\r\n\r\n.space-100 {\r\n    height: 100px;\r\n    display: block;\r\n    width: 100%;\r\n}\r\n\r\n.be-social {\r\n    padding-bottom: 20px;\r\n    /*     border-bottom: 1px solid #aaa; */\r\n    margin: 0 auto 40px;\r\n}\r\n\r\n.txt-white {\r\n    color: #FFFFFF;\r\n}\r\n\r\n.txt-gray {\r\n    color: #ddd !important;\r\n}\r\n\r\n.parallax {\r\n    width: 100%;\r\n    height: 570px;\r\n    display: block;\r\n    background-attachment: fixed;\r\n    background-repeat: no-repeat;\r\n    background-size: cover;\r\n    background-position: center center;\r\n}\r\n\r\n.logo-container .logo {\r\n    overflow: hidden;\r\n    border-radius: 50%;\r\n    border: 1px solid #333333;\r\n    width: 50px;\r\n    float: left;\r\n}\r\n\r\n.logo-container .brand {\r\n    font-size: 16px;\r\n    color: #FFFFFF;\r\n    line-height: 18px;\r\n    float: left;\r\n    margin-left: 10px;\r\n    margin-top: 7px;\r\n    width: 70px;\r\n    height: 40px;\r\n    text-align: left;\r\n}\r\n\r\n.logo-container .brand-material {\r\n    font-size: 18px;\r\n    margin-top: 15px;\r\n    height: 25px;\r\n    width: auto;\r\n}\r\n\r\n.logo-container .logo img {\r\n    width: 100%;\r\n}\r\n\r\n.navbar-small .logo-container .brand {\r\n    color: #333333;\r\n}\r\n\r\n.fixed-section {\r\n    top: 90px;\r\n    max-height: 80vh;\r\n    overflow: scroll;\r\n    position: -webkit-sticky;\r\n    position: sticky;\r\n}\r\n\r\n.fixed-section ul {\r\n    padding: 0;\r\n}\r\n\r\n.fixed-section ul li {\r\n    list-style: none;\r\n}\r\n\r\n.fixed-section li a {\r\n    font-size: 14px;\r\n    padding: 2px;\r\n    display: block;\r\n    color: #666666;\r\n}\r\n\r\n.fixed-section li a.active {\r\n    color: #00bbff;\r\n}\r\n\r\n.fixed-section.float {\r\n    position: fixed;\r\n    top: 100px;\r\n    width: 200px;\r\n    margin-top: 0;\r\n}\r\n\r\n.parallax .parallax-image {\r\n    width: 100%;\r\n    overflow: hidden;\r\n    position: absolute;\r\n}\r\n\r\n.parallax .parallax-image img {\r\n    width: 100%;\r\n}\r\n\r\n@media (max-width: 768px) {\r\n    .parallax .parallax-image {\r\n        width: 100%;\r\n        height: 640px;\r\n        overflow: hidden;\r\n    }\r\n    .parallax .parallax-image img {\r\n        height: 100%;\r\n        width: auto;\r\n    }\r\n}\r\n\r\n/*.separator{\r\n    content: \"Separator\";\r\n    color: #FFFFFF;\r\n    display: block;\r\n    width: 100%;\r\n    padding: 20px;\r\n}\r\n.separator-line{\r\n    background-color: #EEE;\r\n    height: 1px;\r\n    width: 100%;\r\n    display: block;\r\n}\r\n.separator.separator-gray{\r\n    background-color: #EEEEEE;\r\n}*/\r\n\r\n.social-buttons-demo .btn {\r\n    margin-right: 5px;\r\n    margin-bottom: 7px;\r\n}\r\n\r\n.img-container {\r\n    width: 100%;\r\n    overflow: hidden;\r\n}\r\n\r\n.img-container img {\r\n    width: 100%;\r\n}\r\n\r\n.lightbox img {\r\n    width: 100%;\r\n}\r\n\r\n.lightbox .modal-content {\r\n    overflow: hidden;\r\n}\r\n\r\n.lightbox .modal-body {\r\n    padding: 0;\r\n}\r\n\r\n@media screen and (min-width: 991px) {\r\n    .lightbox .modal-dialog {\r\n        width: 960px;\r\n    }\r\n}\r\n\r\n@media (max-width: 991px) {\r\n    .fixed-section.affix {\r\n        position: relative;\r\n        margin-bottom: 100px;\r\n    }\r\n}\r\n\r\n@media (max-width: 768px) {\r\n    .btn,\r\n    .btn-morphing {\r\n        margin-bottom: 10px;\r\n    }\r\n    .parallax .motto {\r\n        top: 170px;\r\n        margin-top: 0;\r\n        font-size: 60px;\r\n        width: 270px;\r\n    }\r\n}\r\n\r\n/*       Loading dots  */\r\n\r\n/*      transitions */\r\n\r\n.presentation .front,\r\n.presentation .front:after,\r\n.presentation .front .btn,\r\n.logo-container .logo,\r\n.logo-container .brand {\r\n    -webkit-transition: all .2s;\r\n    transition: all .2s;\r\n}\r\n\r\n#images h4 {\r\n    margin-bottom: 30px;\r\n}\r\n\r\n#javascriptComponents {\r\n    padding-bottom: 0;\r\n}\r\n\r\n/*      layer animation          */\r\n\r\n.layers-container {\r\n    display: block;\r\n    margin-top: 50px;\r\n    position: relative;\r\n}\r\n\r\n.layers-container img {\r\n    position: absolute;\r\n    width: 100%;\r\n    height: auto;\r\n    top: 0;\r\n    left: 0;\r\n    text-align: center;\r\n}\r\n\r\n.animate {\r\n    transition: 1.5s ease-in-out;\r\n    -moz-transition: 1.5s ease-in-out;\r\n    -webkit-transition: 1.5s ease-in-out;\r\n}\r\n\r\n.navbar-default.navbar-small .logo-container .brand {\r\n    color: #333333;\r\n}\r\n\r\n.navbar-transparent.navbar-small .logo-container .brand {\r\n    color: #FFFFFF;\r\n}\r\n\r\n.navbar-default.navbar-small .logo-container .brand {\r\n    color: #333333;\r\n}\r\n\r\n.sharing-area {\r\n    margin-top: 80px;\r\n}\r\n\r\n.sharing-area .btn {\r\n    margin: 15px 4px 0;\r\n}\r\n\r\n.section-thin,\r\n.section-notifications {\r\n    padding: 0;\r\n}\r\n\r\n.section-navbars {\r\n    padding-top: 0;\r\n}\r\n\r\n#navbar .navbar {\r\n    margin-bottom: 20px;\r\n}\r\n\r\n#navbar .navbar-toggler,\r\n#menu-dropdown .navbar-toggler {\r\n    pointer-events: none;\r\n}\r\n\r\n.section-tabs {\r\n    background: #EEEEEE;\r\n}\r\n\r\n.section-pagination {\r\n    padding-bottom: 0;\r\n}\r\n\r\n.section-download {\r\n    padding-top: 130px;\r\n}\r\n\r\n.section-download .description {\r\n    margin-bottom: 60px;\r\n}\r\n\r\n.section-download h4 {\r\n    margin-bottom: 25px;\r\n}\r\n\r\n.section-examples a {\r\n    text-decoration: none;\r\n}\r\n\r\n.section-examples a+a {\r\n    margin-top: 30px;\r\n}\r\n\r\n.section-examples h5 {\r\n    margin-top: 30px;\r\n}\r\n\r\n.components-page .wrapper>.header,\r\n.tutorial-page .wrapper>.header {\r\n    height: 500px;\r\n    padding-top: 128px;\r\n    background-size: cover;\r\n    background-position: center center;\r\n}\r\n\r\n.components-page .title,\r\n.tutorial-page .title {\r\n    color: #FFFFFF;\r\n}\r\n\r\n.brand .h1-seo {\r\n    font-size: 2.8em;\r\n    text-transform: uppercase;\r\n    font-weight: 300;\r\n}\r\n\r\n.brand .n-logo {\r\n    max-width: 100px;\r\n    margin-bottom: 40px;\r\n}\r\n\r\n.invision-logo {\r\n    max-width: 70px;\r\n    top: -2px;\r\n    position: relative;\r\n}\r\n\r\n.creative-tim-logo {\r\n    max-width: 140px;\r\n    top: -2px;\r\n    position: relative;\r\n}\r\n\r\n.section-javascript .title {\r\n    margin-bottom: 0;\r\n}\r\n\r\n.navbar .switch-background {\r\n    display: block;\r\n}\r\n\r\n.navbar-transparent .switch-background {\r\n    display: none;\r\n}\r\n\r\n.section-signup .col .btn {\r\n    margin-top: 30px;\r\n}\r\n\r\n#buttons-row .btn {\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.section-navbars .navbar-collapse {\r\n    display: none;\r\n}\r\n\r\n.section-basic {\r\n    padding-top: 0;\r\n}\r\n\r\n.section-images {\r\n    padding-bottom: 0;\r\n}\r\n\r\n.documentation .dropdown .dropdown-menu {\r\n    -webkit-transform: translate3d(0, 0, 0) !important;\r\n            transform: translate3d(0, 0, 0) !important;\r\n}\r\n\r\n.documentation .dropdown .dropdown-menu.show {\r\n    -webkit-transform: translate3d(0, 39px, 0) !important;\r\n            transform: translate3d(0, 39px, 0) !important;\r\n}\r\n\r\n.avatar-cent{\r\n  width: 30px;\r\n  height: 30px;\r\n  overflow: hidden;\r\n  border-radius: 50%;\r\n  margin: auto;\r\n  position: relative;\r\n  z-index: 105;\r\n}\r\n\r\n.my-custom-scrollbar {\r\n  position: relative;\r\n  height: 55vh;\r\n  overflow: auto;\r\n}\r\n.table-wrapper-scroll-y {\r\n  display: block;\r\n}\r\n.input-new-task {\r\n  height:45px;\r\n  border-color:grey;\r\n}\r\n.manage-task {\r\n  display: inline-block;\r\n  text-align: right;\r\n  width: 100%;\r\n}\r\n\r\n.grey-text {\r\n  color: grey;\r\n}\r\n", ""]);
+exports.push([module.i, ".tim-row {\n    margin-bottom: 20px;\n}\n\n.tim-white-buttons {\n    background-color: #777777;\n}\n\n.typography-line {\n    padding-left: 15%;\n    margin-bottom: 35px;\n    position: relative;\n    display: block;\n    width: 100%;\n}\n\n.typography-line span {\n    bottom: 10px;\n    color: #9A9A9A;\n    display: block;\n    font-weight: 400;\n    font-size: 14px;\n    line-height: 13px;\n    left: 5px;\n    position: absolute;\n    width: 260px;\n    text-transform: none;\n}\n\n.tim-row {\n    padding-top: 60px;\n}\n\n.tim-row h3 {\n    margin-top: 0;\n}\n\n#navbar-full .navbar {\n    border-radius: 0 !important;\n    margin-bottom: 15px;\n    z-index: 2;\n}\n\n#map {\n    position: relative;\n    width: 100%;\n    height: 100%;\n}\n\n.fixed-plugin li>a,\n.fixed-plugin .badge {\n    transition: all .34s;\n    -webkit-transition: all .34s;\n    -moz-transition: all .34s;\n}\n\n.fixed-plugin {\n    position: fixed;\n    top: 200px;\n    right: 0;\n    width: 64px;\n    background: rgba(0, 0, 0, .3);\n    z-index: 1031;\n    border-radius: 8px 0 0 8px;\n    text-align: center;\n}\n\n.fixed-plugin .fa-cog {\n    color: #FFFFFF;\n    padding: 10px;\n    border-radius: 0 0 6px 6px;\n    width: auto;\n}\n\n.fixed-plugin .dropdown-menu {\n    right: 80px;\n    left: auto;\n    width: 290px;\n    border-radius: 0.1875rem;\n    padding: 0 10px;\n}\n\n.fixed-plugin .dropdown-menu:after,\n.fixed-plugin .dropdown-menu:before {\n    right: 10px;\n    margin-left: auto;\n    left: auto;\n}\n\n.fixed-plugin .fa-circle-thin {\n    color: #FFFFFF;\n}\n\n.fixed-plugin .active .fa-circle-thin {\n    color: #00bbff;\n}\n\n.fixed-plugin .dropdown-menu>.active>a,\n.fixed-plugin .dropdown-menu>.active>a:hover,\n.fixed-plugin .dropdown-menu>.active>a:focus {\n    color: #777777;\n    text-align: center;\n}\n\n.fixed-plugin img {\n    border-radius: 0;\n    width: 100%;\n    height: 100px;\n    margin: 0 auto;\n}\n\n.fixed-plugin .dropdown-menu li>a:hover,\n.fixed-plugin .dropdown-menu li>a:focus {\n    box-shadow: none;\n}\n\n.fixed-plugin .badge {\n    border: 3px solid #FFFFFF;\n    border-radius: 50%;\n    cursor: pointer;\n    display: inline-block;\n    height: 23px;\n    margin-right: 5px;\n    position: relative;\n    width: 23px;\n}\n\n.fixed-plugin .badge.active,\n.fixed-plugin .badge:hover {\n    border-color: #00bbff;\n}\n\n.fixed-plugin .badge-black {\n    background-color: #777;\n}\n\n.fixed-plugin .badge-azure {\n    background-color: #2CA8FF;\n}\n\n.fixed-plugin .badge-green {\n    background-color: #18ce0f;\n}\n\n.fixed-plugin .badge-orange {\n    background-color: #f96332;\n}\n\n.fixed-plugin .badge-yellow {\n    background-color: #FFB236;\n}\n\n.fixed-plugin .badge-red {\n    background-color: #FF3636;\n}\n\n.fixed-plugin .badge-purple {\n    background-color: #9368E9;\n}\n\n.fixed-plugin h5 {\n    font-size: 14px;\n    margin: 10px;\n}\n\n.fixed-plugin .dropdown-menu li {\n    display: block;\n    padding: 18px 2px;\n    width: 25%;\n    float: left;\n}\n\n.fixed-plugin li.adjustments-line,\n.fixed-plugin li.header-title,\n.fixed-plugin li.button-container {\n    width: 100%;\n    height: 50px;\n    min-height: inherit;\n}\n\n.fixed-plugin li.button-container {\n    height: auto;\n}\n\n.fixed-plugin li.button-container div {\n    margin-bottom: 5px;\n}\n\n.fixed-plugin #sharrreTitle {\n    text-align: center;\n    padding: 10px 0;\n    height: 50px;\n}\n\n.fixed-plugin li.header-title {\n    height: 30px;\n    line-height: 25px;\n    font-size: 12px;\n    font-weight: 600;\n    text-transform: uppercase;\n}\n\n.fixed-plugin .adjustments-line p {\n    float: left;\n    display: inline-block;\n    margin-bottom: 0;\n    font-size: 1em;\n    color: #3C4858;\n}\n\n.fixed-plugin .adjustments-line a .badge-colors {\n    position: relative;\n    top: -2px;\n}\n\n.fixed-plugin .adjustments-line .togglebutton {\n    float: right;\n}\n\n.fixed-plugin .adjustments-line .togglebutton .toggle {\n    margin-right: 0;\n}\n\n.fixed-plugin .dropdown-menu>li.adjustments-line>a {\n    padding-right: 0;\n    padding-left: 0;\n    /*border-bottom: 1px solid #ddd;*/\n    border-radius: 0;\n    margin: 0;\n}\n\n.fixed-plugin .dropdown-menu>li>a.img-holder {\n    font-size: 16px;\n    text-align: center;\n    border-radius: 10px;\n    background-color: #FFF;\n    border: 3px solid #FFF;\n    padding-left: 0;\n    padding-right: 0;\n    opacity: 1;\n    cursor: pointer;\n    display: block;\n    max-height: 100px;\n    overflow: hidden;\n    padding: 0;\n}\n\n.fixed-plugin .dropdown-menu>li>a.switch-trigger:hover,\n.fixed-plugin .dropdown-menu>li>a.switch-trigger:focus {\n    background-color: transparent;\n}\n\n.fixed-plugin .dropdown-menu>li:hover>a.img-holder,\n.fixed-plugin .dropdown-menu>li:focus>a.img-holder {\n    border-color: rgba(0, 187, 255, 0.53);\n    ;\n}\n\n.fixed-plugin .dropdown-menu>.active>a.img-holder,\n.fixed-plugin .dropdown-menu>.active>a.img-holder {\n    border-color: #00bbff;\n    background-color: #FFFFFF;\n}\n\n.fixed-plugin .dropdown-menu>li>a img {\n    margin-top: auto;\n}\n\n.fixed-plugin .btn-social {\n    width: 50%;\n    display: block;\n    width: 48%;\n    float: left;\n    font-weight: 600;\n}\n\n.fixed-plugin .btn-social i {\n    margin-right: 5px;\n}\n\n.fixed-plugin .btn-social:first-child {\n    margin-right: 2%;\n}\n\n.fixed-plugin .adjustments-line a:hover,\n.fixed-plugin .adjustments-line a:focus,\n.fixed-plugin .adjustments-line a {\n    color: transparent;\n}\n\n.fixed-plugin .dropdown .dropdown-menu {\n    -webkit-transform: translateY(-15%);\n    transform: translateY(-15%);\n    top: 27px;\n    opacity: 0;\n    -webkit-transform-origin: 0 0;\n            transform-origin: 0 0;\n}\n\n.fixed-plugin .dropdown.show .dropdown-menu {\n    opacity: 1;\n    -webkit-transform: translateY(-13%);\n    transform: translateY(-13%);\n    -webkit-transform-origin: 0 0;\n            transform-origin: 0 0;\n}\n\n.fixed-plugin .dropdown-menu:before,\n.fixed-plugin .dropdown-menu:after {\n    content: \"\";\n    display: inline-block;\n    position: absolute;\n    top: 65px;\n    width: 16px;\n    transform: translateY(-50%);\n    -webkit-transform: translateY(-50%);\n    -moz-transform: translateY(-50%);\n}\n\n.fixed-plugin .dropdown-menu:before {\n    border-bottom: 16px solid rgba(0, 0, 0, 0);\n    border-left: 16px solid rgba(0, 0, 0, 0.2);\n    border-top: 16px solid rgba(0, 0, 0, 0);\n    right: -16px;\n}\n\n.fixed-plugin .dropdown-menu:after {\n    border-bottom: 16px solid rgba(0, 0, 0, 0);\n    border-left: 16px solid #fff;\n    border-top: 16px solid rgba(0, 0, 0, 0);\n    right: -15px;\n}\n\n.wrapper-full-page~.fixed-plugin .dropdown.open .dropdown-menu {\n    -webkit-transform: translateY(-17%);\n    transform: translateY(-17%);\n}\n\n.wrapper-full-page~.fixed-plugin .dropdown .dropdown-menu {\n    -webkit-transform: translateY(-19%);\n    transform: translateY(-19%);\n}\n\n.places-buttons .btn {\n    margin-bottom: 30px;\n}\n\n.map-container {\n    width: 100%;\n    height: 100vh;\n    max-height: 100vh;\n}\n\n#menu-dropdown .navbar {\n    border-radius: 3px;\n}\n\n#pagination-row .pagination-container {\n    height: 100%;\n    max-height: 100%;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-align: center;\n            align-items: center;\n}\n\n.all-icons .font-icon-detail {\n    text-align: center;\n    padding: 45px 0px 30px;\n    border: 1px solid #e5e5e5;\n    border-radius: 0.1875rem;\n    margin: 15px 0;\n    min-height: 168px;\n}\n\n.all-icons [class*=\"now-ui-icons\"] {\n    font-size: 32px;\n}\n\n.all-icons .font-icon-detail p {\n    margin: 25px auto 0;\n    width: 100%;\n    text-align: center;\n    display: block;\n    color: #B8B8B8;\n    padding: 0 10px;\n    font-size: 0.7142em;\n}\n\n#icons-row i.now-ui-icons {\n    font-size: 30px;\n}\n\n.space {\n    height: 130px;\n    display: block;\n}\n\n.space-110 {\n    height: 110px;\n    display: block;\n}\n\n.space-50 {\n    height: 50px;\n    display: block;\n}\n\n.space-70 {\n    height: 70px;\n    display: block;\n}\n\n.navigation-example .img-src {\n    background-attachment: scroll;\n}\n\n.navigation-example {\n    background-position: center center;\n    background-size: cover;\n    margin-top: 0;\n    min-height: 740px;\n}\n\n#notifications {\n    background-color: #FFFFFF;\n    display: block;\n    width: 100%;\n    position: relative;\n}\n\n.tim-note {\n    text-transform: capitalize;\n}\n\n#buttons .btn,\n#javascriptComponents .btn {\n    margin: 0 0px 10px;\n}\n\n.space-100 {\n    height: 100px;\n    display: block;\n    width: 100%;\n}\n\n.be-social {\n    padding-bottom: 20px;\n    /*     border-bottom: 1px solid #aaa; */\n    margin: 0 auto 40px;\n}\n\n.txt-white {\n    color: #FFFFFF;\n}\n\n.txt-gray {\n    color: #ddd !important;\n}\n\n.parallax {\n    width: 100%;\n    height: 570px;\n    display: block;\n    background-attachment: fixed;\n    background-repeat: no-repeat;\n    background-size: cover;\n    background-position: center center;\n}\n\n.logo-container .logo {\n    overflow: hidden;\n    border-radius: 50%;\n    border: 1px solid #333333;\n    width: 50px;\n    float: left;\n}\n\n.logo-container .brand {\n    font-size: 16px;\n    color: #FFFFFF;\n    line-height: 18px;\n    float: left;\n    margin-left: 10px;\n    margin-top: 7px;\n    width: 70px;\n    height: 40px;\n    text-align: left;\n}\n\n.logo-container .brand-material {\n    font-size: 18px;\n    margin-top: 15px;\n    height: 25px;\n    width: auto;\n}\n\n.logo-container .logo img {\n    width: 100%;\n}\n\n.navbar-small .logo-container .brand {\n    color: #333333;\n}\n\n.fixed-section {\n    top: 90px;\n    max-height: 80vh;\n    overflow: scroll;\n    position: -webkit-sticky;\n    position: sticky;\n}\n\n.fixed-section ul {\n    padding: 0;\n}\n\n.fixed-section ul li {\n    list-style: none;\n}\n\n.fixed-section li a {\n    font-size: 14px;\n    padding: 2px;\n    display: block;\n    color: #666666;\n}\n\n.fixed-section li a.active {\n    color: #00bbff;\n}\n\n.fixed-section.float {\n    position: fixed;\n    top: 100px;\n    width: 200px;\n    margin-top: 0;\n}\n\n.parallax .parallax-image {\n    width: 100%;\n    overflow: hidden;\n    position: absolute;\n}\n\n.parallax .parallax-image img {\n    width: 100%;\n}\n\n@media (max-width: 768px) {\n    .parallax .parallax-image {\n        width: 100%;\n        height: 640px;\n        overflow: hidden;\n    }\n    .parallax .parallax-image img {\n        height: 100%;\n        width: auto;\n    }\n}\n\n/*.separator{\n    content: \"Separator\";\n    color: #FFFFFF;\n    display: block;\n    width: 100%;\n    padding: 20px;\n}\n.separator-line{\n    background-color: #EEE;\n    height: 1px;\n    width: 100%;\n    display: block;\n}\n.separator.separator-gray{\n    background-color: #EEEEEE;\n}*/\n\n.social-buttons-demo .btn {\n    margin-right: 5px;\n    margin-bottom: 7px;\n}\n\n.img-container {\n    width: 100%;\n    overflow: hidden;\n}\n\n.img-container img {\n    width: 100%;\n}\n\n.lightbox img {\n    width: 100%;\n}\n\n.lightbox .modal-content {\n    overflow: hidden;\n}\n\n.lightbox .modal-body {\n    padding: 0;\n}\n\n@media screen and (min-width: 991px) {\n    .lightbox .modal-dialog {\n        width: 960px;\n    }\n}\n\n@media (max-width: 991px) {\n    .fixed-section.affix {\n        position: relative;\n        margin-bottom: 100px;\n    }\n}\n\n@media (max-width: 768px) {\n    .btn,\n    .btn-morphing {\n        margin-bottom: 10px;\n    }\n    .parallax .motto {\n        top: 170px;\n        margin-top: 0;\n        font-size: 60px;\n        width: 270px;\n    }\n}\n\n/*       Loading dots  */\n\n/*      transitions */\n\n.presentation .front,\n.presentation .front:after,\n.presentation .front .btn,\n.logo-container .logo,\n.logo-container .brand {\n    -webkit-transition: all .2s;\n    transition: all .2s;\n}\n\n#images h4 {\n    margin-bottom: 30px;\n}\n\n#javascriptComponents {\n    padding-bottom: 0;\n}\n\n/*      layer animation          */\n\n.layers-container {\n    display: block;\n    margin-top: 50px;\n    position: relative;\n}\n\n.layers-container img {\n    position: absolute;\n    width: 100%;\n    height: auto;\n    top: 0;\n    left: 0;\n    text-align: center;\n}\n\n.animate {\n    transition: 1.5s ease-in-out;\n    -moz-transition: 1.5s ease-in-out;\n    -webkit-transition: 1.5s ease-in-out;\n}\n\n.navbar-default.navbar-small .logo-container .brand {\n    color: #333333;\n}\n\n.navbar-transparent.navbar-small .logo-container .brand {\n    color: #FFFFFF;\n}\n\n.navbar-default.navbar-small .logo-container .brand {\n    color: #333333;\n}\n\n.sharing-area {\n    margin-top: 80px;\n}\n\n.sharing-area .btn {\n    margin: 15px 4px 0;\n}\n\n.section-thin,\n.section-notifications {\n    padding: 0;\n}\n\n.section-navbars {\n    padding-top: 0;\n}\n\n#navbar .navbar {\n    margin-bottom: 20px;\n}\n\n#navbar .navbar-toggler,\n#menu-dropdown .navbar-toggler {\n    pointer-events: none;\n}\n\n.section-tabs {\n    background: #EEEEEE;\n}\n\n.section-pagination {\n    padding-bottom: 0;\n}\n\n.section-download {\n    padding-top: 130px;\n}\n\n.section-download .description {\n    margin-bottom: 60px;\n}\n\n.section-download h4 {\n    margin-bottom: 25px;\n}\n\n.section-examples a {\n    text-decoration: none;\n}\n\n.section-examples a+a {\n    margin-top: 30px;\n}\n\n.section-examples h5 {\n    margin-top: 30px;\n}\n\n.components-page .wrapper>.header,\n.tutorial-page .wrapper>.header {\n    height: 500px;\n    padding-top: 128px;\n    background-size: cover;\n    background-position: center center;\n}\n\n.components-page .title,\n.tutorial-page .title {\n    color: #FFFFFF;\n}\n\n.brand .h1-seo {\n    font-size: 2.8em;\n    text-transform: uppercase;\n    font-weight: 300;\n}\n\n.brand .n-logo {\n    max-width: 100px;\n    margin-bottom: 40px;\n}\n\n.invision-logo {\n    max-width: 70px;\n    top: -2px;\n    position: relative;\n}\n\n.creative-tim-logo {\n    max-width: 140px;\n    top: -2px;\n    position: relative;\n}\n\n.section-javascript .title {\n    margin-bottom: 0;\n}\n\n.navbar .switch-background {\n    display: block;\n}\n\n.navbar-transparent .switch-background {\n    display: none;\n}\n\n.section-signup .col .btn {\n    margin-top: 30px;\n}\n\n#buttons-row .btn {\n    margin-bottom: 10px;\n}\n\n.section-navbars .navbar-collapse {\n    display: none;\n}\n\n.section-basic {\n    padding-top: 0;\n}\n\n.section-images {\n    padding-bottom: 0;\n}\n\n.documentation .dropdown .dropdown-menu {\n    -webkit-transform: translate3d(0, 0, 0) !important;\n            transform: translate3d(0, 0, 0) !important;\n}\n\n.documentation .dropdown .dropdown-menu.show {\n    -webkit-transform: translate3d(0, 39px, 0) !important;\n            transform: translate3d(0, 39px, 0) !important;\n}\n\n.avatar-cent{\n  width: 30px;\n  height: 30px;\n  overflow: hidden;\n  border-radius: 50%;\n  margin: auto;\n  position: relative;\n  z-index: 105;\n}\n\n.my-custom-scrollbar {\n  position: relative;\n  height: 55vh;\n  overflow: auto;\n}\n.table-wrapper-scroll-y {\n  display: block;\n}\n.input-new-task {\n  height:45px;\n  border-color:grey;\n}\n.manage-task {\n  display: inline-block;\n  text-align: right;\n  width: 100%;\n}\n\n.stack {\n  color: #333333;\n  font-size: 16px;\n  padding-left: 16px;\n  margin-bottom: 10px;\n}\n\n.console {\n  color: #FFFFFF;\n  background-color: #333333;\n  font-size: 14px;\n  padding-left: 16px;\n  margin-bottom: 10px;\n}\n\n.title-about {\n  color: #333333;\n  font-size: 18px;\n}\n\n.height-add-button {\n  margin: 0;\n}\n\n.icon-git {\n  height: 25px;\n  margin-right: 10px;\n}\n", ""]);
 
 // exports
 
@@ -47632,101 +47647,79 @@ var render = function() {
                   attrs: { slot: "header" },
                   slot: "header"
                 },
-                [_vm._v("About Project")]
+                [_vm._v('About Project "To-do list"')]
               ),
               _vm._v(" "),
               _c("div", { staticClass: "typo-line" }, [
-                _c("h3", [_vm._v('Проект "To-do list" - список дел')])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "typo-line" }, [
-                _c("h3", [
-                  _vm._v("Цель проекта: "),
+                _c("div", { staticClass: "title-about" }, [_vm._v("Stack:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "stack" }, [
+                  _vm._v(
+                    "\n              — PHP 7.1.3 - Hypertext Preprocessor (or simply PHP) is a general-purpose programming language originally designed for web development."
+                  ),
                   _c("br"),
-                  _vm._v(" "),
-                  _c("small", { staticClass: "grey-text" }, [
-                    _vm._v(
-                      "\n                Создание Веб-приложения для ведения списка дел, чтобы помочь придерживаться\n                планов, достигать целей и ничего не забывать.\n              "
-                    )
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "typo-line" }, [
-                _c("h3", [
-                  _vm._v("Суть проекта: "),
+                  _vm._v(
+                    "\n              — Laravel 5.8 - Laravel is a web application framework with expressive, elegant syntax."
+                  ),
                   _c("br"),
-                  _vm._v(" "),
-                  _c("small", { staticClass: "grey-text" }, [
-                    _vm._v(
-                      "\n                Порой дел накапливается так много! И все они нужны, важны и абсолютно разноплановы.\n                В такой ситуации у человека может возникнуть ощущение бессилия, неспособности со всем этим справится.\n                Что делать в таких ситуациях?"
-                    ),
-                    _c("br")
-                  ]),
-                  _vm._v(" "),
-                  _c("small", { staticClass: "grey-text" }, [
-                    _vm._v('\n                "Горящие в первую очередь"'),
-                    _c("br"),
-                    _vm._v(
-                      "\n                Составляем список задач. Если среди них есть самая срочная, например, подготовка к переговорам,\n                которые состоятся завтра утром - занимаемся ею в первую очередь."
-                    ),
-                    _c("br")
-                  ]),
-                  _vm._v(" "),
-                  _c("small", { staticClass: "grey-text" }, [
-                    _vm._v('\n                "От малого к большему"'),
-                    _c("br"),
-                    _vm._v(
-                      "\n                По списку выбираем дела, которые можно решить прямо сейчас. Например, записаться на приём к доктору,\n                согласовать встречу с друзьями, упаковать вещи которые хотим отдать и т.д. Это может существенно\n                уменьшить количество пунктов в вашем списке. А, согласитесь, 13 задач легче воспринимать как\n                выполнимые, чем 33))."
-                    ),
-                    _c("br")
-                  ]),
-                  _vm._v(" "),
-                  _c("small", { staticClass: "grey-text" }, [
-                    _vm._v('\n                "Планирование"'),
-                    _c("br"),
-                    _vm._v(
-                      "\n                Оставшиеся нужные дела вносим в планировщик, выделяя под них конкретное время.\n                И, кстати, никто не отменял старые добрые бумажные ежедневники, которые при богатстве выбора\n                могут принести эстетам и любителям тактильных ощущений дополнительное удовольствие."
-                    ),
-                    _c("br")
-                  ]),
-                  _vm._v(" "),
-                  _c("small", { staticClass: "grey-text" }, [
-                    _vm._v('\n                "Отсечение лишнего"'),
-                    _c("br"),
-                    _vm._v(
-                      "\n                Возможно, после проделанных этапов вы вдруг обнаружите, что запланированный поход на выставку кошек,\n                не является действительно желанным, нужным делом. Вычеркиваем.\n                Важно то, что на первый взгляд необъятный, список задач уменьшится и станет выполнимым."
-                    ),
-                    _c("br")
-                  ]),
-                  _vm._v(" "),
-                  _c("small", { staticClass: "grey-text" }, [
-                    _vm._v(
-                      "\n                Разработанный проект предоставляет возможность вести список дел."
-                    ),
-                    _c("br")
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "typo-line" }, [
-                _c("h3", [
-                  _vm._v("Инструменты реализации проекта: "),
+                  _vm._v(
+                    "\n              — Vue 2.5.17 - Vue.js is an open-source Model–view–viewmodel JavaScript framework for building user interfaces and single-page applications."
+                  ),
+                  _c("br")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "title-about" }, [
+                  _vm._v("Quick Start:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "console" }, [
+                  _vm._v(
+                    "\n              $ git clone https://github.com/vol-mir/todo-vue.git"
+                  ),
                   _c("br"),
-                  _vm._v(" "),
-                  _c("small", { staticClass: "grey-text" }, [
-                    _vm._v(
-                      '\n                — PHP: Hypertext Preprocessor (изначально Personal Home Page Tools, "Инструменты для создания\n                персональных веб-страниц") - один из лидирующих языков современной веб-разработки.'
-                    ),
-                    _c("br"),
-                    _vm._v(
-                      "\n                — Laravel - бесплатный веб-фреймворк с открытым кодом, предназначенный для разработки с\n                использованием архитектурной модели MVC (англ. Model View Controller - модель-представление-контроллер).\n                Laravel выпущен под лицензией MIT."
-                    ),
-                    _c("br"),
-                    _vm._v(
-                      "\n                — Vue.js - JavaScript-фреймворк с открытым исходным кодом для создания пользовательских интерфейсов.\n                Легко интегрируется в проекты с использованием других JavaScript-библиотек. Может функционировать как\n                веб-фреймворк для разработки одностраничных приложений в реактивном стиле."
-                    ),
-                    _c("br")
+                  _vm._v("\n              $ cd todo-vue"),
+                  _c("br"),
+                  _vm._v("\n              $ composer install"),
+                  _c("br"),
+                  _vm._v("\n              $ cp .env.example .env"),
+                  _c("br"),
+                  _vm._v("\n              $ php artisan key:generate"),
+                  _c("br"),
+                  _vm._v("\n              $ php artisan migrate:fresh --seed"),
+                  _c("br"),
+                  _vm._v("\n              $ php artisan passport:install"),
+                  _c("br"),
+                  _vm._v("\n              $ npm install "),
+                  _c("br")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "title-about" }, [_vm._v("Test:")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "console" }, [
+                  _vm._v("\n              $ cp .env.testing .env"),
+                  _c("br"),
+                  _vm._v(
+                    "\n              $ php vendor/phpunit/phpunit/phpunit"
+                  ),
+                  _c("br")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "title-about" }, [
+                  _c("div", { staticClass: "container-fluid" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c("img", {
+                        staticClass: "icon-git",
+                        attrs: { src: "/img/fluidicon.png", alt: "GitHub" }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "https://github.com/vol-mir/todo-vue" }
+                        },
+                        [_vm._v("GitHub")]
+                      )
+                    ])
                   ])
                 ])
               ])
@@ -49031,124 +49024,249 @@ var render = function() {
       _c("hr"),
       _vm._v(" "),
       _c("div", { staticClass: "row py-2 mt-2 ml-2 mr-2" }, [
-        _c("div", { staticClass: "col-12 input-group" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.newTaskText,
-                expression: "newTaskText"
-              }
-            ],
-            staticClass: "form-control input-new-task",
-            attrs: {
-              type: "text",
-              placeholder: "New tasks...",
-              "aria-label": "New tasks..."
-            },
-            domProps: { value: _vm.newTaskText },
-            on: {
-              keydown: [
-                function($event) {
-                  if (
-                    !$event.type.indexOf("key") &&
-                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                  ) {
-                    return null
+        this.windowWidth > 768
+          ? _c("div", { staticClass: "col-12 mb-3 input-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newTaskText,
+                    expression: "newTaskText"
                   }
-                  return _vm.addNewTask($event)
+                ],
+                staticClass: "form-control input-new-task",
+                attrs: {
+                  type: "text",
+                  placeholder: "New tasks...",
+                  "aria-label": "New tasks..."
                 },
-                function($event) {
-                  if (
-                    !$event.type.indexOf("key") &&
-                    _vm._k($event.keyCode, "esc", 27, $event.key, [
-                      "Esc",
-                      "Escape"
-                    ])
-                  ) {
-                    return null
+                domProps: { value: _vm.newTaskText },
+                on: {
+                  keydown: [
+                    function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.addNewTask($event)
+                    },
+                    function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "esc", 27, $event.key, [
+                          "Esc",
+                          "Escape"
+                        ])
+                      ) {
+                        return null
+                      }
+                      return _vm.cancelAddingTask($event)
+                    }
+                  ],
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.newTaskText = $event.target.value
                   }
-                  return _vm.cancelAddingTask($event)
                 }
-              ],
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.newTaskText = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "input-group-append" }, [
-            _c(
-              "button",
-              {
-                directives: [
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group-append" }, [
+                _c(
+                  "button",
                   {
-                    name: "tooltip",
-                    rawName: "v-tooltip.top-center",
-                    value: "Add new task",
-                    expression: "'Add new task'",
-                    modifiers: { "top-center": true }
-                  }
-                ],
-                staticClass: "btn btn-outline-secondary btn-fill",
-                attrs: { type: "button" },
-                on: { click: _vm.addNewTask }
-              },
-              [_vm._v("\n          Add\n        ")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                directives: [
+                    directives: [
+                      {
+                        name: "tooltip",
+                        rawName: "v-tooltip.top-center",
+                        value: "Add new task",
+                        expression: "'Add new task'",
+                        modifiers: { "top-center": true }
+                      }
+                    ],
+                    staticClass: "btn btn-outline-secondary btn-fill",
+                    attrs: { type: "button" },
+                    on: { click: _vm.addNewTask }
+                  },
+                  [_vm._v("\n          Add\n        ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
                   {
-                    name: "tooltip",
-                    rawName: "v-tooltip.top-center",
-                    value: this.hideCompleted
-                      ? "Show completed tasks"
-                      : "Hide completed tasks",
-                    expression:
-                      "this.hideCompleted?'Show completed tasks':'Hide completed tasks'",
-                    modifiers: { "top-center": true }
-                  }
-                ],
-                staticClass: "btn btn-outline-secondary",
-                attrs: { type: "button" },
-                on: { click: _vm.hideComlTask }
-              },
-              [
-                _vm._v(
-                  "\n          " +
-                    _vm._s(this.hideCompleted ? "Show Compl" : "Hide Compl") +
-                    "\n        "
+                    directives: [
+                      {
+                        name: "tooltip",
+                        rawName: "v-tooltip.top-center",
+                        value: this.hideCompleted
+                          ? "Show completed tasks"
+                          : "Hide completed tasks",
+                        expression:
+                          "this.hideCompleted?'Show completed tasks':'Hide completed tasks'",
+                        modifiers: { "top-center": true }
+                      }
+                    ],
+                    staticClass: "btn btn-outline-secondary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.hideComlTask }
+                  },
+                  [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(
+                          this.hideCompleted ? "Show Compl" : "Hide Compl"
+                        ) +
+                        "\n        "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "tooltip",
+                        rawName: "v-tooltip.top-center",
+                        value: "Delete completed task",
+                        expression: "'Delete completed task'",
+                        modifiers: { "top-center": true }
+                      }
+                    ],
+                    staticClass: "btn btn-outline-secondary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.deleteCompletedTasks }
+                  },
+                  [_vm._v("\n          Del Compl\n        ")]
                 )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                directives: [
-                  {
-                    name: "tooltip",
-                    rawName: "v-tooltip.top-center",
-                    value: "Delete completed task",
-                    expression: "'Delete completed task'",
-                    modifiers: { "top-center": true }
+              ])
+            ])
+          : _c("div", { staticClass: "col-12 mb-3" }, [
+              _c("div", { staticClass: "col-12 mb-3 input-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.newTaskText,
+                      expression: "newTaskText"
+                    }
+                  ],
+                  staticClass: "form-control input-new-task",
+                  attrs: {
+                    type: "text",
+                    placeholder: "New tasks...",
+                    "aria-label": "New tasks..."
+                  },
+                  domProps: { value: _vm.newTaskText },
+                  on: {
+                    keydown: [
+                      function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.addNewTask($event)
+                      },
+                      function($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k($event.keyCode, "esc", 27, $event.key, [
+                            "Esc",
+                            "Escape"
+                          ])
+                        ) {
+                          return null
+                        }
+                        return _vm.cancelAddingTask($event)
+                      }
+                    ],
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.newTaskText = $event.target.value
+                    }
                   }
-                ],
-                staticClass: "btn btn-outline-secondary",
-                attrs: { type: "button" },
-                on: { click: _vm.deleteCompletedTasks }
-              },
-              [_vm._v("\n          Del Compl\n        ")]
-            )
-          ])
-        ])
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-group-append" }, [
+                  _c(
+                    "button",
+                    {
+                      directives: [
+                        {
+                          name: "tooltip",
+                          rawName: "v-tooltip.top-center",
+                          value: "Add new task",
+                          expression: "'Add new task'",
+                          modifiers: { "top-center": true }
+                        }
+                      ],
+                      staticClass:
+                        "btn btn-outline-secondary btn-fill height-add-button",
+                      attrs: { type: "button" },
+                      on: { click: _vm.addNewTask }
+                    },
+                    [_c("i", { staticClass: "nc-icon nc-simple-add" })]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-12 mb-3" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "text-success",
+                    attrs: { target: "_blank", href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.hideComlTask($event)
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(
+                          this.hideCompleted
+                            ? "Show completed tasks"
+                            : "Hide completed tasks"
+                        ) +
+                        "\n        "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "text-danger",
+                    attrs: { target: "_blank", href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.deleteCompletedTasks($event)
+                      }
+                    }
+                  },
+                  [_vm._v("\n          Delete completed task\n        ")]
+                )
+              ])
+            ])
       ])
     ],
     2
@@ -65172,7 +65290,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapActions", function() { return mapActions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNamespacedHelpers", function() { return createNamespacedHelpers; });
 /**
- * vuex v3.1.1
+ * vuex v3.1.2
  * (c) 2019 Evan You
  * @license MIT
  */
@@ -65494,6 +65612,7 @@ var Store = function Store (options) {
   this._modulesNamespaceMap = Object.create(null);
   this._subscribers = [];
   this._watcherVM = new Vue();
+  this._makeLocalGettersCache = Object.create(null);
 
   // bind commit and dispatch to self
   var store = this;
@@ -65726,12 +65845,14 @@ function resetStoreVM (store, state, hot) {
 
   // bind store public getters
   store.getters = {};
+  // reset local getters cache
+  store._makeLocalGettersCache = Object.create(null);
   var wrappedGetters = store._wrappedGetters;
   var computed = {};
   forEachValue(wrappedGetters, function (fn, key) {
     // use computed to leverage its lazy-caching mechanism
     // direct inline function use will lead to closure preserving oldVm.
-    // using partial to return function with only arguments preserved in closure enviroment.
+    // using partial to return function with only arguments preserved in closure environment.
     computed[key] = partial(fn, store);
     Object.defineProperty(store.getters, key, {
       get: function () { return store._vm[key]; },
@@ -65775,6 +65896,9 @@ function installModule (store, rootState, path, module, hot) {
 
   // register in namespace map
   if (module.namespaced) {
+    if (store._modulesNamespaceMap[namespace] && "development" !== 'production') {
+      console.error(("[vuex] duplicate namespace " + namespace + " for the namespaced module " + (path.join('/'))));
+    }
     store._modulesNamespaceMap[namespace] = module;
   }
 
@@ -65783,6 +65907,13 @@ function installModule (store, rootState, path, module, hot) {
     var parentState = getNestedState(rootState, path.slice(0, -1));
     var moduleName = path[path.length - 1];
     store._withCommit(function () {
+      if (true) {
+        if (moduleName in parentState) {
+          console.warn(
+            ("[vuex] state field \"" + moduleName + "\" was overridden by a module with the same name at \"" + (path.join('.')) + "\"")
+          );
+        }
+      }
       Vue.set(parentState, moduleName, module.state);
     });
   }
@@ -65870,26 +66001,28 @@ function makeLocalContext (store, namespace, path) {
 }
 
 function makeLocalGetters (store, namespace) {
-  var gettersProxy = {};
+  if (!store._makeLocalGettersCache[namespace]) {
+    var gettersProxy = {};
+    var splitPos = namespace.length;
+    Object.keys(store.getters).forEach(function (type) {
+      // skip if the target getter is not match this namespace
+      if (type.slice(0, splitPos) !== namespace) { return }
 
-  var splitPos = namespace.length;
-  Object.keys(store.getters).forEach(function (type) {
-    // skip if the target getter is not match this namespace
-    if (type.slice(0, splitPos) !== namespace) { return }
+      // extract local getter type
+      var localType = type.slice(splitPos);
 
-    // extract local getter type
-    var localType = type.slice(splitPos);
-
-    // Add a port to the getters proxy.
-    // Define as getter property because
-    // we do not want to evaluate the getters in this time.
-    Object.defineProperty(gettersProxy, localType, {
-      get: function () { return store.getters[type]; },
-      enumerable: true
+      // Add a port to the getters proxy.
+      // Define as getter property because
+      // we do not want to evaluate the getters in this time.
+      Object.defineProperty(gettersProxy, localType, {
+        get: function () { return store.getters[type]; },
+        enumerable: true
+      });
     });
-  });
+    store._makeLocalGettersCache[namespace] = gettersProxy;
+  }
 
-  return gettersProxy
+  return store._makeLocalGettersCache[namespace]
 }
 
 function registerMutation (store, type, handler, local) {
@@ -65901,7 +66034,7 @@ function registerMutation (store, type, handler, local) {
 
 function registerAction (store, type, handler, local) {
   var entry = store._actions[type] || (store._actions[type] = []);
-  entry.push(function wrappedActionHandler (payload, cb) {
+  entry.push(function wrappedActionHandler (payload) {
     var res = handler.call(store, {
       dispatch: local.dispatch,
       commit: local.commit,
@@ -65909,7 +66042,7 @@ function registerAction (store, type, handler, local) {
       state: local.state,
       rootGetters: store.getters,
       rootState: store.state
-    }, payload, cb);
+    }, payload);
     if (!isPromise(res)) {
       res = Promise.resolve(res);
     }
@@ -65990,6 +66123,9 @@ function install (_Vue) {
  */
 var mapState = normalizeNamespace(function (namespace, states) {
   var res = {};
+  if ( true && !isValidMap(states)) {
+    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object');
+  }
   normalizeMap(states).forEach(function (ref) {
     var key = ref.key;
     var val = ref.val;
@@ -66023,6 +66159,9 @@ var mapState = normalizeNamespace(function (namespace, states) {
  */
 var mapMutations = normalizeNamespace(function (namespace, mutations) {
   var res = {};
+  if ( true && !isValidMap(mutations)) {
+    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object');
+  }
   normalizeMap(mutations).forEach(function (ref) {
     var key = ref.key;
     var val = ref.val;
@@ -66056,6 +66195,9 @@ var mapMutations = normalizeNamespace(function (namespace, mutations) {
  */
 var mapGetters = normalizeNamespace(function (namespace, getters) {
   var res = {};
+  if ( true && !isValidMap(getters)) {
+    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object');
+  }
   normalizeMap(getters).forEach(function (ref) {
     var key = ref.key;
     var val = ref.val;
@@ -66086,6 +66228,9 @@ var mapGetters = normalizeNamespace(function (namespace, getters) {
  */
 var mapActions = normalizeNamespace(function (namespace, actions) {
   var res = {};
+  if ( true && !isValidMap(actions)) {
+    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object');
+  }
   normalizeMap(actions).forEach(function (ref) {
     var key = ref.key;
     var val = ref.val;
@@ -66131,9 +66276,21 @@ var createNamespacedHelpers = function (namespace) { return ({
  * @return {Object}
  */
 function normalizeMap (map) {
+  if (!isValidMap(map)) {
+    return []
+  }
   return Array.isArray(map)
     ? map.map(function (key) { return ({ key: key, val: key }); })
     : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
+}
+
+/**
+ * Validate whether given map is valid or not
+ * @param {*} map
+ * @return {Boolean}
+ */
+function isValidMap (map) {
+  return Array.isArray(map) || isObject(map)
 }
 
 /**
@@ -66171,7 +66328,7 @@ function getModuleByNamespace (store, helper, namespace) {
 var index_esm = {
   Store: Store,
   install: install,
-  version: '3.1.1',
+  version: '3.1.2',
   mapState: mapState,
   mapMutations: mapMutations,
   mapGetters: mapGetters,
@@ -69488,6 +69645,7 @@ __webpack_require__.r(__webpack_exports__);
 var ModuleMessage = {
   mutations: {
     setNotySuccess: function setNotySuccess(state, response) {
+      if (window.innerWidth <= 768) return;
       var statusCode = response.status;
 
       if (statusCode === 201 || statusCode === 200) {
@@ -69546,10 +69704,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -69642,210 +69796,150 @@ var ModuleTask = {
         });
       });
     },
-    setPageTasks: function () {
-      var _setPageTasks = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(context, page) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                return _context.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/v1/tasks", {
-                    params: {
-                      page: page
-                    }
-                  }).then(function (response) {
-                    context.commit('setPageTasks', response.data);
-                    resolve(response);
-                  })["catch"](function (error) {
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
+    setPageTasks: function setPageTasks(context, page) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function setPageTasks$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              return _context.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/v1/tasks", {
+                  params: {
+                    page: page
+                  }
+                }).then(function (response) {
+                  context.commit('setPageTasks', response.data);
+                  resolve(response);
+                })["catch"](function (error) {
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
 
-              case 1:
-              case "end":
-                return _context.stop();
-            }
+            case 1:
+            case "end":
+              return _context.stop();
           }
-        }, _callee);
-      }));
+        }
+      });
+    },
+    addTask: function addTask(context, payload) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function addTask$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              return _context2.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/v1/tasks", payload).then(function (response) {
+                  context.commit('addTask', response.data);
+                  context.commit('setNotySuccess', response);
+                  resolve(response);
+                })["catch"](function (error) {
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
 
-      function setPageTasks(_x, _x2) {
-        return _setPageTasks.apply(this, arguments);
-      }
+            case 1:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      });
+    },
+    updateTask: function updateTask(context, payload) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function updateTask$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              return _context3.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch("/api/v1/tasks/".concat(payload.id), payload).then(function (response) {
+                  context.commit('updateTask', response.data);
+                  context.commit('setNotySuccess', response);
+                  resolve(response);
+                })["catch"](function (error) {
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
 
-      return setPageTasks;
-    }(),
-    addTask: function () {
-      var _addTask = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(context, payload) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                return _context2.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/v1/tasks", payload).then(function (response) {
-                    context.commit('addTask', response.data);
+            case 1:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      });
+    },
+    deleteTask: function deleteTask(context, payload) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function deleteTask$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              return _context4.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/v1/tasks/".concat(payload.id)).then(function (response) {
+                  context.commit('deleteTask', response.data);
+                  context.commit('setNotySuccess', response);
+                  resolve(response);
+                })["catch"](function (error) {
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
+
+            case 1:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      });
+    },
+    deleteCompletedTasks: function deleteCompletedTasks(context) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function deleteCompletedTasks$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              return _context5.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/v1/tasks/destroy/completed/").then(function (response) {
+                  if (response.data.tasks > 0) {
+                    context.dispatch('setTasks');
                     context.commit('setNotySuccess', response);
-                    resolve(response);
-                  })["catch"](function (error) {
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
+                  }
 
-              case 1:
-              case "end":
-                return _context2.stop();
-            }
+                  resolve(response);
+                })["catch"](function (error) {
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
+
+            case 1:
+            case "end":
+              return _context5.stop();
           }
-        }, _callee2);
-      }));
+        }
+      });
+    },
+    checkTask: function checkTask(context, payload) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function checkTask$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              return _context6.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch("/api/v1/tasks/".concat(payload.id, "/check/"), payload).then(function (response) {
+                  context.commit('updateTask', response.data);
+                  context.commit('setNotySuccess', response);
+                  resolve(response);
+                })["catch"](function (error) {
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
 
-      function addTask(_x3, _x4) {
-        return _addTask.apply(this, arguments);
-      }
-
-      return addTask;
-    }(),
-    updateTask: function () {
-      var _updateTask = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(context, payload) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                return _context3.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch("/api/v1/tasks/".concat(payload.id), payload).then(function (response) {
-                    context.commit('updateTask', response.data);
-                    context.commit('setNotySuccess', response);
-                    resolve(response);
-                  })["catch"](function (error) {
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
-
-              case 1:
-              case "end":
-                return _context3.stop();
-            }
+            case 1:
+            case "end":
+              return _context6.stop();
           }
-        }, _callee3);
-      }));
-
-      function updateTask(_x5, _x6) {
-        return _updateTask.apply(this, arguments);
-      }
-
-      return updateTask;
-    }(),
-    deleteTask: function () {
-      var _deleteTask = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(context, payload) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                return _context4.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/v1/tasks/".concat(payload.id)).then(function (response) {
-                    context.commit('deleteTask', response.data);
-                    context.commit('setNotySuccess', response);
-                    resolve(response);
-                  })["catch"](function (error) {
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
-
-              case 1:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }));
-
-      function deleteTask(_x7, _x8) {
-        return _deleteTask.apply(this, arguments);
-      }
-
-      return deleteTask;
-    }(),
-    deleteCompletedTasks: function () {
-      var _deleteCompletedTasks = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(context) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                return _context5.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("/api/v1/tasks/destroy/completed/").then(function (response) {
-                    if (response.data.tasks > 0) {
-                      context.dispatch('setTasks');
-                      context.commit('setNotySuccess', response);
-                    }
-
-                    resolve(response);
-                  })["catch"](function (error) {
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
-
-              case 1:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }));
-
-      function deleteCompletedTasks(_x9) {
-        return _deleteCompletedTasks.apply(this, arguments);
-      }
-
-      return deleteCompletedTasks;
-    }(),
-    checkTask: function () {
-      var _checkTask = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(context, payload) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                return _context6.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch("/api/v1/tasks/".concat(payload.id, "/check/"), payload).then(function (response) {
-                    context.commit('updateTask', response.data);
-                    context.commit('setNotySuccess', response);
-                    resolve(response);
-                  })["catch"](function (error) {
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
-
-              case 1:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6);
-      }));
-
-      function checkTask(_x10, _x11) {
-        return _checkTask.apply(this, arguments);
-      }
-
-      return checkTask;
-    }()
+        }
+      });
+    }
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (ModuleTask);
@@ -69870,11 +69964,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/routes.js */ "./resources/js/routes.js");
 /* harmony import */ var _extensions_Object_KeyToCamelClase__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/extensions/Object+KeyToCamelClase */ "./resources/js/extensions/Object+KeyToCamelClase.js");
 /* harmony import */ var _extensions_Object_KeyToSnakeClase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/extensions/Object+KeyToSnakeClase */ "./resources/js/extensions/Object+KeyToSnakeClase.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
 
@@ -69946,287 +70035,208 @@ var ModuleUser = {
         });
       });
     },
-    signup: function () {
-      var _signup = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(context, payload) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                return _context.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/signup", payload).then(function (response) {
-                    vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.set('signupEmail', payload.email);
-                    vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.set('signupPassword', payload.password);
-                    context.commit('setNotySuccess', response);
-                    resolve(response);
-                  })["catch"](function (error) {
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
+    signup: function signup(context, payload) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function signup$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              return _context.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/signup", payload).then(function (response) {
+                  vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.set('signupEmail', payload.email);
+                  vue__WEBPACK_IMPORTED_MODULE_1___default.a.localStorage.set('signupPassword', payload.password);
+                  context.commit('setNotySuccess', response);
+                  resolve(response);
+                })["catch"](function (error) {
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
 
-              case 1:
-              case "end":
-                return _context.stop();
-            }
+            case 1:
+            case "end":
+              return _context.stop();
           }
-        }, _callee);
-      }));
+        }
+      });
+    },
+    signin: function signin(context, payload) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function signin$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              return _context2.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/signin", payload).then(function (response) {
+                  console.log('good');
+                  var token = {
+                    token: response.data.access_token
+                  };
+                  context.commit('setToken', token);
+                  context.commit('addTokenToAxios', token);
+                  context.dispatch('loadUser');
+                  resolve(response);
+                })["catch"](function (error) {
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
 
-      function signup(_x, _x2) {
-        return _signup.apply(this, arguments);
-      }
-
-      return signup;
-    }(),
-    signin: function () {
-      var _signin = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(context, payload) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                return _context2.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/signin", payload).then(function (response) {
-                    var token = {
-                      token: response.data.access_token
-                    };
-                    context.commit('setToken', token);
-                    context.commit('addTokenToAxios', token);
-                    context.dispatch('loadUser');
-                    resolve(response);
-                  })["catch"](function (error) {
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
-
-              case 1:
-              case "end":
-                return _context2.stop();
-            }
+            case 1:
+            case "end":
+              return _context2.stop();
           }
-        }, _callee2);
-      }));
+        }
+      });
+    },
+    logout: function logout(context) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function logout$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              return _context3.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/logout").then(function (response) {
+                  context.commit('deleteToken');
+                  resolve(response);
+                })["catch"](function (error) {
+                  var statusCode = error.response.status;
 
-      function signin(_x3, _x4) {
-        return _signin.apply(this, arguments);
-      }
-
-      return signin;
-    }(),
-    logout: function () {
-      var _logout = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(context) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                return _context3.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/logout").then(function (response) {
+                  if (statusCode === 401 || statusCode === 400) {
                     context.commit('deleteToken');
-                    resolve(response);
-                  })["catch"](function (error) {
-                    var statusCode = error.response.status;
-
-                    if (statusCode === 401 || statusCode === 400) {
-                      context.commit('deleteToken');
-                      _routes_js__WEBPACK_IMPORTED_MODULE_3__["default"].go('signin');
-                      return;
-                    }
-
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
-
-              case 1:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }));
-
-      function logout(_x5) {
-        return _logout.apply(this, arguments);
-      }
-
-      return logout;
-    }(),
-    resetPassword: function () {
-      var _resetPassword = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(context, payload) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                return _context4.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/password/reset", payload).then(function (response) {
-                    resolve(response);
-                  })["catch"](function (error) {
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
-
-              case 1:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }));
-
-      function resetPassword(_x6, _x7) {
-        return _resetPassword.apply(this, arguments);
-      }
-
-      return resetPassword;
-    }(),
-    createPassword: function () {
-      var _createPassword = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(context, payload) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                return _context5.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/password/create", payload).then(function (response) {
-                    context.commit('setNotySuccess', response);
-                    resolve(response);
-                  })["catch"](function (error) {
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
-
-              case 1:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }));
-
-      function createPassword(_x8, _x9) {
-        return _createPassword.apply(this, arguments);
-      }
-
-      return createPassword;
-    }(),
-    updateUser: function () {
-      var _updateUser = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(context, payload) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                return _context6.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch("/api/v1/user/update", Object(_extensions_Object_KeyToSnakeClase__WEBPACK_IMPORTED_MODULE_5__["keyToSnakeClase"])(payload)).then(function (response) {
-                    context.commit('setUser', response.data);
-                    context.commit('setNotySuccess', response);
-                    resolve(response);
-                  })["catch"](function (error) {
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
-
-              case 1:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6);
-      }));
-
-      function updateUser(_x10, _x11) {
-        return _updateUser.apply(this, arguments);
-      }
-
-      return updateUser;
-    }(),
-    updateAvatar: function () {
-      var _updateAvatar = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(context, payload) {
-        var config, formData;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                config = {
-                  headers: {
-                    'Content-Type': 'multipart/form-data'
+                    _routes_js__WEBPACK_IMPORTED_MODULE_3__["default"].go('signin');
+                    return;
                   }
-                };
-                formData = new FormData();
-                formData.append('avatar', payload['avatar']);
-                return _context7.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/user/update/avatar", formData, config).then(function (response) {
-                    context.commit('setUser', response.data);
-                    context.commit('setNotySuccess', response);
-                    resolve(response);
-                  })["catch"](function (error) {
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
 
-              case 4:
-              case "end":
-                return _context7.stop();
-            }
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
+
+            case 1:
+            case "end":
+              return _context3.stop();
           }
-        }, _callee7);
-      }));
+        }
+      });
+    },
+    resetPassword: function resetPassword(context, payload) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function resetPassword$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              return _context4.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/password/reset", payload).then(function (response) {
+                  resolve(response);
+                })["catch"](function (error) {
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
 
-      function updateAvatar(_x12, _x13) {
-        return _updateAvatar.apply(this, arguments);
-      }
-
-      return updateAvatar;
-    }(),
-    updatePassword: function () {
-      var _updatePassword = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(context, payload) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
-          while (1) {
-            switch (_context8.prev = _context8.next) {
-              case 0:
-                return _context8.abrupt("return", new Promise(function (resolve, reject) {
-                  axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch("/api/v1/user/update/password", Object(_extensions_Object_KeyToSnakeClase__WEBPACK_IMPORTED_MODULE_5__["keyToSnakeClase"])(payload)).then(function (response) {
-                    context.commit('setUser', response.data);
-                    context.commit('setNotySuccess', response);
-                    resolve(response);
-                  })["catch"](function (error) {
-                    context.commit('setNotyError', error);
-                    reject(error);
-                  });
-                }));
-
-              case 1:
-              case "end":
-                return _context8.stop();
-            }
+            case 1:
+            case "end":
+              return _context4.stop();
           }
-        }, _callee8);
-      }));
+        }
+      });
+    },
+    createPassword: function createPassword(context, payload) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function createPassword$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              return _context5.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/password/create", payload).then(function (response) {
+                  context.commit('setNotySuccess', response);
+                  resolve(response);
+                })["catch"](function (error) {
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
 
-      function updatePassword(_x14, _x15) {
-        return _updatePassword.apply(this, arguments);
-      }
+            case 1:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      });
+    },
+    updateUser: function updateUser(context, payload) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function updateUser$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              return _context6.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch("/api/v1/user/update", Object(_extensions_Object_KeyToSnakeClase__WEBPACK_IMPORTED_MODULE_5__["keyToSnakeClase"])(payload)).then(function (response) {
+                  context.commit('setUser', response.data);
+                  context.commit('setNotySuccess', response);
+                  resolve(response);
+                })["catch"](function (error) {
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
 
-      return updatePassword;
-    }()
+            case 1:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      });
+    },
+    updateAvatar: function updateAvatar(context, payload) {
+      var config, formData;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function updateAvatar$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              config = {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              };
+              formData = new FormData();
+              formData.append('avatar', payload['avatar']);
+              return _context7.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/api/v1/user/update/avatar", formData, config).then(function (response) {
+                  context.commit('setUser', response.data);
+                  context.commit('setNotySuccess', response);
+                  resolve(response);
+                })["catch"](function (error) {
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
+
+            case 4:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      });
+    },
+    updatePassword: function updatePassword(context, payload) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function updatePassword$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              return _context8.abrupt("return", new Promise(function (resolve, reject) {
+                axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch("/api/v1/user/update/password", Object(_extensions_Object_KeyToSnakeClase__WEBPACK_IMPORTED_MODULE_5__["keyToSnakeClase"])(payload)).then(function (response) {
+                  context.commit('setUser', response.data);
+                  context.commit('setNotySuccess', response);
+                  resolve(response);
+                })["catch"](function (error) {
+                  context.commit('setNotyError', error);
+                  reject(error);
+                });
+              }));
+
+            case 1:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      });
+    }
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (ModuleUser);
@@ -70251,8 +70261,8 @@ var ModuleUser = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Vova\laragon\www\todo-vue\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Vova\laragon\www\todo-vue\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\todo-vue\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\todo-vue\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
